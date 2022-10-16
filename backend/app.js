@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var app = express();
 
 var test_routes = require('./routes/test');
+var colaborador_routes = require('./routes/colaborador');
 
 // DB CONNECTION
 
@@ -36,6 +37,7 @@ app.use((req, res, next)=>{
 })
 
 app.use('/api', test_routes);
+app.use('/api', colaborador_routes);
 
 // EXPORT VARIABLE APP
 module.exports = app;
