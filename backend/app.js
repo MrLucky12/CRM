@@ -1,12 +1,15 @@
 
 // SETTING FRAMEWORK EXPRESS
 var express = require('express');
+var bodyparser = require('body-parser');
 var port = process.env.port || 4200;
-
+var mongoose = require('mongoose');
 var app = express();
 
+var test_routes = require('./routes/test');
+
 // DB CONNECTION
-var mongoose = require('mongoose');
+
 mongoose.connect('mongodb://localhost:27017/IGP-CRM', {useUnifiedTopology: true, useNewUrlParser: true}, 
                                         (err, res)=>{
                                             if(err){console.log(err);}
@@ -16,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/IGP-CRM', {useUnifiedTopology: true,
                                             }});
 
 
-var bodyparser = require('body-parser');
+
 app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyparser.json({limit: '50mb', extended: true}));
 
@@ -31,6 +34,8 @@ app.use((req, res, next)=>{
     res.header('Allow', 'GET-PUT-POST-DELETE-OPTIONS');
     next();
 })
+
+app.use('/api', test_routes);
 
 // EXPORT VARIABLE APP
 module.exports = app;
