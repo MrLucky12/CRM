@@ -25,12 +25,24 @@ const registro_colaborador_admin = async function(req, res) {
             }
         });
 
-    } catch (error) {
-        res.status(200).send({data: undefined, message: 'Verifica los campos del formulario'});
-    }
+    } catch (error) { res.status(200).send({data: undefined, message: 'Verifica los campos del formulario'}); }
+}
 
+const login_admin = async function(req, res) {
+    let data = req.body; 
+    // console.log(data);
+    var colaboradores = await Colaborador.find({email: data.email});
+
+    if (colaboradores.length >= 1) {
+         bcrypt.compare(data.password, colaboradores[0].password, async function(err, check){
+            if (check) { res.status(200).send({ user: colaboradores[0] })
+            }else{ res.status(200).send({data: undefined, message: 'La contrasenia es incorrecta'}); } });
+    }else{
+        res.status(200).send({data: undefined, message: 'El correo electronico no existe'});
+    }
 }
 
 module.exports = {
-    registro_colaborador_admin
+    registro_colaborador_admin,
+    login_admin
 }
