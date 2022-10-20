@@ -11,7 +11,10 @@ import { routing } from './app.routing';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
-import { TopComponent } from './components/top/top.component'
+import { TopComponent } from './components/top/top.component';
+import { IndexColaboradorComponent } from './components/colaborador/index-colaborador/index-colaborador.component';
+import { CreateColaboradorComponent } from './components/colaborador/create-colaborador/create-colaborador.component';
+import { EditColaboradorComponent } from './components/colaborador/edit-colaborador/edit-colaborador.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { TopComponent } from './components/top/top.component'
     SidebarComponent,
     FooterComponent,
     LoginComponent,
-    TopComponent
+    TopComponent,
+    IndexColaboradorComponent,
+    CreateColaboradorComponent,
+    EditColaboradorComponent
   ],
   imports: [
     BrowserModule,
