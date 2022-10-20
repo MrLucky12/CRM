@@ -36,11 +36,17 @@ const login_admin = async function(req, res) {
     var colaboradores = await Colaborador.find({email: data.email});
 
     if (colaboradores.length >= 1) {
-         bcrypt.compare(data.password, colaboradores[0].password, async function(err, check){
+        // SI HAY CUENTA
+        if (colaboradores[0].state) {
+            bcrypt.compare(data.password, colaboradores[0].password, async function(err, check){
             
             if (check) { res.status(200).send({ data: colaboradores[0], token: jwt.createToken(colaboradores[0]) })
 
             }else{ res.status(200).send({data: undefined, message: 'La clave es incorrecta'}); } });
+        }
+        else{ res.status(200).send({data: undefined, message: 'Contactate con tu supervisor'}); }
+
+
     }else{
         res.status(200).send({data: undefined, message: 'El correo electronico no existe'});
     }
