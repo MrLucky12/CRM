@@ -38,9 +38,9 @@ const login_admin = async function(req, res) {
     if (colaboradores.length >= 1) {
          bcrypt.compare(data.password, colaboradores[0].password, async function(err, check){
             
-            if (check) { res.status(200).send({ user: colaboradores[0], token: jwt.createToken(colaboradores[0]) })
+            if (check) { res.status(200).send({ data: colaboradores[0], token: jwt.createToken(colaboradores[0]) })
 
-            }else{ res.status(200).send({data: undefined, message: 'La contrasenia es incorrecta'}); } });
+            }else{ res.status(200).send({data: undefined, message: 'La clave es incorrecta'}); } });
     }else{
         res.status(200).send({data: undefined, message: 'El correo electronico no existe'});
     }
