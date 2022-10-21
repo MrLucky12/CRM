@@ -40,9 +40,10 @@ export class CreateColaboradorComponent implements OnInit {
                 delay: 1000,
                 animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
                 });
+                this.btn_registrar = false;
             } else {  
-              setTimeout(() => { this.btn_registrar}, 3000);
-              $.notify('Ingreso de colaborador exitoso', { 
+              this.btn_registrar = false;
+              $.notify('Colaborador agregado exitosamente !', { 
                 type: 'success',
                 spacing: 10,                    
                 timer: 2000,
@@ -53,7 +54,6 @@ export class CreateColaboradorComponent implements OnInit {
                 this._router.navigate(['/colaborador']);
             }
           }); 
-          this.btn_registrar = false;
     }
     else{
       this.btn_registrar = true;

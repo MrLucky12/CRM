@@ -18,7 +18,7 @@
 
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y" >
-                    <div class="row"  >
+                    <div class="row">
                         <div class="col-lg-12 mb-4 order-0" >
                             <h4 class="fw-bold py-3 mb-4"> <a [routerLink]="['/colaborador']"><span class="text-muted fw-light">Colaborador/</span></a> Nuevo Ejecutivo</h4>
 
@@ -135,9 +135,10 @@
                                         </select>
                                       </div>
 
-                                      <button type="submit" ngIf="!btn_registar" class="btn btn-primary">Send</button>
-                                      <button class="btn btn-primary" ngIf="btn_registar" type="button" disabled>
-                                        <span class="spinner-border spinner-border-sm" roles="status" aria-hidden="true">Registrando...</span>
+                                      <button *ngIf="!btn_registrar" type="submit"  class="btn btn-primary">Enviar</button>
+                                      <button *ngIf="btn_registrar" class="btn btn-primary"  type="button" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Registrando...
                                       </button>
                                     </form>
                                   </div>
@@ -153,7 +154,7 @@
 
                 <!-- Footer -->
                 <app-footer></app-footer>
-                <!-- / Footer -->
+                <!-- / Footer --> 
 
                 <div class="content-backdrop fade"></div>
             </div>
