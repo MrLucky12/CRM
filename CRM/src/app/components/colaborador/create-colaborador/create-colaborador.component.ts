@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ColaboradorService } from 'src/app/services/colaborador.service'
+declare var $: any;
 
 @Component({
   selector: 'app-create-colaborador',
@@ -7,9 +10,63 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateColaboradorComponent implements OnInit {
 
-  constructor() { }
+  public colaborador: any = {
+    gender: '',
+    role: '',
+    country: ''
+  };
+  
+  public btn_registrar = false;
+
+  constructor(private _colaboradorService: ColaboradorService, private _router: Router) { 
+
+  }
 
   ngOnInit(): void {
   }
+
+  registrar(registroForm: any) {
+    // VALIDACION DE FORMULARI | CORREO EXISTENTE | ETC?
+    if (registroForm.valid) { 
+      this.btn_registrar = true;
+      this._colaboradorService.registro_colaborador_admin(this.colaborador).subscribe(
+          response=>{ 
+            if (response.data == undefined) {
+              $.notify(response.message, { 
+                type: 'danger',
+                spacing: 10,                    
+                timer: 2000,
+                placement: { from: 'top',  align: 'right' },
+                delay: 1000,
+                animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+                });
+            } else {  
+              setTimeout(() => { this.btn_registrar}, 3000);
+              $.notify('Ingreso de colaborador exitoso', { 
+                type: 'success',
+                spacing: 10,                    
+                timer: 2000,
+                placement: { from: 'top',  align: 'right' },
+                delay: 1000,
+                animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+                });
+                this._router.navigate(['/colaborador']);
+            }
+          }); 
+          this.btn_registrar = false;
+    }
+    else{
+      this.btn_registrar = true;
+      $.notify('Complete correctamente el formulario', { 
+        type: 'danger',
+        spacing: 10,                    
+        timer: 2000,
+        placement: { from: 'top',  align: 'right' },
+        delay: 1000,
+        animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+        }); 
+      }
+    }
+
 
 }

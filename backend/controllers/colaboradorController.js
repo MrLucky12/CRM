@@ -44,7 +44,7 @@ const login_admin = async function(req, res) {
 
             }else{ res.status(200).send({data: undefined, message: 'La clave es incorrecta'}); } });
         }
-        else{ res.status(200).send({data: undefined, message: 'Contactate con tu supervisor'}); }
+        else{ res.status(200).send({data: undefined, message: 'Contactate con tu supervisor '}); }
 
 
     }else{

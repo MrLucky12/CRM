@@ -20,4 +20,10 @@ export class ColaboradorService {
     return this._http.post(this.url+'login_admin', data, {headers:headers});
   }
 
+  // METODO PARA REGISTRAR UN NUEVO EMPLEADO
+  registro_colaborador_admin(data: any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+    return this._http.post(this.url+'registro_colaborador_admin', data, {headers:headers});
+  }
+
 }
