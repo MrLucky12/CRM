@@ -23,7 +23,17 @@
 
                             <!-- Hoverable Table rows -->
                             <div class="card">
-                                <h5 class="card-header">Hoverable rows</h5>
+                                <br>
+                                <!-- Search -->
+                                <div class="navbar-nav align-items-center">
+                                    <div class="nav-item d-flex align-items-center">
+                                        <i class="bx bx-search fs-4 lh-0"></i>
+                                        <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar colaborador..." name="filtro" [(ngModel)]="filtro" />
+                                        <button class="btn btn-primary" type="button" (click)="filtrar()">Buscar</button>
+                                    </div>
+                                </div>
+                                <!-- /Search -->
+                                <br>
                                 <div class="table-responsive text-nowrap">
                                     <table class="table table-hover">
                                         <thead>
@@ -32,13 +42,13 @@
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
-                                            <tr *ngFor="let item of colaboradores">
+                                            <tr *ngFor="let item of colaboradores" >
                                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong>{{item.name}} {{item.lastName}}</strong></td>
                                                 <td>{{item.email}}</td>
                                                 <td>{{item.phone}}</td>
                                                 <td>{{item.role}}</td>
                                                 <td>
-                                                    <span class="badge bg-label-primary me-1" *ngIf="item.state">Active</span>
+                                                    <span class="badge bg-label-success me-1" *ngIf="item.state">Active</span>
                                                     <span class="badge bg-label-warning me-1" *ngIf="!item.state">Pending</span>
                                                 </td>
                                                 <td>

@@ -10,6 +10,10 @@ export class IndexColaboradorComponent implements OnInit {
 
   public token = localStorage.getItem('token');
   public colaboradores: Array<any> = [];
+  public colaboradores_const: Array<any> = [];
+
+
+  public filtro = '';
 
   constructor(
     private _colaboradorService: ColaboradorService
@@ -19,13 +23,28 @@ export class IndexColaboradorComponent implements OnInit {
     this.init_data();
   }
 
-  init_data() {
-    this._colaboradorService.listar_colaboradores_admin(this.token).subscribe(
-        // response => {console.log(response);}        
-         response => {this.colaboradores = response.data; }
-        );
+  init_data() { 
+    this._colaboradorService.listar_colaboradores_admin(this.token).subscribe( 
+      response => {
+          this.colaboradores = response.data;
+          this.colaboradores_const = this.colaboradores;
+          console.log(this.colaboradores);
+      } ); 
+  }
+  
+  filtrar() {
+    if (this.filtro) {
+      var term = new RegExp(this.filtro, 'i');
+      this.colaboradores = this.colaboradores_const.filter(item => term.test(item.name) || term.test(item.lastName) || term.test(item.email) || term.test(item.n_doc));
+    } 
+    else { this.colaboradores = this.colaboradores_const; }
+  }
 
-      }
-    
+
+  // AGREGAR BOTON PARA RESTABLECER LA TABLA ORIGINAL (CLICK)="ELIMINAR BUSQUEDA | REESTABLECER"
+
+
+
+
   }
 
