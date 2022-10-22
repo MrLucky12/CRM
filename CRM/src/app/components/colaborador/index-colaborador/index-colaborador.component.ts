@@ -14,6 +14,8 @@ export class IndexColaboradorComponent implements OnInit {
 
 
   public filtro = '';
+  public page = 1;
+  public pageSize = 10;
 
   constructor(
     private _colaboradorService: ColaboradorService

@@ -25,13 +25,17 @@
                             <div class="card">
                                 <br>
                                 <!-- Search -->
-                                <div class="navbar-nav align-items-center">
-                                    <div class="nav-item d-flex align-items-center">
-                                        <i class="bx bx-search fs-4 lh-0"></i>
-                                        <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar colaborador..." name="filtro" [(ngModel)]="filtro" />
-                                        <button class="btn btn-primary" type="button" (click)="filtrar()">Buscar</button>
+                                <div class="navbar-nav">
+                                    <div class="row">
+                                        <div class="nav-item d-flex align-items-center col-3" style="padding-left: 3%;">
+                                            <i class="bx bx-search fs-4 lh-0"></i>
+                                            <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar colaborador..." name="filtro" [(ngModel)]="filtro" />
+                                            <button class="btn btn-primary" type="button" (click)="filtrar()">Buscar</button>
+                                        </div>
+                                        <div class="col-9" align="right">
+                                            <div class="nav-item d-flex col-3" align="right"><a [routerLink]="['/colaborador/create']" class="btn btn-primary">Nuevo colaborador</a></div>
+                                        </div>
                                     </div>
-                                </div>
                                 <!-- /Search -->
                                 <br>
                                 <div class="table-responsive text-nowrap">
@@ -42,14 +46,28 @@
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
-                                            <tr *ngFor="let item of colaboradores" >
-                                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong>{{item.name}} {{item.lastName}}</strong></td>
+                                            <tr *ngFor="let item of colaboradores | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize" >
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="card " style="padding: 5px 10px 5px 10px; color: whitesmoke" 
+                                                            [ngClass]="{
+                                                                'bg-primary': item.name.charAt(0) >= 'A' && item.name.charAt(0) <= 'D',
+                                                                'bg-danger': item.name.charAt(0) >= 'E' && item.name.charAt(0) <= 'I',
+                                                                'bg-secondary': item.name.charAt(0) >= 'J' && item.name.charAt(0) <= 'N',
+                                                                'bg-warning': item.name.charAt(0) >= 'O' && item.name.charAt(0) <= 'R',
+                                                                'bg-success': item.name.charAt(0) >= 'S' && item.name.charAt(0) <= 'V',
+                                                                'bg-info': item.name.charAt(0) >= 'W' && item.name.charAt(0) <= 'Z'
+                                                            }" >{{item.name.charAt(0)}}
+                                                        </div>
+                                                        <i class="fab fa-angular fa-lg text-danger me-3"></i><strong>{{item.name}} {{item.lastName}}</strong>
+                                                    </div>
+                                                </td>
                                                 <td>{{item.email}}</td>
                                                 <td>{{item.phone}}</td>
                                                 <td>{{item.role}}</td>
                                                 <td>
-                                                    <span class="badge bg-label-success me-1" *ngIf="item.state">Active</span>
-                                                    <span class="badge bg-label-warning me-1" *ngIf="!item.state">Pending</span>
+                                                    <span class="badge bg-label-success me-1" *ngIf="item.state">Activo</span>
+                                                    <span class="badge bg-label-danger me-1" *ngIf="!item.state">Desactivado</span>
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">
@@ -69,6 +87,7 @@
 
                                         </tbody>
                                     </table>
+                                    <ngb-pagination [collectionSize]="colaboradores.length" [pageSize]="pageSize" [(page)]="page" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination>
                                 </div>
                             </div>
                             <!--/ Hoverable Table rows -->
