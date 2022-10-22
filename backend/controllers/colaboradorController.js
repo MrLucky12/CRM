@@ -62,7 +62,17 @@ const login_admin = async function(req, res) {
     }
 }
 
+const listar_colaboradores_admin = async function(req, res) {
+    if (req.user) {
+        let colaboradores = await Colaborador.find();
+        res.status(200).send({data: colaboradores});
+    } else {
+        res.status(403).send({data: undefined, message: 'NoToken'});
+    }
+}
+
 module.exports = {
     registro_colaborador_admin,
-    login_admin
+    login_admin,
+    listar_colaboradores_admin
 }

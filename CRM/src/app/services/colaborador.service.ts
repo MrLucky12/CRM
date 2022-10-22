@@ -14,16 +14,22 @@ export class ColaboradorService {
     console.log(this.url);
   }
 
-  // METODO PARA COMUNICAR EL LOGIN FRONT CON EL END
+  // METODO PARA COMUNICAR EL LOGIN | FRONT <--> END
   login_admin(data: any):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
     return this._http.post(this.url+'login_admin', data, {headers:headers});
   }
 
   // METODO PARA REGISTRAR UN NUEVO EMPLEADO
-  registro_colaborador_admin(data: any):Observable<any>{
-    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+  registro_colaborador_admin(data: any, token: any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.post(this.url+'registro_colaborador_admin', data, {headers:headers});
   }
+
+  listar_colaboradores_admin(token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_colaboradores_admin', {headers:headers});
+  }
+
 
 }

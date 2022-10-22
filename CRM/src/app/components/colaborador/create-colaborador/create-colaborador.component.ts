@@ -17,6 +17,7 @@ export class CreateColaboradorComponent implements OnInit {
   };
   
   public btn_registrar = false;
+  public token: any = localStorage.getItem('token');
 
   constructor(private _colaboradorService: ColaboradorService, private _router: Router) { 
 
@@ -29,7 +30,7 @@ export class CreateColaboradorComponent implements OnInit {
     // VALIDACION DE FORMULARI | CORREO EXISTENTE | ETC?
     if (registroForm.valid) { 
       this.btn_registrar = true;
-      this._colaboradorService.registro_colaborador_admin(this.colaborador).subscribe(
+      this._colaboradorService.registro_colaborador_admin(this.colaborador, this.token).subscribe(
           response=>{ 
             if (response.data == undefined) {
               $.notify(response.message, { 
