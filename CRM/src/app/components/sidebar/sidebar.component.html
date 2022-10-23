@@ -70,6 +70,7 @@
   <div class="menu-inner-shadow"></div>
 
   <ul class="menu-inner py-1" >
+
     <!-- Dashboard -->
     <li class="menu-item" routerLinkActive="menu-item active">
       <a href="index.html" class="menu-link" [routerLink]="['/dashboard']">
@@ -77,15 +78,31 @@
         <div data-i18n="Analytics">Dashboard</div>
       </a>
     </li>
+
+    <!-- Components -->
+    <li class="menu-header small text-uppercase"><span class="menu-header-text">CRM</span></li>
+
+      <li class="menu-item" routerLinkActive="menu-item active">
+        <a class="menu-link" [routerLink]="['/cliente']" >
+          <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+          <div data-i18n="Basic">Clientes</div>
+        </a>
+      </li>
+
     <!-- Components -->
     <li class="menu-header small text-uppercase"><span class="menu-header-text">COMPONENTES</span></li>
+
     <!-- Cards -->
     <li class="menu-item" routerLinkActive="menu-item active">
       <a class="menu-link" [routerLink]="['/colaborador']" >
         <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-        <div data-i18n="Basic">Ejecutivos</div>
+        <div data-i18n="Basic">Colaboradores</div>
       </a>
     </li>
+
+  <!-- Components -->
+  <li class="menu-header small text-uppercase"><span class="menu-header-text">TEST</span></li>
+
     <!-- User interface -->
     <li class="menu-item">
       <a class="menu-link menu-toggle" >

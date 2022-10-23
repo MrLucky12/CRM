@@ -2,14 +2,14 @@
 // SETTING FRAMEWORK EXPRESS
 var express = require('express');
 var bodyparser = require('body-parser');
-var port = process.env.port || 4200;
 var mongoose = require('mongoose');
+var port = process.env.port || 4200;
+
 var app = express();
 
 var test_routes = require('./routes/test');
 var colaborador_routes = require('./routes/colaborador');
 var cliente_routes = require('./routes/cliente');
-
 
 // DB CONNECTION
 
@@ -36,7 +36,7 @@ app.use((req, res, next)=>{
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
     res.header('Allow', 'GET-PUT-POST-DELETE-OPTIONS');
     next();
-})
+});
 
 app.use('/api', test_routes);
 app.use('/api', colaborador_routes);

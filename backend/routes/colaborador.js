@@ -1,6 +1,6 @@
 
 var express = require('express')
-var colaboradorController = require('../controllers/colaboradorController')
+var colaboradorController = require('../controllers/colaboradorController');
 var auth = require('../middlewares/authenticate');
 
 var app = express.Router();
