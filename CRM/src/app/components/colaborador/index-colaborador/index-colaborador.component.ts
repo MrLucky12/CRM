@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
+declare var $: any;
 
 @Component({
   selector: 'app-index-colaborador',
@@ -16,6 +17,8 @@ export class IndexColaboradorComponent implements OnInit {
   public filtro = '';
   public page = 1;
   public pageSize = 10;
+
+  public load_state = false;
 
   constructor(
     private _colaboradorService: ColaboradorService
@@ -45,7 +48,20 @@ export class IndexColaboradorComponent implements OnInit {
 
   // AGREGAR BOTON PARA RESTABLECER LA TABLA ORIGINAL (CLICK)="ELIMINAR BUSQUEDA | REESTABLECER"
 
+set_state(id: any, state: any) {
+  // console.log(id);
+  // console.log(state);
+  this.load_state = true;
+  this._colaboradorService.cambiar_estado_colaborador_admin(id, {state: state}, this.token).subscribe(
+    response => {
+      this.load_state = false;
+      $('#delete-'+id).modal('hide');
+      $('.modal-backdrop').remove();
+      this.init_data(); 
+    }
+  );
 
+}
 
 
   }
