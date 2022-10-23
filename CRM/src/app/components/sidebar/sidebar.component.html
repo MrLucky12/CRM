@@ -92,15 +92,15 @@
     <li class="menu-header small text-uppercase"><span class="menu-header-text">TEST</span></li>
 
     <!-- User interface -->
-    <li class="menu-item">
-      <a class="menu-link menu-toggle" data-toggle="dropdown">
+    <li class="menu-item dropdown">
+      <a class="menu-link menu-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
         <i class="menu-icon tf-icons bx bx-box"></i>
         <div >User interface</div>
       </a>
 
-      <ul class="menu-sub">
+      <ul class="dropdown-menu">
 
-        <li class="menu-item">
+        <li class="dropdown-item">
           <a class="menu-link">
             <div >Accordion</div>
           </a>
@@ -115,8 +115,11 @@
       </ul>
     </li>
 
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+    <li class="menu-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="menu-icon tf-icons bx bx-box"></i>
+        <div >dropdown menu</div>
+      </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="#">Action</a>
         <a class="dropdown-item" href="#">Another action</a>

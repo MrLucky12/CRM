@@ -14,6 +14,6 @@ var ColaboradorSchema = Schema({
     password: {type: String, required:true},
     state: {type: Boolean, default: true, required:true},
     country: {type: String, required:false}
-});
+})
 
 module.exports = mongoose.model('colaborador', ColaboradorSchema);

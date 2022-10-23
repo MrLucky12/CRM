@@ -8,8 +8,6 @@ var app = express();
 
 var test_routes = require('./routes/test');
 var colaborador_routes = require('./routes/colaborador');
-var cliente_routes = require('./routes/cliente');
-
 
 // DB CONNECTION
 
@@ -19,9 +17,9 @@ mongoose.connect('mongodb://localhost:27017/IGP-CRM', {useUnifiedTopology: true,
                                             else{
                                                 console.log("Server Running...");
                                                 app.listen(port, function(){console.log("Port: "+port);});
-                                            }
-                                        }
-                );
+                                            }});
+
+
 
 app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyparser.json({limit: '50mb', extended: true}));
@@ -40,7 +38,6 @@ app.use((req, res, next)=>{
 
 app.use('/api', test_routes);
 app.use('/api', colaborador_routes);
-app.use('/api', cliente_routes);
 
 // EXPORT VARIABLE APP
 module.exports = app;
