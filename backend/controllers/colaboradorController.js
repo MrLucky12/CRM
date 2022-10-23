@@ -105,12 +105,36 @@ const obtener_datos_colaborador_admin = async function(req, res) {
     }
 }
 
+const editar_colaborador_admin = async function(req, res) {
+    // console.log(req.user);
 
+    if ( req.user ) {
+        let id = req.params['id'];
+        let data = req.body;
+        // console.log(data);
+        let colaborador = await Colaborador.findByIdAndUpdate({_id: id},
+            {
+                name: data.name,
+                lastName: data.lastName,
+                gender: data.gender,
+                email: data.email,
+                phone: data.phone,
+                n_doc: data.n_doc,
+                country: data.country,
+                role: data.role
+            });
+            res.status(200).send({data: colaborador});
+
+    }
+    else{ res.status(403).send({data: undefined, message: 'No Token'}); }
+
+}
 
 module.exports = {
     registro_colaborador_admin,
     login_admin,
     listar_colaboradores_admin,
     cambiar_estado_colaborador_admin,
-    obtener_datos_colaborador_admin
+    obtener_datos_colaborador_admin,
+    editar_colaborador_admin
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
+declare var $: any;
 
 @Component({
   selector: 'app-edit-colaborador',
@@ -16,7 +17,7 @@ export class EditColaboradorComponent implements OnInit {
     country: ''
   };
   
-  public btn_registrar = false;
+  public btn_actualizar = false;
   public token: any = localStorage.getItem('token');
   public load_data = false;
   public data = false;
@@ -42,16 +43,52 @@ export class EditColaboradorComponent implements OnInit {
               this.data = false;
               this.load_data = false;
             }
-          }
-        );
-      }
-    );
+          } );
+      } );
   }
 
-actualizar(actualizarForm: any) {
+  actualizar(actualizarForm: any) {
+    if (actualizarForm.valid) { 
+      this.btn_actualizar = true;
+      this._colaboradorService.editar_colaborador_admin(this.id, this.colaborador, this.token).subscribe(
+          response=>{ 
+            if (response.data == undefined) {
+              $.notify(response.message, { 
+                type: 'danger',
+                spacing: 10,                    
+                timer: 2000,
+                placement: { from: 'top',  align: 'right' },
+                delay: 1000,
+                animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+                });
+                this.btn_actualizar = false;
+            } else {  
+              this.btn_actualizar = false;
+              $.notify('Colaborado modificado exitosamente !', { 
+                type: 'success',
+                spacing: 10,                    
+                timer: 2000,
+                placement: { from: 'top',  align: 'right' },
+                delay: 1000,
+                animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+                });
+                this._router.navigate(['/colaborador']);
+            }
+          }); 
+    }
+    else{
+      this.btn_actualizar = true;
+      $.notify('Complete correctamente el formulario', { 
+        type: 'danger',
+        spacing: 10,                    
+        timer: 2000,
+        placement: { from: 'top',  align: 'right' },
+        delay: 1000,
+        animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+        }); 
+      }
 
-
-}
+  }
 
 
 

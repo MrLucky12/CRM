@@ -11,7 +11,7 @@ app.get('/listar_colaboradores_admin', auth.auth, colaboradorController.listar_c
 
 app.put('/cambiar_estado_colaborador_admin/:id', auth.auth, colaboradorController.cambiar_estado_colaborador_admin);
 app.get('/obtener_datos_colaborador_admin/:id', auth.auth, colaboradorController.obtener_datos_colaborador_admin);
-
+app.put('/editar_colaborador_admin/:id', auth.auth, colaboradorController.editar_colaborador_admin);
 
 
 module.exports = app;
