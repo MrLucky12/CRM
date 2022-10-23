@@ -15,7 +15,8 @@ import { LoginComponent } from './components/login/login.component';
 import { TopComponent } from './components/top/top.component';
 import { IndexColaboradorComponent } from './components/colaborador/index-colaborador/index-colaborador.component';
 import { CreateColaboradorComponent } from './components/colaborador/create-colaborador/create-colaborador.component';
-import { EditColaboradorComponent } from './components/colaborador/edit-colaborador/edit-colaborador.component'
+import { EditColaboradorComponent } from './components/colaborador/edit-colaborador/edit-colaborador.component';
+import { NotfoundComponent } from './components/notfound/notfound.component'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EditColaboradorComponent } from './components/colaborador/edit-colabora
     TopComponent,
     IndexColaboradorComponent,
     CreateColaboradorComponent,
-    EditColaboradorComponent
+    EditColaboradorComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

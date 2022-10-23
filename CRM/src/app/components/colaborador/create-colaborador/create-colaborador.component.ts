@@ -19,9 +19,7 @@ export class CreateColaboradorComponent implements OnInit {
   public btn_registrar = false;
   public token: any = localStorage.getItem('token');
 
-  constructor(private _colaboradorService: ColaboradorService, private _router: Router) { 
-
-  }
+  constructor(private _colaboradorService: ColaboradorService, private _router: Router) { }
 
   ngOnInit(): void {
   }

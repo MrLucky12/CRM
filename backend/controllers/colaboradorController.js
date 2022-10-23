@@ -90,9 +90,27 @@ const cambiar_estado_colaborador_admin = async function(req, res) {
     }
 }
 
+const obtener_datos_colaborador_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+
+        try {
+            let colaborador = await Colaborador.findById({_id: id});        
+            res.status(200).send({data: colaborador});   
+        } 
+        catch (error) { res.status(200).send({data: undefined});  }
+
+    } else {
+        res.status(403).send({data: undefined, message: 'NoToken'});
+    }
+}
+
+
+
 module.exports = {
     registro_colaborador_admin,
     login_admin,
     listar_colaboradores_admin,
-    cambiar_estado_colaborador_admin
+    cambiar_estado_colaborador_admin,
+    obtener_datos_colaborador_admin
 }
