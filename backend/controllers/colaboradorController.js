@@ -1,6 +1,8 @@
 
 var Colaborador = require('../models/Colaborador');
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('../helpers/jwt')
+
 
 const registro_colaborador_admin = async function(req, res) {
     // console.log(req.user);
@@ -37,8 +39,6 @@ const registro_colaborador_admin = async function(req, res) {
 
 
 }
-
-var jwt = require('../helpers/jwt')
 
 const login_admin = async function(req, res) {
     let data = req.body; 
