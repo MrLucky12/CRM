@@ -20,9 +20,7 @@ export class IndexColaboradorComponent implements OnInit {
 
   public load_state = false;
 
-  constructor(
-    private _colaboradorService: ColaboradorService
-  ) { }
+  constructor(private _colaboradorService: ColaboradorService) { }
 
   ngOnInit(): void {
     this.init_data();

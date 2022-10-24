@@ -11,11 +11,9 @@ exports.auth = function (req, res, next) {
     // console.log(req.headers);
 
     var token = req.headers.authorization.replace(/['"]+/g,'');
-
     // HEADER | ALGORITMO DE ENCRIPTACION
     // PAYLOAD | DATOS ENCRIPTADOS
     // FIRMA DEL TOKEN
-
     var segment = token.split('.');
     // console.log(segment);
 

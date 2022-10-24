@@ -14,6 +14,7 @@ import { EditColaboradorComponent } from "./components/colaborador/edit-colabora
 import { IndexClienteComponent } from "./components/clientes/index-cliente/index-cliente.component";
 import { CreateClienteComponent } from "./components/clientes/create-cliente/create-cliente.component";
 import { EditClienteComponent } from "./components/clientes/edit-cliente/edit-cliente.component";
+import { VerificarCuentaComponent } from "./components/verificar-cuenta/verificar-cuenta.component";
 
 // CONSTANTE QUE CONTIENE TODAS LAS RUTAS DEL APLICATIVO
 
@@ -27,6 +28,8 @@ const appRoutes : Routes = [
     { path: 'cliente', component: IndexClienteComponent },
     { path: 'cliente/create', component: CreateClienteComponent },
     { path: 'cliente/:id', component: EditClienteComponent },
+
+    { path: 'verification/:token', component: VerificarCuentaComponent},
 
     { path: '', component: LoginComponent}
 ]

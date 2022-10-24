@@ -24,6 +24,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { IndexClienteComponent } from './components/clientes/index-cliente/index-cliente.component';
 import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cliente.component';
 import { CreateClienteComponent } from './components/clientes/create-cliente/create-cliente.component';
+import { VerificarCuentaComponent } from './components/verificar-cuenta/verificar-cuenta.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { CreateClienteComponent } from './components/clientes/create-cliente/cre
     
     IndexClienteComponent,
     EditClienteComponent,
-    CreateClienteComponent
+    CreateClienteComponent,
+    VerificarCuentaComponent
   ],
   imports: [
     BrowserModule,

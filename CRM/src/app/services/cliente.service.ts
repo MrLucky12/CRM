@@ -19,6 +19,10 @@ export class ClienteService {
     return this._http.post(this.url+'registro_cliente_admin', data, {headers:headers});
   }
 
+  validar_correo_verificacion(token: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.get(this.url+'validar_correo_verificacion/'+token, {headers:headers});
+  }
 
 
 }
