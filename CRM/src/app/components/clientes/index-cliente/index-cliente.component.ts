@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
@@ -18,28 +18,34 @@ export class IndexClienteComponent implements OnInit {
   public pageSize = 10;
 
   public load_state = false;
+  public load_data = false;
 
-  constructor(private _clienteService: ClienteService, private _router: Router) { }
+  constructor(private _clienteService: ClienteService, private _router: Router, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this._route.queryParams.subscribe(
+      (params: Params) => {
+        this.filtro = params['filter'];
+        if (this.filtro) { this.filtrar(); }
+        else { this.clientes = []; }
+      } );
   }
 
   init_data() {
-    if (this.filtro) {
-      this._router.navigate(['/cliente'], {queryParams: {filter: this.filtro}});
-    } else {
-      
-    }
+    if (this.filtro) { this._router.navigate(['/cliente'], {queryParams: {filter: this.filtro}}); } 
+    else { this._router.navigate(['/cliente']); }
   }
 
   filtrar() {
     if (this.filtro) {
+      this.load_data = true;
       this._clienteService.listar_clientes_admin(this.filtro, this.token).subscribe(
-        response => {
-          this.clientes = response.data;
+        response => { 
+          this.clientes = response.data; 
+          this.load_data = false;
         }
-      );
-    }
+      );} 
+    else { this.clientes = []; }
   }
 
   set_state(id: any, state: any) {}
