@@ -28,11 +28,11 @@
                                 <!-- Search -->
                                 <div class="navbar-nav">
                                     <div class="row">
-                                        <!-- <div class="nav-item d-flex align-items-center col-3" style="padding-left: 3%;">
+                                        <div class="nav-item d-flex align-items-center col-3" style="padding-left: 3%;">
                                             <i class="bx bx-search fs-4 lh-0"></i>
-                                            <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar colaborador..." name="filtro" [(ngModel)]="filtro" />
-                                            <button class="btn btn-primary" type="button" >Buscar</button>
-                                        </div> -->
+                                            <input type="text" class="form-control border-0 shadow-none" placeholder="Buscar cliente..." name="filtro" [(ngModel)]="filtro" />
+                                            <button class="btn btn-primary" type="button" (click)="init_data()" >Buscar</button>
+                                        </div>
                                         <div class="col-9" align="right">
                                             <div class="nav-item d-flex col-3" align="right"><a [routerLink]="['/cliente/create']" class="btn btn-primary">Nuevo cliente</a></div>
                                         </div>
@@ -43,16 +43,97 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Nombres</th><th>Correo</th><th>Telefono</th><th>Rol</th><th>Estado</th>
+                                                <th>Nombres</th><th>Correo</th><th>Telefono</th><th>Tipo</th><th>Estado</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="table-border-bottom-0">
+                                        <tbody class="table-border-bottom-0" *ngIf="clientes.length >= 1">
+                                            <tr *ngFor="let item of clientes | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize" >
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="card " style="padding: 5px 10px 5px 10px; color: whitesmoke" 
+                                                            [ngClass]="{
+                                                                'bg-primary': item.name.charAt(0) >= 'A' && item.name.charAt(0) <= 'D',
+                                                                'bg-danger': item.name.charAt(0) >= 'E' && item.name.charAt(0) <= 'I',
+                                                                'bg-secondary': item.name.charAt(0) >= 'J' && item.name.charAt(0) <= 'N',
+                                                                'bg-warning': item.name.charAt(0) >= 'O' && item.name.charAt(0) <= 'R',
+                                                                'bg-success': item.name.charAt(0) >= 'S' && item.name.charAt(0) <= 'V',
+                                                                'bg-info': item.name.charAt(0) >= 'W' && item.name.charAt(0) <= 'Z'
+                                                            }" >{{item.name.charAt(0)}}
+                                                        </div>
+                                                        <i class="fab fa-angular fa-lg text-danger me-3"></i><strong>{{item.name}} {{item.lastName}}</strong>
+                                                    </div>
+                                                </td>
+                                                <td>{{item.email}}</td>
+                                                <td>{{item.phone}}</td>
+                                                <td>
+                                                    <span class="badge bg-label-warning me-1" *ngIf="item.type == 'Prospecto' ">Prospecto</span>
+                                                    <span class="badge bg-label-primary me-1" *ngIf="item.type == 'Socio' ">Socio</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-label-success me-1" *ngIf="item.verify">Verificado</span>
+                                                    <span class="badge bg-label-danger me-1" *ngIf="!item.verify">No verificado</span>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a style="cursor: pointer;" class="dropdown-item" *ngIf="item.state" 
+                                                                data-toggle="modal" [attr.data-target]="'#delete-'+item._id">
+                                                                <i class="bx bx-x-circle"></i> Desactivar
+                                                            </a>
+                                                            <a style="cursor: pointer;" class="dropdown-item" *ngIf="!item.state" 
+                                                                data-toggle="modal" [attr.data-target]="'#delete-'+item._id">
+                                                                <i class="bx bx-check-circle"></i> Activar</a>
+                                                            <a class="dropdown-item" [routerLink]="['/colaborador', item._id]">
+                                                                <i class='bx bx-edit'></i> Editar</a>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <!-- Vertically Centered Modal -->
+                                                    <div class="col-lg-4 col-md-6">
+                                                    <div class="mt-3">
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" role="dialog" aria-hidden="true" >
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                                                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        Seguro papu? :v
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"> Close </button>
+                                                                    <button *ngIf="!load_state" type="button" class="btn btn-primary" (click)="set_state(item._id, item.state)">
+                                                                        Confirmar</button>
+                                                                    <button *ngIf="load_state" class="btn btn-danger" type="button" disabled>
+                                                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                                        Enviando
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    </div>
 
-                                            <h2>cuerpo de tabla clientes</h2>
-                                            
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody *ngIf="clientes.length == 0">
+                                            <tr>
+                                                <td class="display-4 mb-0" style="padding-top: 15; padding-bottom: 5px;" colspan="5" align="center">
+                                                    <p > Oooops! No hay datos que mostrar.</p>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
-                                    <!-- <ngb-pagination [collectionSize]="colaboradores.length" [pageSize]="pageSize" [(page)]="page" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination> -->
+                                    <ngb-pagination [collectionSize]="clientes.length" [pageSize]="pageSize" [(page)]="page" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination>
                                 </div>
                             </div>
                             <!--/ Hoverable Table rows -->

@@ -11,6 +11,7 @@ var ejs = require('ejs');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var path = require('path');
+const Colaborador = require('../models/Colaborador');
 
 const registro_cliente_admin = async function(req, res) {
     // console.log(req.user);
@@ -114,7 +115,27 @@ const validar_correo_verificacion = async function(req, res) {
 
 }
 
+const listar_clientes_admin = async function(req, res) {
+    if (req.user) {
+        let filtro = req.params['filtro'];
+        let clientes = await Cliente.find({
+            $or: [
+                {name: new RegExp(filtro, 'i')},
+                {lastName: new RegExp(filtro, 'i')},
+                {n_doc: new RegExp(filtro, 'i')},
+                {email: new RegExp(filtro, 'i')},
+                {fullname: new RegExp(filtro, 'i')},
+                {phone: new RegExp(filtro, 'i')}
+            ]
+        });
+        res.status(200).send({data: clientes});
+    } else {
+        res.status(403).send({data: undefined, message: 'NoToken'});
+    }
+}
+
 module.exports = {
     registro_cliente_admin,
-    validar_correo_verificacion
+    validar_correo_verificacion,
+    listar_clientes_admin
 }

@@ -13,7 +13,6 @@ export class IndexColaboradorComponent implements OnInit {
   public colaboradores: Array<any> = [];
   public colaboradores_const: Array<any> = [];
 
-
   public filtro = '';
   public page = 1;
   public pageSize = 10;

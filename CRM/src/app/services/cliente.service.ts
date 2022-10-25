@@ -24,5 +24,9 @@ export class ClienteService {
     return this._http.get(this.url+'validar_correo_verificacion/'+token, {headers:headers});
   }
 
+  listar_clientes_admin(filtro: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_clientes_admin/'+filtro, {headers:headers});
+  }
 
 }
