@@ -1,1 +1,228 @@
-<p>edit-cliente works!</p>
+
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+
+        <!-- Menu -->
+        <app-sidebar></app-sidebar>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+
+            <!-- Navbar -->
+            <app-top> </app-top>
+            <!-- / Navbar -->
+            
+            <!-- Content wrapper -->
+            <div class="content-wrapper" style="position:relative;">
+
+              <div *ngIf="load_data" class="card-body pb-0" >
+                    
+                <div class="card mb-4">
+                    <div class="col-md text-center">
+                        <br>
+                        <div class="text-light small fw-semibold">Cargando...</div>
+    
+                        <div class="demo-inline-spacing">
+
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                            </div>
+
+                        </div>
+
+                        <br>
+                    </div>                                
+                </div>
+
+              </div>
+
+              <ng-container *ngIf="!load_data">
+
+                <ng-container *ngIf="data">
+                  <!-- Content -->
+                  <div class="container-xxl flex-grow-1 container-p-y" >
+                      <div class="row">
+                          <div class="col-lg-12 mb-4 order-0" >
+                            <div class="nav-item d-flex col-3" align="right"><a [routerLink]="['/cliente/']" class="btn btn-primary">Lista de clientes</a></div>
+                            <br>
+                              <!-- Basic Layout -->
+                              <div class="row">
+
+                                <div class="col-lg-8" >
+                                  <div class="card mb-4">
+
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                      <h5 class="mb-0">Datos personales</h5>
+                                    </div>
+
+                                    <div class="card-body">
+                                      <form class="form" id="kt_form" #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)">
+
+                                        <!-- NAMES (*)-->
+                                        <div class="mb-3">
+                                          <label class="form-label" for="basic-icon-default-fullname">Nombres (*)</label>
+                                          <div class="input-group input-group-merge">
+                                            <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-user"></i></span>
+                                            <input type="text" name="name" [(ngModel)]="cliente.name" class="form-control" required id="basic-icon-default-fullname" placeholder="Ingresar nombres"/>
+                                          </div>
+                                        </div>
+
+                                        <!-- LASTNAME (*)-->
+                                        <div class="mb-3">
+                                          <label class="form-label" for="basic-icon-default-fullname">Apellidos (*)</label>
+                                          <div class="input-group input-group-merge">
+                                            <span id="basic-icon-default-fullname" class="input-group-text"><i class="bx bx-user"></i></span>
+                                            <input type="text" name="lastName" [(ngModel)]="cliente.lastName" required class="form-control" id="basic-icon-default-fullname3" placeholder="Ingresar nombres"/>
+                                          </div>
+                                        </div>
+
+                                        <!-- GENERO (*)-->
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlSelect1" class="form-label">Genero (*)</label>
+                                          <select class="form-select" name="gender" [(ngModel)]="cliente.gender" id="exampleFormControlSelect1" required>
+                                            <option value="" selected disabled>Seleccionar genero</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                            <option value="Otro">Otro</option>
+                                          </select>
+                                        </div>
+
+                                        <!-- EMAIL (*)-->
+                                        <div class="mb-3">
+                                          <label class="form-label" for="basic-icon-default-email">Email (*)</label>
+                                          <div class="input-group input-group-merge">
+                                            <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                            <input type="email" name="email" [(ngModel)]="cliente.email" id="basic-icon-default-email" 
+                                              class="form-control" placeholder="Juan.Perez" required />
+                                            <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
+                                          </div>
+                                        </div>
+
+                                        <!-- PHONE -->
+                                        <div class="mb-3">
+                                          <label class="form-label" for="basic-icon-default-phone">Phone (*)</label>
+                                          <div class="input-group input-group-merge">
+                                            <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
+                                            <input type="text" name="phone" [(ngModel)]="cliente.phone" id="basic-icon-default-phone" 
+                                              class="form-control phone-mask" placeholder="968 300 125" required />
+                                          </div>
+                                        </div>
+
+                                        <!-- ID -->
+                                        <div class="mb-3">
+                                          <label class="form-label" for="basic-icon-default-fullname">ID</label>
+                                          <div class="input-group input-group-merge">
+                                            <span id="basic-icon-default-fullname" class="input-group-text"><i class="bx bx-user"></i></span>
+                                            <input type="text" name="n_doc" [(ngModel)]="cliente.n_doc" id="basic-icon-default-phone" class="form-control phone-mask" placeholder="968 300 125" />
+                                          </div>
+                                        </div>
+
+                                        <!-- COUNTRY -->
+                                        <div class="mb-3">
+                                          <label for="exampleFormControlSelect1" class="form-label">Pais</label>
+                                          <select name="country" [(ngModel)]="cliente.country" class="form-select" id="exampleFormControlSelect1" >
+                                            <option value="" selected disabled>Seleccionar país</option>
+                                            <option value="Argentina">Argentina</option>
+                                            <option value="Bolivia">Bolivia</option>
+                                            <option value="Brasil">Brasil</option>
+                                            <option value="Chile">Chile</option>
+                                            <option value="Colombia">Colombia</option>
+                                            <option value="Costa Rica">Costa Rica</option>
+                                            <option value="Cuba">Cuba</option>
+                                            <option value="Ecuador">Ecuador</option>
+                                            <option value="El Salvador">El Salvador</option>
+                                            <option value="España">España</option>
+                                            <option value="Estados Unidos">Estados Unidos</option>
+                                            <option value="Guatemala">Guatemala</option>
+                                            <option value="Haití">Haití</option>
+                                            <option value="Honduras">Honduras</option>
+                                            <option value="México">México</option>
+                                            <option value="Nicaragua">Nicaragua</option>
+                                            <option value="Panamá">Panamá</option>
+                                            <option value="Paraguay">Paraguay</option>
+                                            <option value="Perú">Perú</option>
+                                            <option value="República Dominican">República Dominican</option>
+                                            <option value="Uruguay">Uruguay</option>
+                                            <option value="Venezuela">Venezuela</option>
+                                            <option value="Otro">Otro</option>
+                                          </select>
+                                        </div>
+
+                                      <!-- CITY -->
+                                      <div class="mb-3">
+                                          <label class="form-label" for="basic-icon-default-fullname">Ciudad</label>
+                                          <div class="input-group input-group-merge">
+                                              <span id="basic-icon-default-fullname" class="input-group-text"><i class="bx bx-user"></i></span>
+                                          <input type="text" name="city" [(ngModel)]="cliente.city" id="basic-icon-default-phone" 
+                                              class="form-control phone-mask" placeholder="Ingresar ciudad..." />
+                                          </div>
+                                      </div>
+
+                                      <!-- BIRTH -->
+                                      <div class="mb-3">
+                                          <label for="form-label" class="col-md-2 col-form-label">Date</label>
+                                          <div class="col-md-5">
+                                            <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" 
+                                              name="birth" [(ngModel)]="cliente.birth" />
+                                          </div>
+                                      </div>
+
+                                        <button *ngIf="!btn_actualizar" type="submit"  class="btn btn-primary">Registrar</button>
+                                        <button *ngIf="btn_actualizar" class="btn btn-primary"  type="button" disabled>
+                                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                          Registrando...
+                                        </button>
+                                      </form>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+                              </div> 
+                          </div>
+                      </div>
+                  </div>
+                  <!-- / Content -->
+                </ng-container>
+
+                <ng-container *ngIf="!data">
+                  <div class="row">
+                    <div class="card-body col-5" >
+                        <div class="card mb-4 text-center">
+                            <div class="col-md " style="padding: 20px 20px 20px 20px;">
+                                <img src="assets/img/extra/validacion.jpg" alt="What are you doing here?" style="width: 50%;">
+                            </div>
+                            <app-notfound></app-notfound>
+                        </div>
+                    </div>
+                  </div>
+                </ng-container>
+
+              </ng-container>
+
+                <!-- Footer -->
+                <app-footer></app-footer>
+                <!-- / Footer --> 
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+
+
+

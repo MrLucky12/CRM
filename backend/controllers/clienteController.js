@@ -134,8 +134,21 @@ const listar_clientes_admin = async function(req, res) {
     }
 }
 
+const obtener_datos_cliente_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+
+        try {
+            let cliente = await Cliente.findById({_id: id});        
+            res.status(200).send({data: cliente});   
+        } 
+        catch (error) { res.status(200).send({data: undefined});  } }
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+
 module.exports = {
     registro_cliente_admin,
     validar_correo_verificacion,
-    listar_clientes_admin
+    listar_clientes_admin,
+    obtener_datos_cliente_admin
 }
