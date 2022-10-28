@@ -74,6 +74,7 @@ export class CreateClienteComponent implements OnInit {
         });
     } else {
       this.btn_registrar = true;
+      this.cliente.asesor = localStorage.getItem('_id');
       this._clienteService.registro_cliente_admin(this.cliente, this.token).subscribe(
           response=>{ 
             if (response.data == undefined) {
