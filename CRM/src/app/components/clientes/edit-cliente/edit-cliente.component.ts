@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
+declare var $: any;
 
 @Component({
   selector: 'app-edit-cliente',
@@ -21,7 +22,7 @@ export class EditClienteComponent implements OnInit {
   public load_data = true;
   public data = false;
 
-  constructor(private _route: ActivatedRoute, private _clienteService: ClienteService) { }
+  constructor(private _route: ActivatedRoute, private _clienteService: ClienteService, private _router: Router) { }
 
   ngOnInit(): void {
     this._route.params.subscribe(
@@ -45,7 +46,45 @@ export class EditClienteComponent implements OnInit {
   }
 
   actualizar(actualizarForm: any) {
-    
+    if (actualizarForm.valid) { 
+      this.btn_actualizar = true;
+      this._clienteService.editar_cliente_admin(this.id, this.cliente, this.token).subscribe(
+          response=>{ 
+            if (response.data == undefined) {
+              $.notify(response.message, { 
+                type: 'danger',
+                spacing: 10,                    
+                timer: 2000,
+                placement: { from: 'top',  align: 'right' },
+                delay: 1000,
+                animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+                });
+                this.btn_actualizar = false;
+            } else {  
+              this.btn_actualizar = false;
+              $.notify('Clinete modificado exitosamente !', { 
+                type: 'success',
+                spacing: 10,                    
+                timer: 2000,
+                placement: { from: 'top',  align: 'right' },
+                delay: 1000,
+                animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+                });
+                this._router.navigate(['/cliente']);
+            }
+          }); 
+    }
+    else{
+      this.btn_actualizar = true;
+      $.notify('Complete correctamente el formulario', { 
+        type: 'danger',
+        spacing: 10,                    
+        timer: 2000,
+        placement: { from: 'top',  align: 'right' },
+        delay: 1000,
+        animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
+        }); 
+      }
   }
 
 }

@@ -116,6 +116,7 @@ const editar_colaborador_admin = async function(req, res) {
             {
                 name: data.name,
                 lastName: data.lastName,
+                fullname: data.name +''+ data.lastName,
                 gender: data.gender,
                 email: data.email,
                 phone: data.phone,

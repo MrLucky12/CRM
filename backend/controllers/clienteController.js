@@ -146,9 +146,37 @@ const obtener_datos_cliente_admin = async function(req, res) {
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
 
+const editar_cliente_admin = async function(req, res) {
+    // console.log(req.user);
+
+    if ( req.user ) {
+        let id = req.params['id'];
+        let data = req.body;
+        // console.log(data);
+        let cliente = await Cliente.findByIdAndUpdate({_id: id},
+            {
+                name: data.name,
+                lastName: data.lastName,
+                fullname: data.name +''+ data.lastName,
+                gender: data.gender,
+                email: data.email,
+                phone: data.phone,
+                n_doc: data.n_doc,
+                country: data.country,
+                city: data.city,
+                birth: data.birth
+            });
+            res.status(200).send({data: cliente});
+
+    }
+    else{ res.status(403).send({data: undefined, message: 'No Token'}); }
+
+}
+
 module.exports = {
     registro_cliente_admin,
     validar_correo_verificacion,
     listar_clientes_admin,
-    obtener_datos_cliente_admin
+    obtener_datos_cliente_admin,
+    editar_cliente_admin
 }

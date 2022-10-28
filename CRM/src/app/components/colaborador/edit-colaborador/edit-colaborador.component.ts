@@ -87,7 +87,6 @@ export class EditColaboradorComponent implements OnInit {
         animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
         }); 
       }
-
   }
 
 

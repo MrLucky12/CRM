@@ -45,7 +45,6 @@
               </div>
 
               <ng-container *ngIf="!load_data">
-
                 <ng-container *ngIf="data">
                   <!-- Content -->
                   <div class="container-xxl flex-grow-1 container-p-y" >
@@ -175,10 +174,10 @@
                                           </div>
                                       </div>
 
-                                        <button *ngIf="!btn_actualizar" type="submit"  class="btn btn-primary">Registrar</button>
+                                        <button *ngIf="!btn_actualizar" type="submit"  class="btn btn-primary">Actualizar</button>
                                         <button *ngIf="btn_actualizar" class="btn btn-primary"  type="button" disabled>
                                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                          Registrando...
+                                          Actualizando...
                                         </button>
                                       </form>
                                     </div>
