@@ -139,7 +139,7 @@ const obtener_datos_cliente_admin = async function(req, res) {
         let id = req.params['id'];
 
         try {
-            let cliente = await Cliente.findById({_id: id});        
+            let cliente = await Cliente.findById({_id: id}).populate('asesor');        
             res.status(200).send({data: cliente});   
         } 
         catch (error) { res.status(200).send({data: undefined});  } }

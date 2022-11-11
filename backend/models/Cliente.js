@@ -17,7 +17,9 @@ var ClienteSchema = Schema({
     n_doc: {type: String, required: false},
     country: {type: String, required: false},
     city: {type: String, required: false},
-    asesor: {type: Schema.ObjectId, ref: 'colaborador', required: false}
+    asesor: {type: Schema.ObjectId, ref: 'colaborador', required: false},
+    
+    createdAt: {type: Date, default: Date.now, required: true}
 
 });
 

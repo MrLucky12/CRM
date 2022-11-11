@@ -84,7 +84,8 @@
                                                                     'bg-info': item.name.charAt(0) >= 'W' && item.name.charAt(0) <= 'Z'
                                                                 }" >{{item.name.charAt(0)}}
                                                             </div>
-                                                            <i class="fab fa-angular fa-lg text-danger me-3"></i><strong>{{item.name}} {{item.lastName}}</strong>
+                                                            <i class="fab fa-angular fa-lg text-danger me-3" ></i><strong target="_blank" 
+                                                            [routerLink]="['/cliente/buyer/'+item._id+'/dashboard']">{{item.name}} {{item.lastName}}</strong>
                                                         </div>
                                                     </td>
                                                     <td>{{item.email}}</td>

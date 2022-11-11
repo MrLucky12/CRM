@@ -25,6 +25,9 @@ import { IndexClienteComponent } from './components/clientes/index-cliente/index
 import { EditClienteComponent } from './components/clientes/edit-cliente/edit-cliente.component';
 import { CreateClienteComponent } from './components/clientes/create-cliente/create-cliente.component';
 import { VerificarCuentaComponent } from './components/verificar-cuenta/verificar-cuenta.component';
+import { DashboardClienteComponent } from './components/clientes/buyer/dashboard-cliente/dashboard-cliente.component';
+import { ProspeccionClienteComponent } from './components/clientes/buyer/prospeccion-cliente/prospeccion-cliente.component';
+import { AsideClienteComponent } from './components/clientes/buyer/aside-cliente/aside-cliente.component';
 
 
 @NgModule({
@@ -45,7 +48,10 @@ import { VerificarCuentaComponent } from './components/verificar-cuenta/verifica
     IndexClienteComponent,
     EditClienteComponent,
     CreateClienteComponent,
-    VerificarCuentaComponent
+    VerificarCuentaComponent,
+    DashboardClienteComponent,
+    ProspeccionClienteComponent,
+    AsideClienteComponent
   ],
   imports: [
     BrowserModule,

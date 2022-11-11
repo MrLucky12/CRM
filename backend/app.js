@@ -10,9 +10,9 @@ var app = express();
 var test_routes = require('./routes/test');
 var colaborador_routes = require('./routes/colaborador');
 var cliente_routes = require('./routes/cliente');
+var prospeccion_routes = require('./routes/prospeccion');
 
 // DB CONNECTION
-
 mongoose.connect('mongodb://localhost:27017/IGP-CRM', {useUnifiedTopology: true, useNewUrlParser: true}, 
                                         (err, res)=>{
                                             if(err){console.log(err);}
@@ -20,8 +20,7 @@ mongoose.connect('mongodb://localhost:27017/IGP-CRM', {useUnifiedTopology: true,
                                                 console.log("Server Running...");
                                                 app.listen(port, function(){console.log("Port: "+port);});
                                             }
-                                        }
-                );
+                                        });
 
 app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyparser.json({limit: '50mb', extended: true}));
@@ -38,9 +37,12 @@ app.use((req, res, next)=>{
     next();
 });
 
+// CONTROLLER ROUTES
 app.use('/api', test_routes);
 app.use('/api', colaborador_routes);
 app.use('/api', cliente_routes);
+// error because prospeccion routes is empty
+//app.use('/api', prospeccion_routes);
 
 // EXPORT VARIABLE APP
 module.exports = app;

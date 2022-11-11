@@ -13,7 +13,10 @@ var ColaboradorSchema = Schema({
     n_doc: {type: String, required: false},
     password: {type: String, required:true},
     state: {type: Boolean, default: true, required:true},
-    country: {type: String, required:false}
+    country: {type: String, required:false},
+
+    createdAt: {type: Date, default: Date.now, required: true}
+
 });
 
 module.exports = mongoose.model('colaborador', ColaboradorSchema);
