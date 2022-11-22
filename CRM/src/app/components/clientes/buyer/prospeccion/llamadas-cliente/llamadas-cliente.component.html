@@ -1,0 +1,260 @@
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+
+        <!-- Menu -->
+        <app-sidebar></app-sidebar>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+
+            <!-- Navbar -->
+            <app-top> </app-top>
+            <!-- / Navbar -->
+            
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="d-flex flex-row">
+
+                        <app-aside-cliente></app-aside-cliente>
+                        
+                        <!--begin::Content-->
+                        <div class="" style="padding-left: 3%; width: 73%;">
+                            <!--begin::Card-->
+                            <div class="card card-custom">
+                                <!--begin::Header-->
+                                <div class="card-header py-3 pb-0">
+
+                                    <div class="card-title align-items-start flex-column">
+                                        <h3 class="card-label font-weight-bolder text-dark mb-0">Llamadas del cliente</h3>
+                                        <span class="text-muted font-weight-bold font-size-sm">Lorem ipsum dolor sit amet.</span>
+                                    </div>
+
+                                    <div class="card-toolbar" role="toolbar" aria-label="Toolbar with button groups" align="center">
+                                        <div class="btn-group" role="group" aria-label="First group" >
+                                            
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/actividades']" class="btn btn-outline-warning ">
+                                                <i class='bx bx-task' ></i>&nbsp;<span>Actividades</span>
+                                            </a>
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/intereses']" class="btn btn-outline-primary">
+                                                <i class="tf-icons bx bx-task"></i>&nbsp;Intereses
+                                            </a>
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/llamadas']" 
+                                                class="btn btn-outline-success" routerLinkActive="btn btn-outline-success active">
+                                                <i class="bx bx-phone-call"></i>&nbsp;Llamadas
+                                            </a>
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/correos']" class="btn btn-outline-info">
+                                                <i class='bx bx-envelope' ></i>&nbsp;Correos
+                                            </a>
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/tareas']" class="btn btn-outline-danger">
+                                                <i class='bx bx-task' ></i>&nbsp;Tareas
+                                            </a>
+
+                                        </div>
+                                            
+                                    </div>
+
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Form-->
+                                <div class="card-body">
+
+                                    <hr class="mb-3">
+
+                                    <a class="btn btn-info font-weight-bolder font-size-sm mr-3 mb-3" style="cursor: pointer;" 
+                                        data-toggle="modal" [attr.data-target]="'#modalLlamada'" (click)="currentTime()">
+                                        Nueva llamada
+                                    </a>
+
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="mb-3" >
+                                            <!--begin::Content-->
+                                            <div class="d-flex align-items-center flex-grow-1">
+                                            
+                                                <!--begin::Section-->
+                                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                                    <!--begin::Info-->
+                                                    <div class="d-flex flex-column align-items-cente py-2 w-75">
+
+                                                        <div class="">
+                                                            <!--begin::Title-->
+                                                            <p class="badge rounded-pill bg-info "> Ocupado</p>
+                                                            &nbsp;
+                                                            <!-- &nbsp; | &nbsp; -->
+                                                            <p class="badge bg-label-dark "> Sheldon Cooper</p>                                                    
+                                                            <!--end::Title-->
+                                                        </div>
+
+                                                        <!--begin::Data-->
+                                                        <span class="text-muted font-weight-bold">
+                                                        Lunes 17, Enero - 07:58PM
+                                                        </span>
+                                                        <span class="text-muted font-weight-bold">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo doloribus recusandae ullam veniam fuga vel.
+                                                        </span>
+                                                        <!--end::Data-->
+                                                    </div>
+                                                    <!--end::Info-->
+                                                    <!--begin::Label-->
+                                                    <span class="badge bg-dark"> 17/01/2022</span>
+                                                    <!--end::Label-->
+                                                </div>
+                                                <!--end::Section-->        
+
+                                            </div>
+                                            <!--end::Content-->                                        
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="mb-3">
+                                            <!--begin::Content-->
+                                            <div class="d-flex align-items-center flex-grow-1">
+                                            
+                                                <!--begin::Section-->
+                                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                                    <!--begin::Info-->
+                                                    <div class="d-flex flex-column align-items-cente py-2 w-75">
+                                                        <!--begin::Title-->
+                                                        <div class="">
+                                                            <!--begin::Title-->
+                                                            <p class="badge bg-info "> Ocupado</p>
+                                                            &nbsp;
+                                                            <!-- &nbsp; | &nbsp; -->
+                                                            <p class="badge bg-label-dark "> Sheldon Cooper</p>                                                    
+                                                            <!--end::Title-->
+                                                        </div>
+                                                        <!--end::Title-->
+                                                        <!--begin::Data-->
+                                                        <span class="text-muted font-weight-bold">
+                                                        Lunes 17, Enero - 07:58PM
+                                                        </span>
+                                                        <span class="text-muted font-weight-bold">
+                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo doloribus recusandae ullam veniam fuga vel.
+                                                        </span>
+                                                        <!--end::Data-->
+                                                    </div>
+                                                    <!--end::Info-->
+                                                    <!--begin::Label-->
+                                                    <span class="badge bg-dark"> 17/01/2022</span>
+                                                    <!--end::Label-->
+                                                </div>
+                                                <!--end::Section-->
+                                        
+                                            </div>
+                                            <!--end::Content-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--end::Form-->
+                            </div>
+                        </div>
+                        <!--end::Content-->
+
+                    </div>
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <app-footer></app-footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+
+<!-- MODAL AGREGA NUEVA LLAMADA -->
+<div class="modal fade" id="modalLlamada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar nueva llamada</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-15">
+                        
+                    <!-- FECHA -->
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Fecha (*):</label>
+                        <div class="col-lg-5">
+                            <input [value]="" id="datePicker" type="date" class="form-control" name="fecha" [(ngModel)]="call.date" />
+                        </div>
+                        <div class="col-3">
+                            <button class="btn btn-secondary" type="button" (click)="currentDate()">Hoy</button>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- RESULTADO -->
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Resultado (*):</label>
+                        <div class="col-lg-8">
+                            <select class="form-select "name="result" [(ngModel)]="call.result">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option value="Ocupado">Ocupado</option>
+                                <option value="Conectado">Conectado</option>
+                                <option value="Dejo un mensaje">Dejo un mensaje</option>
+                                <option value="Sin respuesta">Sin respuesta</option>
+                                <option value="N° Incorrecto">N° Incorrecto</option>
+                                <option value="Proxima llamada">Proxima llamada</option>
+                                <option value="Venta cerrada">Venta cerrada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- HORA -->
+                    <div class="form-group row">
+                        <label class="col-lg-4 col-form-label">Hora (*):</label>
+                        <div class="col-lg-8">
+                            <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                        </div>
+                    </div>
+
+                    <!-- NOTA -->
+                    <div class="form-group row">
+                       <div class="col-lg-12">
+                        <textarea class="form-control" rows="4" placeholder="Alguna nota o información"
+                            name="note" [(ngModel)]="call.note"></textarea>
+                       </div>
+                    </div>
+
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
+                <button *ngIf="!btn_load" type="button" class="btn btn-primary font-weight-bold" (click)="registrar()">Crear</button>
+                <button *ngIf="btn_load" class="btn btn-primary"  type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Registrando...
+                  </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL AGREGA NUEVA LLAMADA -->
+
+<!-- TOAST | NOTIFICACION -->
+<div class="bs-toast toast fade show bg-warning " role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"
+    style="position: absolute; top: 3%; right: 3%;" *ngIf="alertOn">
+    <div class="toast-header">
+        <i class="bx bx-bell me-2"></i>
+        <div class="me-auto fw-semibold">Cuidado!</div>
+        <!-- <small>11 mins ago</small> -->
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body"> {{showMessage()}} </div>
+</div>
+<!-- TOAST | NOTIFICACION -->

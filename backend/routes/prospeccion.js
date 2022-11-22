@@ -1,0 +1,13 @@
+
+var express = require('express');
+var prospeccionController = require('../controllers/prospeccionController');
+var auth = require('../middlewares/authenticate');
+
+var app = express.Router();
+
+app.post('/crear_llamada_prospeccion_admin', auth.auth, prospeccionController.crear_llamada_prospeccion_admin);
+
+module.exports = app;
+
+
+

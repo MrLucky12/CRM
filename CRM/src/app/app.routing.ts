@@ -17,6 +17,10 @@ import { EditClienteComponent } from "./components/clientes/edit-cliente/edit-cl
 import { VerificarCuentaComponent } from "./components/verificar-cuenta/verificar-cuenta.component";
 import { ProspeccionClienteComponent } from "./components/clientes/buyer/prospeccion-cliente/prospeccion-cliente.component";
 import { DashboardClienteComponent } from "./components/clientes/buyer/dashboard-cliente/dashboard-cliente.component";
+import { TareasClienteComponent } from "./components/clientes/buyer/prospeccion/tareas-cliente/tareas-cliente.component";
+import { InteresesClienteComponent } from "./components/clientes/buyer/prospeccion/intereses-cliente/intereses-cliente.component";
+import { LlamadasClienteComponent } from "./components/clientes/buyer/prospeccion/llamadas-cliente/llamadas-cliente.component";
+import { CorreoClienteComponent } from "./components/clientes/buyer/prospeccion/correo-cliente/correo-cliente.component";
 
 // CONSTANTE QUE CONTIENE TODAS LAS RUTAS DEL APLICATIVO
 
@@ -34,6 +38,11 @@ const appRoutes : Routes = [
     { path: 'cliente/:id', component: EditClienteComponent },
     { path: 'cliente/buyer/:id/dashboard', component: DashboardClienteComponent },
     { path: 'cliente/buyer/:id/prospeccion', component: ProspeccionClienteComponent },
+    // RUTAS DE CLIENTES | PROSPECCION
+    { path: 'cliente/buyer/:id/prospeccion/intereses', component: InteresesClienteComponent },
+    { path: 'cliente/buyer/:id/prospeccion/tareas', component: TareasClienteComponent },
+    { path: 'cliente/buyer/:id/prospeccion/llamadas', component: LlamadasClienteComponent },
+    { path: 'cliente/buyer/:id/prospeccion/correos', component: CorreoClienteComponent },
 
     // EXTRA | SEGURIDAD
     { path: 'verification/:token', component: VerificarCuentaComponent},

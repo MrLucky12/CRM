@@ -1,9 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Cliente_activillamada = Schema({
-    type: {type: String, required: true},
-    activity: {type: String, required: true},
+var Cliente_llamadaSchema = Schema({
+
+    date: {type: String, required: true},
+    time: {type: String, required: true},
+    result: {type: String, required: true},
+    note: {type: String, required: false},
     
     asesor: {type: Schema.ObjectId, ref: 'colaborador', required: false},
     cliente: {type: Schema.ObjectId, ref: 'cliente', required: false},

@@ -65,7 +65,7 @@
                     <h4 class="mb-2">Bienvenid@ 👋</h4>
                     <p class="mb-4">Porfavor ingresa tu correo y clave para poder acceder</p>
 
-                    <form id="formAuthentication" class="form" action="index.html" method="POST" >
+                    <form id="formAuthentication" class="form" action="index.html" method="POST" (keydown.enter)="login()">
                         <!-- #loginForm="ngForm" (ngSubmit)="login(loginForm)" -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>

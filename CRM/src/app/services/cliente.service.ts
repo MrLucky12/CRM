@@ -39,4 +39,9 @@ export class ClienteService {
     return this._http.put(this.url+'editar_cliente_admin/'+id, data, {headers:headers});
   }
 
+  crear_llamada_prospeccion_admin(data: any, token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.post(this.url+'crear_llamada_prospeccion_admin', data, {headers:headers});
+  }
+
 }

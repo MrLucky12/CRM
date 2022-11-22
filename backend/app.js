@@ -41,8 +41,7 @@ app.use((req, res, next)=>{
 app.use('/api', test_routes);
 app.use('/api', colaborador_routes);
 app.use('/api', cliente_routes);
-// error because prospeccion routes is empty
-//app.use('/api', prospeccion_routes);
+app.use('/api', prospeccion_routes);
 
 // EXPORT VARIABLE APP
 module.exports = app;

@@ -28,6 +28,10 @@ import { VerificarCuentaComponent } from './components/verificar-cuenta/verifica
 import { DashboardClienteComponent } from './components/clientes/buyer/dashboard-cliente/dashboard-cliente.component';
 import { ProspeccionClienteComponent } from './components/clientes/buyer/prospeccion-cliente/prospeccion-cliente.component';
 import { AsideClienteComponent } from './components/clientes/buyer/aside-cliente/aside-cliente.component';
+import { InteresesClienteComponent } from './components/clientes/buyer/prospeccion/intereses-cliente/intereses-cliente.component';
+import { TareasClienteComponent } from './components/clientes/buyer/prospeccion/tareas-cliente/tareas-cliente.component';
+import { LlamadasClienteComponent } from './components/clientes/buyer/prospeccion/llamadas-cliente/llamadas-cliente.component';
+import { CorreoClienteComponent } from './components/clientes/buyer/prospeccion/correo-cliente/correo-cliente.component';
 
 
 @NgModule({
@@ -51,7 +55,11 @@ import { AsideClienteComponent } from './components/clientes/buyer/aside-cliente
     VerificarCuentaComponent,
     DashboardClienteComponent,
     ProspeccionClienteComponent,
-    AsideClienteComponent
+    AsideClienteComponent,
+    InteresesClienteComponent,
+    TareasClienteComponent,
+    LlamadasClienteComponent,
+    CorreoClienteComponent
   ],
   imports: [
     BrowserModule,

@@ -30,7 +30,7 @@
                                 <div class="card-header py-3">
 
                                     <div class="card-title align-items-start flex-column">
-                                        <h3 class="card-label font-weight-bolder text-dark mb-0">Actividades del cliente</h3>
+                                        <h3 class="card-label font-weight-bolder text-dark mb-0">Intereses del cliente</h3>
                                         <span class="text-muted font-weight-bold font-size-sm">Lorem ipsum dolor sit amet.</span>
                                     </div>
 
@@ -38,10 +38,11 @@
                                         <div class="btn-group" role="group" aria-label="First group" >
                                             
                                             <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/actividades']" 
-                                                class="btn btn-outline-warning" routerLinkActive="btn btn-outline-warning active">
+                                                class="btn btn-outline-warning" routerLinkActive="active">
                                                 <i class='bx bx-task' ></i>&nbsp;<span>Actividades</span>
                                             </a>
-                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/intereses']" class="btn btn-outline-primary">
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/intereses']" 
+                                                class="btn btn-outline-primary" routerLinkActive="btn btn-outline-primary active">
                                                 <i class="tf-icons bx bx-task"></i>&nbsp;Intereses
                                             </a>
                                             <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/llamadas']" class="btn btn-outline-success">

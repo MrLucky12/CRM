@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-prospeccion-cliente',
-  templateUrl: './prospeccion-cliente.component.html',
-  styleUrls: ['./prospeccion-cliente.component.css']
+  selector: 'app-correo-cliente',
+  templateUrl: './correo-cliente.component.html',
+  styleUrls: ['./correo-cliente.component.css']
 })
-export class ProspeccionClienteComponent implements OnInit {
+export class CorreoClienteComponent implements OnInit {
 
-  public id= "";
+  public id = '';
 
   constructor(private _route:ActivatedRoute) { }
 
