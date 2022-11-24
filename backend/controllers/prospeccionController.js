@@ -11,7 +11,18 @@ const crear_llamada_prospeccion_admin = async function(req, res) {
     }
 }
 
+const listar_llamadas_prospeccion_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let lista = await Cliente_llamada.find({cliente:id}).populate('asesor').sort({createdAt:-1});
+        res.status(200).send({data: lista});
+    }else{
+        res.status(401).send({data: undefined, message: 'NoToken'});
+    }
+}
+
 module.exports = {
-    crear_llamada_prospeccion_admin
+    crear_llamada_prospeccion_admin,
+    listar_llamadas_prospeccion_admin,
     
 }

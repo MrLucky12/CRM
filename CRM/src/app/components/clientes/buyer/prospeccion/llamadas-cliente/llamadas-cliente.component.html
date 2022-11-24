@@ -64,91 +64,97 @@
                                 <div class="card-body">
 
                                     <hr class="mb-3">
-
-                                    <a class="btn btn-info font-weight-bolder font-size-sm mr-3 mb-3" style="cursor: pointer;" 
-                                        data-toggle="modal" [attr.data-target]="'#modalLlamada'" (click)="currentTime()">
-                                        Nueva llamada
-                                    </a>
-
-                                    <div class="list-group-item list-group-item-action">
-                                        <div class="mb-3" >
-                                            <!--begin::Content-->
-                                            <div class="d-flex align-items-center flex-grow-1">
-                                            
-                                                <!--begin::Section-->
-                                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
-                                                    <!--begin::Info-->
-                                                    <div class="d-flex flex-column align-items-cente py-2 w-75">
-
-                                                        <div class="">
-                                                            <!--begin::Title-->
-                                                            <p class="badge rounded-pill bg-info "> Ocupado</p>
-                                                            &nbsp;
-                                                            <!-- &nbsp; | &nbsp; -->
-                                                            <p class="badge bg-label-dark "> Sheldon Cooper</p>                                                    
-                                                            <!--end::Title-->
-                                                        </div>
-
-                                                        <!--begin::Data-->
-                                                        <span class="text-muted font-weight-bold">
-                                                        Lunes 17, Enero - 07:58PM
-                                                        </span>
-                                                        <span class="text-muted font-weight-bold">
-                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo doloribus recusandae ullam veniam fuga vel.
-                                                        </span>
-                                                        <!--end::Data-->
-                                                    </div>
-                                                    <!--end::Info-->
-                                                    <!--begin::Label-->
-                                                    <span class="badge bg-dark"> 17/01/2022</span>
-                                                    <!--end::Label-->
-                                                </div>
-                                                <!--end::Section-->        
-
-                                            </div>
-                                            <!--end::Content-->                                        
-                                        </div>
-                                    </div>
                                     
-                                    <div class="list-group-item list-group-item-action">
-                                        <div class="mb-3">
-                                            <!--begin::Content-->
-                                            <div class="d-flex align-items-center flex-grow-1">
-                                            
-                                                <!--begin::Section-->
-                                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
-                                                    <!--begin::Info-->
-                                                    <div class="d-flex flex-column align-items-cente py-2 w-75">
-                                                        <!--begin::Title-->
-                                                        <div class="">
-                                                            <!--begin::Title-->
-                                                            <p class="badge bg-info "> Ocupado</p>
-                                                            &nbsp;
-                                                            <!-- &nbsp; | &nbsp; -->
-                                                            <p class="badge bg-label-dark "> Sheldon Cooper</p>                                                    
-                                                            <!--end::Title-->
-                                                        </div>
-                                                        <!--end::Title-->
-                                                        <!--begin::Data-->
-                                                        <span class="text-muted font-weight-bold">
-                                                        Lunes 17, Enero - 07:58PM
-                                                        </span>
-                                                        <span class="text-muted font-weight-bold">
-                                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo doloribus recusandae ullam veniam fuga vel.
-                                                        </span>
-                                                        <!--end::Data-->
+                                    <ng-container *ngIf="load_data">
+                                        <div class="card mb-4">
+                                            <div class="col-md text-center">
+                                                <br>
+                                                <div class="text-light small fw-semibold">Cargando...</div>
+                                                
+                                                <div class="demo-inline-spacing">
+                                                    
+                                                    <div class="spinner-grow text-primary" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
                                                     </div>
-                                                    <!--end::Info-->
-                                                    <!--begin::Label-->
-                                                    <span class="badge bg-dark"> 17/01/2022</span>
-                                                    <!--end::Label-->
+                                                    <div class="spinner-grow text-primary" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                    <div class="spinner-grow text-primary" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                    
                                                 </div>
-                                                <!--end::Section-->
-                                        
-                                            </div>
-                                            <!--end::Content-->
+                                                
+                                                <br>
+                                            </div>                                
                                         </div>
-                                    </div>
+                                    </ng-container>
+                                    
+                                    <ng-container *ngIf="!load_data">
+                                        
+                                        <ng-container *ngIf="data">
+
+                                            <a class="btn btn-info mr-3 mb-3" style="cursor: pointer;" 
+                                                data-toggle="modal" [attr.data-target]="'#modalCall'" (click)="currentTime()">Nueva llamada</a>
+    
+                                            <div class="list-group-item list-group-item-action" 
+                                            *ngFor="let item of callList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
+                                            <div class="mb-3">
+                                                <!--begin::Content-->
+                                                <div class="d-flex align-items-center flex-grow-1">
+                                                    <!--begin::Section-->
+                                                    <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                                        <!--begin::Info-->
+                                                        <div class="d-flex flex-column align-items-cente py-2 w-75">
+        
+                                                            <!--begin::Title-->
+                                                            <div class="">
+                                                                <!--begin::Title-->
+                                                                    <p class="badge bg-info col-2" *ngIf="item.result == status[0]"> {{item.result}}</p>
+                                                                    <p class="badge bg-info col-2" *ngIf="item.result == status[1]"> {{item.result}}</p>
+                                                                    <p class="badge bg-primary col-2" *ngIf="item.result == status[2]"> {{item.result}}</p>
+                                                                    <p class="badge bg-warning col-2" *ngIf="item.result == status[3]"> {{item.result}}</p>
+                                                                    <p class="badge bg-danger col-2" *ngIf="item.result == status[4]"> {{item.result}}</p>
+                                                                    <p class="badge bg-primary col-2" *ngIf="item.result == status[5]"> {{item.result}}</p>
+                                                                    <p class="badge bg-success col-2" *ngIf="item.result == status[6]"> {{item.result}}</p>
+                                                                &nbsp;
+                                                                <p class="badge bg-label-dark "> {{item.asesor.name}} {{item.asesor.lastName}}</p>                                                    
+                                                                <!--end::Title-->
+                                                            </div>
+                                                            <!--end::Title-->
+        
+                                                            <!--begin::Data-->
+                                                            <span class="text-muted font-weight-bold">
+                                                            {{item.createdAt | date:'MMM dd'}}&nbsp;|&nbsp;{{item.time}}
+                                                            </span>
+        
+                                                            <span class="text-muted font-weight-bold"> {{item.note}} </span>
+                                                            <!--end::Data-->
+        
+                                                        </div>
+                                                        <!--end::Info-->
+        
+                                                        <!--begin::Label-->
+                                                        <span class="badge bg-dark"> {{item.date}}</span>
+                                                        <!--end::Label-->
+        
+                                                    </div>
+                                                    <!--end::Section-->
+                                                </div>
+                                                <!--end::Content-->
+                                            </div>
+                                            </div><br>
+        
+                                            <ngb-pagination [collectionSize]="callList.length" [pageSize]="pageSize" [(page)]="page" 
+                                                [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination>
+
+                                        </ng-container>
+
+                                        <ng-container *ngIf="!data">
+                                            <app-notfound></app-notfound>
+                                        </ng-container>
+
+                                    </ng-container>                                    
 
                                 </div>
                                 <!--end::Form-->
@@ -167,48 +173,52 @@
                 <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
+            
         </div>
         <!-- / Layout page -->
-    </div>
 
+    </div>
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 
 <!-- MODAL AGREGA NUEVA LLAMADA -->
-<div class="modal fade" id="modalLlamada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="modalCall" tabindex="-1" role="dialog" aria-hidden="true" data-dismiss="modal" aria-modal="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Agregar nueva llamada</h5>
             </div>
-            <div class="card-body">
+
+            <div class="modal-body">
                 <div class="mb-15">
                         
                     <!-- FECHA -->
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Fecha (*):</label>
+                        <label class="col-lg-3 col-form-label">Fecha (*):</label>
                         <div class="col-lg-5">
-                            <input [value]="" id="datePicker" type="date" class="form-control" name="fecha" [(ngModel)]="call.date" />
+                            <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"
+                            [minDate]="minDate"></ngb-datepicker>
                         </div>
-                        <div class="col-3">
-                            <button class="btn btn-secondary" type="button" (click)="currentDate()">Hoy</button>
+                        <div class="col-lg-4 " align="center">
+                            <button class="btn btn-lg btn-outline-primary col-6" (click)="selectToday()">hoy</button>
                         </div>
                     </div>
                     <br>
 
                     <!-- RESULTADO -->
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Resultado (*):</label>
+                        <label class="col-lg-3 col-form-label">Resultado (*):</label>
                         <div class="col-lg-8">
                             <select class="form-select "name="result" [(ngModel)]="call.result">
                                 <option value="" selected disabled>Seleccionar</option>
                                 <option value="Ocupado">Ocupado</option>
                                 <option value="Conectado">Conectado</option>
-                                <option value="Dejo un mensaje">Dejo un mensaje</option>
+                                <option value="Dejo mensaje">Dejo un mensaje</option>
                                 <option value="Sin respuesta">Sin respuesta</option>
                                 <option value="N° Incorrecto">N° Incorrecto</option>
-                                <option value="Proxima llamada">Proxima llamada</option>
+                                <option value="Prox. llamada">Proxima llamada</option>
                                 <option value="Venta cerrada">Venta cerrada</option>
                             </select>
                         </div>
@@ -216,7 +226,7 @@
 
                     <!-- HORA -->
                     <div class="form-group row">
-                        <label class="col-lg-4 col-form-label">Hora (*):</label>
+                        <label class="col-lg-3 col-form-label">Hora (*):</label>
                         <div class="col-lg-8">
                             <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
                         </div>
@@ -231,30 +241,31 @@
                     </div>
 
                 </div>
-                
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button *ngIf="!btn_load" type="button" class="btn btn-primary font-weight-bold" (click)="registrar()">Crear</button>
+                <button *ngIf="!btn_load" type="submit" class="btn btn-primary font-weight-bold" (click)="registrar()">Crear</button>
                 <button *ngIf="btn_load" class="btn btn-primary"  type="button" disabled>
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     Registrando...
                   </button>
             </div>
+
         </div>
     </div>
 </div>
 <!-- MODAL AGREGA NUEVA LLAMADA -->
 
 <!-- TOAST | NOTIFICACION -->
-<div class="bs-toast toast fade show bg-warning " role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"
+<div class="bs-toast toast fade show bg-{{typeToastMessage}} " role="alert" aria-live="assertive" aria-atomic="true"
     style="position: absolute; top: 3%; right: 3%;" *ngIf="alertOn">
     <div class="toast-header">
         <i class="bx bx-bell me-2"></i>
-        <div class="me-auto fw-semibold">Cuidado!</div>
+        <div class="me-auto fw-semibold">{{toastMessage2()}}</div>
         <!-- <small>11 mins ago</small> -->
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-    <div class="toast-body"> {{showMessage()}} </div>
+    <div class="toast-body"> {{toastMessage1()}} </div>
 </div>
 <!-- TOAST | NOTIFICACION -->

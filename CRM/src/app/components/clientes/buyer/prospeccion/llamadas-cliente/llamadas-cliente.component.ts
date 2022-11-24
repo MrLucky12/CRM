@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { delay } from 'rxjs';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteService } from 'src/app/services/cliente.service';
 declare var $:any;
 
@@ -12,63 +12,115 @@ declare var $:any;
 export class LlamadasClienteComponent implements OnInit {
 
   public id = '';
-  public call:any = {
-    result: '',
-  };
-  public time = { hour: 0, minute: 0 };
+  public call:any = { result: '', };
   public btn_load = false;
   public token = localStorage.getItem('token');
-  // TOAST MESSAGE
-  private show: boolean = false;
-  private message: string = '';
+  public callList: Array<any> = [];
 
-  constructor(private _route:ActivatedRoute, private _clienteService:ClienteService) { }
+  // PAGINATION
+  public page = 1;
+  public pageSize = 5;
+  // PAGINATION
+
+  // PRE LOADER
+  public load_data = true;
+  public data = false;
+  // PRE LOADER
+
+  public status: Array<any> = ['Ocupado','Conectado','Dejo mensaje', 'Sin respuesta', 'N° Incorrecto', 'Prox. llamada', 'Venta cerrada'];
+
+  constructor(private _route:ActivatedRoute, private _clienteService:ClienteService, private calendar: NgbCalendar) { }
 
   ngOnInit(): void {
-    this._route.params.subscribe( params => { this.id = params['id']; } );
+    this._route.params.subscribe( params => { 
+      this.id = params['id'];
+      this._clienteService.obtener_datos_cliente_admin(this.id, this.token).subscribe(
+        response => { 
+          if (response.data != undefined) {
+            this.data = true;
+            this.load_data = false;
+            this.init_data();
+          } else {
+            this.data = false;
+            this.load_data = false;
+          }
+        } );
+    } );
   }
-  
+
+  // SHOW CALL LOG
+  init_data() {
+    this._clienteService.listar_llamadas_prospeccion_admin(this.id, this.token).subscribe( response => { this.callList = response.data; } );
+  }
+  // SHOW CALL LOG
+
+
+  // CREATE NEW CALL
   registrar() {
-    // console.log(this.time);
     this.call.time = this.time.hour+':'+(this.time.minute>9? this.time.minute:'0'+this.time.minute);
-    this.call.date = new Date().toLocaleDateString();
-    if(!this.call.date) { this.toastMessage('Ingresar correctamente la fecha'); }
-    else if(!this.call.result){ this.toastMessage('Ingresar correctamente el resultado'); }
-    else if(!this.call.time){ this.toastMessage('Ingresar correctamente la hora'); }
+    this.call.date = this.model?.day+'-'+this.model?.month+'-'+this.model?.year;
+    if(!this.call.date) { this.showToastMessage('Ingresar correctamente la fecha', 'warning', 'Cuidado!'); }
+    else if(!this.call.result){ this.showToastMessage('Ingresar correctamente el resultado', 'warning', 'Cuidado!'); }
+    else if(!this.call.time){ this.showToastMessage('Ingresar correctamente la hora', 'warning', 'Cuidado!'); }
     else {
       this.btn_load = true;
+      this.call.cliente = this.id;
+      this.call.asesor = localStorage.getItem('_id');
       this._clienteService.crear_llamada_prospeccion_admin(this.call, this.token).subscribe(
         response => {
-          console.log(response);
+          setTimeout( ()=> {
+            $('#modalCall').modal().hide();
+            $('.modal-backdrop').remove();
+            $('#modalCall').click();
+          }, 300);
           this.btn_load = false;
+          this.showToastMessage('Llamada registrada correctamente', 'success', 'Registro Completo');
+          window.location.reload();
         }
       );
     }
   }
+  // CREATE NEW CALL
 
-  // GET CURRENTTIME EVERY NEW CALL
+  // TIME PICKER
+  public time = { hour: 0, minute: 0 };
   currentTime() {
     let current = new Date();
     this.time = {hour: current.getHours(), minute: current.getMinutes()};
   }
-  // CONDITION TO SHOW TOAST MESSAGE
+  // TIME PICKER
+
+  // TOAST MESSAGE
+  private show: boolean = false;
+  private message: string = '';
+  private message2: string = '';
+  private typeToast: string = '';
+  // BOOLEAN GETTERS
   get alertOn(): boolean { return this.show; }
-  showMessage(): string { return this.message; }  
-  toastMessage(message: string) {
+  get typeToastMessage(): string { return this.typeToast; }
+  // STRING GETTERS
+  toastMessage1(): string { return this.message; }
+  toastMessage2(): string { return this.message2; }
+  // SHOW TOAST
+  showToastMessage(message: string, type1: string, message2: string) {
+    this.typeToast = type1;
+    this.message2 = message2;
     this.message = message;
     this.show = true;
     setTimeout( ()=> {this.show = false;}, 2000);
   }
-  // ACTUAL DATE ON MODAL NEW CALL
-  // THIS METHOS IS NOT RECOGNIZE BUT SET CURRENT DATE
-  currentDate() {
-    $(document).ready( function() {
-      var now = new Date();
-      var day = ("0" + now.getDate()).slice(-2);
-      var month = ("0" + (now.getMonth() + 1)).slice(-2);
-      var today = now.getFullYear()+"-"+(month)+"-"+(day);
-      $('#datePicker').val(today);
-  });
-  }
+  // TOAST MESSAGE
+
+  // DATE PICKER
+  public model: NgbDateStruct | undefined;
+	public date = { year: 2022, month: 10 };
+  public minDate = {year: 2022, month: 0, day: 0};
+  // public maxDate = {year: 1, month: 1, day: 1};
+  selectToday() {
+		let now = new Date();
+    this.minDate = {year: now.getFullYear(), month: now.getMonth(), day: now.getDay()-2};
+    this.model = this.calendar.getToday();
+	}
+  // DATE PICKER
 
 }

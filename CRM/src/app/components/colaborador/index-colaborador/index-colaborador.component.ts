@@ -37,7 +37,8 @@ export class IndexColaboradorComponent implements OnInit {
   filtrar() {
     if (this.filtro) {
       var term = new RegExp(this.filtro, 'i');
-      this.colaboradores = this.colaboradores_const.filter(item => term.test(item.name) || term.test(item.lastName) || term.test(item.email) || term.test(item.n_doc));
+      this.colaboradores = this.colaboradores_const
+      .filter(item => term.test(item.name) || term.test(item.lastName) || term.test(item.email) || term.test(item.n_doc));
     } 
     else { this.colaboradores = this.colaboradores_const; }
   }
@@ -45,20 +46,20 @@ export class IndexColaboradorComponent implements OnInit {
 
   // AGREGAR BOTON PARA RESTABLECER LA TABLA ORIGINAL (CLICK)="ELIMINAR BUSQUEDA | REESTABLECER"
 
-set_state(id: any, state: any) {
-  // console.log(id);
-  // console.log(state);
-  this.load_state = true;
-  this._colaboradorService.cambiar_estado_colaborador_admin(id, {state: state}, this.token).subscribe(
-    response => {
-      this.load_state = false;
-      $('#delete-'+id).modal('hide');
-      $('.modal-backdrop').remove();
-      this.init_data(); 
-    }
-  );
+  set_state(id: any, state: any) {
+    // console.log(id);
+    // console.log(state);
+    this.load_state = true;
+    this._colaboradorService.cambiar_estado_colaborador_admin(id, {state: state}, this.token).subscribe(
+      response => {
+        this.load_state = false;
+        $('#delete-'+id).modal('hide');
+        $('.modal-backdrop').remove();
+        this.init_data(); 
+      }
+    );
 
-}
+  }
 
 
   }

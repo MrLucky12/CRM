@@ -11,9 +11,9 @@ export class AsideClienteComponent implements OnInit {
 
   public id ='';
   public load_data = true;
+  public data = false;
   public token = localStorage.getItem('token');
   public cliente:any = {};
-  public data = false;
 
   constructor(private _route:ActivatedRoute, private _clienteService:ClienteService) { }
 
@@ -32,7 +32,7 @@ export class AsideClienteComponent implements OnInit {
             this.load_data = false;
           }
         } );       
-      })
+    })
   }
 
 }
