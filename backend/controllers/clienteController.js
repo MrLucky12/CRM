@@ -173,6 +173,7 @@ const editar_cliente_admin = async function(req, res) {
 
 }
 
+
 module.exports = {
     registro_cliente_admin,
     validar_correo_verificacion,
