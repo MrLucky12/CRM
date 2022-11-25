@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from "@angular/forms"
 import { HttpClientModule } from "@angular/common/http";
 import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -68,7 +69,14 @@ import { CorreoClienteComponent } from './components/clientes/buyer/prospeccion/
     FormsModule,
     HttpClientModule,
     NgbPaginationModule,
-    NgbModule
+    NgbModule,
+    NgxTinymceModule.forRoot({
+      //OBTENER LOS RECURSOS DE MANERA LOCAL
+      baseURL: '../../../assets/tinymce/',
+      // or cdn
+      //OBTENER LOS RECURSOS A UN SERVIDOR EXTERNO
+      // baseURL: '//cdnjs.cloudflare.com/ajax/libs/tinymce/5.7.1/'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

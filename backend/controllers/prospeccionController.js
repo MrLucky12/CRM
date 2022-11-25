@@ -3,7 +3,7 @@ var Cliente_llamada = require('../models/Cliente_llamada');
 var Cliente_correo = require('../models/Cliente_correo');
 var Cliente = require('../models/Cliente');
 
-// LLAMADAS
+//------------------- LLAMADAS ----------------------------
 const crear_llamada_prospeccion_admin = async function(req, res) {
     if (req.user) {
         let data = req.body;
@@ -23,9 +23,18 @@ const listar_llamadas_prospeccion_admin = async function(req, res) {
         res.status(401).send({data: undefined, message: 'NoToken'});
     }
 }
-// LLAMADAS
+//------------------- LLAMADAS ----------------------------
 
-// CORREOS
+
+//------------------- CORREOS ----------------------------
+// MAIL SENDER | CONFIRMATION
+var fs = require('fs');
+var handlebars = require('handlebars');
+var ejs = require('ejs');
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var path = require('path');
+
 const crear_correo_prospeccion_admin = async function(req, res) {
     if (req.user) {
         let data = req.body;
@@ -37,7 +46,17 @@ const crear_correo_prospeccion_admin = async function(req, res) {
         res.status(401).send({data: undefined, message: 'NoToken'});
     }
 }
-// CORREOS
+
+const listar_correos_prospeccion_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let lista = await Cliente_correo.find({cliente:id}).populate('asesor').sort({createdAt:-1});
+        res.status(200).send({data: lista});
+    }else{
+        res.status(401).send({data: undefined, message: 'NoToken'});
+    }
+}
+//------------------- CORREOS ----------------------------
 
 // EXTRA
 const enviar_correo_prospeccion = async function(cliente, asunto, email, contenido) {
@@ -94,5 +113,6 @@ module.exports = {
     crear_llamada_prospeccion_admin,
     listar_llamadas_prospeccion_admin,
     crear_correo_prospeccion_admin,
+    listar_correos_prospeccion_admin,
     
 }

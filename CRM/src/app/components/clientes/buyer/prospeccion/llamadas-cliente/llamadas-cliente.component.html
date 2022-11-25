@@ -98,7 +98,7 @@
                                                 data-toggle="modal" [attr.data-target]="'#modalCall'" (click)="currentTime()">Nueva llamada</a>
     
                                             <div class="list-group-item list-group-item-action" 
-                                            *ngFor="let item of callList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
+                                                *ngFor="let item of callList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
                                             <div class="mb-3">
                                                 <!--begin::Content-->
                                                 <div class="d-flex align-items-center flex-grow-1">

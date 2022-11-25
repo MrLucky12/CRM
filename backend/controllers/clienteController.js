@@ -179,5 +179,5 @@ module.exports = {
     validar_correo_verificacion,
     listar_clientes_admin,
     obtener_datos_cliente_admin,
-    editar_cliente_admin
+    editar_cliente_admin,
 }

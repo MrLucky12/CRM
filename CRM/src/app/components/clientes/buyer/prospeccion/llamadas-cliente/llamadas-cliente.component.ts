@@ -68,14 +68,14 @@ export class LlamadasClienteComponent implements OnInit {
       this.call.asesor = localStorage.getItem('_id');
       this._clienteService.crear_llamada_prospeccion_admin(this.call, this.token).subscribe(
         response => {
-          setTimeout( ()=> {
+            setTimeout( ()=> {
             $('#modalCall').modal().hide();
             $('.modal-backdrop').remove();
             $('#modalCall').click();
           }, 300);
           this.btn_load = false;
           this.showToastMessage('Llamada registrada correctamente', 'success', 'Registro Completo');
-          window.location.reload();
+          this.init_data();
         }
       );
     }
