@@ -77,6 +77,16 @@ const listar_tareas_prospeccion_admin = async function(req, res) {
         res.status(401).send({data: undefined, message: 'NoToken'});
     }
 }
+
+const marcar_tarea_prospeccion_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let check = await Cliente_tarea.findByIdAndUpdate({_id: id}, {state: true, marca_asesor: req.user.sub});
+        res.status(200).send({data: check});
+    }else{
+        res.status(401).send({data: undefined, message: 'NoToken'});
+    }
+}
 //------------------- TAREAS ----------------------------
 
 
@@ -137,4 +147,5 @@ module.exports = {
     listar_correos_prospeccion_admin,
     crear_tarea_prospeccion_admin,
     listar_tareas_prospeccion_admin,
+    marcar_tarea_prospeccion_admin,
 }

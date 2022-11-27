@@ -18,6 +18,7 @@ app.get('/listar_correos_prospeccion_admin/:id', auth.auth, prospeccionControlle
 //------------------- TAREAS ----------------------------
 app.post('/crear_tarea_prospeccion_admin', auth.auth, prospeccionController.crear_tarea_prospeccion_admin);
 app.get('/listar_tareas_prospeccion_admin/:id', auth.auth, prospeccionController.listar_tareas_prospeccion_admin);
+app.put('/marcar_tarea_prospeccion_admin/:id', auth.auth, prospeccionController.marcar_tarea_prospeccion_admin);
 //------------------- TAREAS ----------------------------
 
 module.exports = app;

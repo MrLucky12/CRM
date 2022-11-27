@@ -22,6 +22,7 @@ export class TareasClienteComponent implements OnInit {
   public asesores: Array<any> = [];
   public type: Array<any> = ['Llamada', 'Correo', 'Venta', 'Otro'];
   public priority: Array<any> = ['Baja', 'Media', 'Alta'];
+  public btn_check = false;
 
   // PRE LOADER
   public load_data = true;
@@ -88,6 +89,20 @@ export class TareasClienteComponent implements OnInit {
     
   }
   
+  check(id: any) {
+    this.btn_check = true;
+    this.cliente.marcar_tarea_prospeccion_admin(id, this.token).subscribe(
+      response => {
+        this.btn_check = false;
+        $('#modalState-'+id).modal('hide');
+        this.init_data();
+        this.showToastMessage('La tarea ha sido marcada como finalizada', 'success', 'Tarea completada !');
+        console.log(response);
+        
+      }
+    );
+  }
+
   // DATE PICKER
   public model: NgbDateStruct = {year: 0, month: 0, day: 0};
   // public maxDate = {year: 1, month: 1, day: 1};

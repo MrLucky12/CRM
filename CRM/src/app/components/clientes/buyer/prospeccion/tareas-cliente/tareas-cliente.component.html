@@ -123,7 +123,7 @@
 
                                                             <tr >
                                                                 
-                                                                <!-- TASK IMAGE -->
+                                                                <!-- TASK ICON -->
                                                                 <td class="px-0 py-4" align="center" >
 
                                                                     <!-- ESTADO == FALSE -->
@@ -139,11 +139,10 @@
                                                                     </div>
 
                                                                     <!-- ESTADO == TRUE -->
-                                                                    <!-- <div class="symbol symbol-50 symbol-light mr-5">
-                                                                        <span class="symbol-label" style="background-color: #3699ff;">
-                                                                            <i class="flaticon2-check-mark text-white icon-lg"></i>
-                                                                        </span>
-                                                                    </div> -->
+                                                                    <div *ngIf="item.state" class="" >
+                                                                        <!-- FINISHED -->
+                                                                        <img src="/assets/img/icons/task/finished.png" style="width: 50%;">
+                                                                    </div>
                                                                     
                                                                 </td>
 
@@ -212,7 +211,7 @@
                                                                             <div class="modal-content">
 
                                                                                 <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Realizacion de tareas</h5>
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Tarea Finalizada</h5>
                                                                                 </div>
 
                                                                                 <div class="modal-body">
@@ -222,9 +221,11 @@
                                                                                 </div>
 
                                                                                 <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
-                                                                                    <button *ngIf="" type="submit" class="btn btn-primary font-weight-bold" >Marcar</button>
-                                                                                    <button *ngIf="" class="btn btn-primary"  type="button" disabled>
+                                                                                    <button type="button" class="btn btn-light-primary font-weight-bold" 
+                                                                                        data-dismiss="modal">Cerrar</button>
+                                                                                    <button *ngIf="!btn_check" (click)="check(item._id)"
+                                                                                        type="submit" class="btn btn-primary font-weight-bold" >Marcar</button>
+                                                                                    <button *ngIf="btn_check" class="btn btn-primary"  type="button" disabled>
                                                                                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                                                                         Marcando...
                                                                                     </button>
@@ -237,6 +238,7 @@
 
                                                                 </td>
                                                             </tr>
+
                                                             </ng-container>
                                                         </tbody>
                                                     </table>

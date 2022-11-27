@@ -24,8 +24,6 @@ export class EditColaboradorComponent implements OnInit {
 
   constructor(private _colaboradorService: ColaboradorService, private _router: Router, private _route: ActivatedRoute) { }
 
-  
-
   ngOnInit(): void {
     this._route.params.subscribe(
       params => {
