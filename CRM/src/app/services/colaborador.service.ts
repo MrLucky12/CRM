@@ -46,4 +46,9 @@ export class ColaboradorService {
     return this._http.put(this.url+'editar_colaborador_admin/'+id, data, {headers:headers});
   }
 
+  listar_asesores_admin(token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_asesores_admin', {headers:headers});
+  }
+
 }

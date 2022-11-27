@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { GLOBAL } from 'src/app/services/GLOBAL';
 declare var $:any;
 
 @Component({
@@ -29,7 +30,8 @@ export class LlamadasClienteComponent implements OnInit {
 
   public status: Array<any> = ['Ocupado','Conectado','Dejo mensaje', 'Sin respuesta', 'N° Incorrecto', 'Prox. llamada', 'Venta cerrada'];
 
-  constructor(private _route:ActivatedRoute, private _clienteService:ClienteService, private calendar: NgbCalendar) { }
+  constructor(private _route:ActivatedRoute, private _clienteService:ClienteService, 
+    private calendar: NgbCalendar, private dateConfig: NgbDatepickerConfig) { }
 
   ngOnInit(): void {
     this._route.params.subscribe( params => { 
@@ -68,14 +70,11 @@ export class LlamadasClienteComponent implements OnInit {
       this.call.asesor = localStorage.getItem('_id');
       this._clienteService.crear_llamada_prospeccion_admin(this.call, this.token).subscribe(
         response => {
-            setTimeout( ()=> {
-            $('#modalCall').modal().hide();
-            $('.modal-backdrop').remove();
-            $('#modalCall').click();
-          }, 300);
+          $('#modalCall').modal('hide');
           this.btn_load = false;
-          this.showToastMessage('Llamada registrada correctamente', 'success', 'Registro Completo');
           this.init_data();
+          this.call = { result: '', };
+          this.showToastMessage('Llamada registrada correctamente', 'success', 'Registro Completo');
         }
       );
     }
@@ -87,6 +86,7 @@ export class LlamadasClienteComponent implements OnInit {
   currentTime() {
     let current = new Date();
     this.time = {hour: current.getHours(), minute: current.getMinutes()};
+    this.dateConfig.minDate = GLOBAL.TODAY;
   }
   // TIME PICKER
 
@@ -114,11 +114,8 @@ export class LlamadasClienteComponent implements OnInit {
   // DATE PICKER
   public model: NgbDateStruct | undefined;
 	public date = { year: 2022, month: 10 };
-  public minDate = {year: 2022, month: 0, day: 0};
   // public maxDate = {year: 1, month: 1, day: 1};
   selectToday() {
-		let now = new Date();
-    this.minDate = {year: now.getFullYear(), month: now.getMonth(), day: now.getDay()-2};
     this.model = this.calendar.getToday();
 	}
   // DATE PICKER

@@ -1,11 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Cliente_actividadSchema = Schema({
+var Cliente_tareaSchema = Schema({
+
+    task: {type: String, required: true},
+    priority: {type: String, required: true},
     date: {type: String, required: true},
-    note: {type: String, required: true},
+    time: {type: String, required: true},
+    note: {type: String, required: false},
     type: {type: String, required: true},
-    state: {type: Boolean, required: true},
+    state: {type: Boolean, required: true, default: false},
     
     asesor: {type: Schema.ObjectId, ref: 'colaborador', required: false},
     cliente: {type: Schema.ObjectId, ref: 'cliente', required: false},
@@ -15,4 +19,4 @@ var Cliente_actividadSchema = Schema({
 
 });
 
-module.exports = mongoose.model('cliente_actividad', Cliente_actividadSchema);
+module.exports = mongoose.model('cliente_tarea', Cliente_tareaSchema);

@@ -1,6 +1,7 @@
 
 var Colaborador = require('../models/Colaborador');
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('../helpers/jwt')
 
 const registro_colaborador_admin = async function(req, res) {
     // console.log(req.user);
@@ -31,14 +32,8 @@ const registro_colaborador_admin = async function(req, res) {
 
         } catch (error) { res.status(200).send({data: undefined, message: 'Verifica los campos del formulario'}); } 
 
-    }
-    else{ res.status(403).send({data: undefined, message: 'No Token'}); }
-
-
-
+    } else{ res.status(403).send({data: undefined, message: 'No Token'}); }
 }
-
-var jwt = require('../helpers/jwt')
 
 const login_admin = async function(req, res) {
     let data = req.body; 
@@ -131,11 +126,22 @@ const editar_colaborador_admin = async function(req, res) {
 
 }
 
+const listar_asesores_admin = async function(req, res) {
+    if (req.user) {
+        let asesores = await Colaborador.find({role: 'Asesor', state: true}).select('_id fullname name lastName');
+        res.status(200).send({data: asesores});
+    } else {
+        res.status(403).send({data: undefined, message: 'NoToken'});
+    }
+}
+
 module.exports = {
     registro_colaborador_admin,
     login_admin,
     listar_colaboradores_admin,
     cambiar_estado_colaborador_admin,
     obtener_datos_colaborador_admin,
-    editar_colaborador_admin
+    editar_colaborador_admin,
+    listar_asesores_admin,
+
 }

@@ -95,7 +95,8 @@
                                         <ng-container *ngIf="data">
 
                                             <a class="btn btn-info mr-3 mb-3" style="cursor: pointer;" 
-                                                data-toggle="modal" [attr.data-target]="'#modalCall'" (click)="currentTime()">Nueva llamada</a>
+                                            data-bs-toggle="modal" [attr.data-target]="'#modalCall'" data-bs-target="#modalCall"
+                                            (click)="currentTime()">Nueva llamada</a>
     
                                             <div class="list-group-item list-group-item-action" 
                                                 *ngFor="let item of callList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
@@ -124,11 +125,11 @@
                                                             <!--end::Title-->
         
                                                             <!--begin::Data-->
-                                                            <span class="text-muted font-weight-bold">
+                                                            <span class="text-dark fw-semibold">
                                                             {{item.createdAt | date:'MMM dd'}}&nbsp;|&nbsp;{{item.time}}
                                                             </span>
         
-                                                            <span class="text-muted font-weight-bold"> {{item.note}} </span>
+                                                            <span class="text-dark font-weight-bold"> {{item.note}} </span>
                                                             <!--end::Data-->
         
                                                         </div>
@@ -197,12 +198,12 @@
                     <!-- FECHA -->
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label">Fecha (*):</label>
-                        <div class="col-lg-5">
-                            <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"
-                            [minDate]="minDate"></ngb-datepicker>
+                        <div class="col-lg-5 px-4 pl-0">
+                            <input class="form-control" placeholder="dd-mm-yyyy" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"/>
                         </div>
-                        <div class="col-lg-4 " align="center">
-                            <button class="btn btn-lg btn-outline-primary col-6" (click)="selectToday()">hoy</button>
+                        <div class="col-lg-4 px-0" align="center">
+                            <button class="btn btn-lg btn-outline-primary py-2 px-4" (click)="d.toggle()" type="button"><i class='bx bx-calendar' ></i></button>
+                            <button class="btn btn-lg btn-outline-primary py-2 px-4" (click)="selectToday()">hoy</button>
                         </div>
                     </div>
                     <br>

@@ -14,6 +14,7 @@ export class ClienteService {
     console.log(this.url);
   }
   
+  // ------------------- CUSTOMER ------------------
   registro_cliente_admin(data: any, token: any):Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.post(this.url+'registro_cliente_admin', data, {headers:headers});
@@ -38,8 +39,10 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.put(this.url+'editar_cliente_admin/'+id, data, {headers:headers});
   }
+  // ------------------- CUSTOMER ------------------
 
-  //  CALL METHOD'S
+
+  // ------------------- CALL ------------------
   crear_llamada_prospeccion_admin(data: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.post(this.url+'crear_llamada_prospeccion_admin', data, {headers:headers});
@@ -49,9 +52,10 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.get(this.url+'listar_llamadas_prospeccion_admin/'+id, {headers:headers});
   }
-  //  CALL METHOD'S
+  // ------------------- CALL ------------------
 
-  //  EMAIL METHOD'S
+
+  // ------------------- EMAIL ------------------
   crear_correo_prospeccion_admin(data: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.post(this.url+'crear_correo_prospeccion_admin', data, {headers:headers});
@@ -61,7 +65,18 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.get(this.url+'listar_correos_prospeccion_admin/'+id, {headers:headers});
   }
-  //  EMAIL METHOD'S
+  // ------------------- EMAIL ------------------
+
+  
+  // ------------------- TASK ------------------
+  crear_tarea_prospeccion_admin(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.post(this.url+'crear_tarea_prospeccion_admin', data, {headers:headers});
+  }
+
+  
+
+  // ------------------- TASK ------------------
   
 
 }

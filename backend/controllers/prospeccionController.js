@@ -1,6 +1,7 @@
 
 var Cliente_llamada = require('../models/Cliente_llamada');
 var Cliente_correo = require('../models/Cliente_correo');
+var Cliente_tarea = require('../models/Cliente_tarea');
 var Cliente = require('../models/Cliente');
 
 //------------------- LLAMADAS ----------------------------
@@ -58,6 +59,19 @@ const listar_correos_prospeccion_admin = async function(req, res) {
 }
 //------------------- CORREOS ----------------------------
 
+//------------------- TAREAS ----------------------------
+const crear_tarea_prospeccion_admin = async function(req, res) {
+    if (req.user) {
+        let data = req.body;
+        let tarea = await Cliente_tarea.create(data);
+        res.status(200).send({data: tarea});
+    }else{ res.status(401).send({data: undefined, message: 'NoToken'}); }
+}
+
+
+//------------------- TAREAS ----------------------------
+
+
 // EXTRA
 const enviar_correo_prospeccion = async function(cliente, asunto, email, contenido) {
 
@@ -108,11 +122,11 @@ const enviar_correo_prospeccion = async function(cliente, asunto, email, conteni
 }
 // EXTRA
 
-
 module.exports = {
     crear_llamada_prospeccion_admin,
     listar_llamadas_prospeccion_admin,
     crear_correo_prospeccion_admin,
     listar_correos_prospeccion_admin,
-    
+    crear_tarea_prospeccion_admin,
+
 }

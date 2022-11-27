@@ -62,6 +62,7 @@ constructor(private _route:ActivatedRoute, private _clienteService:ClienteServic
           $('#modalCorreo').modal('hide');
           this.btn_enviar = false;
           this.init_data();
+          this.email = {};
           this.showToastMessage('Se envio el correo al cliente', 'success', 'Correo enviado !');
           // window.location.reload();
         }
