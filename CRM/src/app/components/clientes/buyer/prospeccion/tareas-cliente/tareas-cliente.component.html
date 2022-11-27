@@ -103,12 +103,10 @@
                                     <ng-container *ngIf="!load_data">
                                         
                                         <div class="row" *ngIf="data">
-                                            <!-- *ngFor="let item of taskList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize" -->
-                                            <div class="list-group-item list-group-item-action mb-3 pt-0" 
-                                                >
                                                 
-                                                <div class="col-12"> <div class="table-responsive">
-                                                    <table class="table table-borderless table-vertical-center">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
 
                                                         <thead>
                                                             <tr >
@@ -121,86 +119,128 @@
                                                         </thead>
 
                                                         <tbody>
+                                                            <ng-container *ngFor="let item of taskList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
+
                                                             <tr >
+                                                                
                                                                 <!-- TASK IMAGE -->
                                                                 <td class="px-0 py-4" align="center" >
+
                                                                     <!-- ESTADO == FALSE -->
-                                                                    <div class="" >
-                                                                        <!-- VENTA -->
-                                                                        <!-- <i class="flaticon-notepad text-primary icon-lg"></i> -->
-                                                                        <!-- CORREO -->
-                                                                        <!-- <i class="flaticon-email"></i> -->
+                                                                    <div *ngIf="!item.state" class="" >
                                                                         <!-- LLAMADA -->
-                                                                        <img src="/assets/img/icons/task/call.png" alt="" style="width: 45%;">
+                                                                        <img src="/assets/img/icons/task/call.png" style="width: 50%;" *ngIf="item.type == type[0]">
+                                                                        <!-- CORREO -->
+                                                                        <img src="/assets/img/icons/task/email.png" style="width: 50%;" *ngIf="item.type == type[1]">
+                                                                        <!-- VENTA -->
+                                                                        <img src="/assets/img/icons/task/sell.png" style="width: 50%;" *ngIf="item.type == type[2]">
+                                                                        <!-- OTRO -->
+                                                                        <img src="/assets/img/icons/task/other.png" style="width: 50%;" *ngIf="item.type == type[3]">
                                                                     </div>
-                                                                        <!-- ESTADO == TRUE -->
+
+                                                                    <!-- ESTADO == TRUE -->
                                                                     <!-- <div class="symbol symbol-50 symbol-light mr-5">
                                                                         <span class="symbol-label" style="background-color: #3699ff;">
                                                                             <i class="flaticon2-check-mark text-white icon-lg"></i>
                                                                         </span>
                                                                     </div> -->
+                                                                    
                                                                 </td>
+
+                                                                <!-- TASK | TYPE -->
                                                                 <td class="px-0">
+
+                                                                    <!-- TASK -->
                                                                     <a class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">
-                                                                        Llamar al cliente para cierre venta
+                                                                        {{item.task}}
                                                                     </a>
+
+                                                                    <!-- TYPE -->
                                                                     <div>
                                                                         <span class="text-dark fw-semibold">Tipo de tarea:</span>
-                                                                        <a class="text-muted font-weight-bold text-hover-primary">&nbsp; Llamada</a>
+                                                                        <a class="text-muted font-weight-bold text-hover-primary">&nbsp; {{item.type}}</a>
                                                                     </div>
+
                                                                 </td>
+
+                                                                <!-- ASESOR -->
                                                                 <td class="text-right px-0">
                                                                     <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
                                                                         <!-- ASESOR -->
-                                                                        Diego Alonso Arroyo
+                                                                        {{item.asesor.name}}
                                                                     </span>
                                                                     <!-- <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
                                                                         No asignado
                                                                     </span> -->
-                                                                    <span class="text-dark font-weight-bold">Asesor</span>
+                                                                    <span class="text-dark fw-semibold">Asesor</span>
                                                                 </td>
                                                                 
                                                                 <!-- PRIORIDAD -->
                                                                 <td class="px-0" align="center">
-                                                                    <!-- <p class="badge bg-label-danger" >Alta</p> -->
-                                                                    <p class="badge bg-label-warning" >Media</p>
-                                                                    <!-- <p class="badge bg-label-success" >Baja</p> -->
-
-                                                                    <!-- <span style="cursor: pointer;" class="label label-lg label-light-primary label-inline">
-                                                                        Ninguna
-                                                                    </span> -->
+                                                                    <p class="badge bg-label-success" *ngIf="item.priority == priority[0]">Baja</p>
+                                                                    <p class="badge bg-label-warning" *ngIf="item.priority == priority[1]">Media</p>
+                                                                    <p class="badge bg-label-danger" *ngIf="item.priority == priority[2]" >Alta</p>
                                                                 </td>
 
                                                                 <!-- FECHA | HORA -->
                                                                 <td class="text-right px-0">
-                                                                    <p class="badge bg-label-dark"><b>Hora:</b> 07:21</p>
-                                                                    <p class="badge bg-dark">23/01/2022</p>
+                                                                    <p class="badge bg-label-dark"><b>Hora:</b> {{item.time}}</p>
+                                                                    <p class="badge bg-dark">{{item.date}}</p>
                                                                     
                                                                 </td>
                                                             </tr>
+
                                                             <tr>
                                                                 <td colspan="5" class="font-weight-bolder">
                                                                     <!-- NOTA -->
-                                                                    <p>
-                                                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde, minus esse corrupti 
-                                                                        itaque possimus porro ipsum dolores quo omnis consequatur sunt. Optio quos veritatis 
-                                                                        magnam recusandae quam aut sapiente assumenda.
-                                                                    </p>
-                                            
-                                                                    <!-- MARCAR ENVIO -->
-                                                                    <!-- <a style="cursor: pointer;" class="text-success" data-toggle="modal">[Marcar como hecho]</a> -->
-                                            
-                                                                    <!-- ENVIO MARCADO -->
-                                                                    <a class="text-primary">
-                                                                        <i class='bx bx-user-circle' ></i>  Marcado por Diego Alonso Arroyo
+                                                                    <p>{{item.note}}</p>
+
+                                                                    <!-- STATE -->
+                                                                    <a class="text-primary" *ngIf="item.state">
+                                                                        <i class='bx bx-user-circle' ></i>  Marcado por {{item.marca_asesor}}
                                                                     </a>
+                                                                    <a class="text-success" *ngIf="!item.state">
+                                                                        <a style="cursor: pointer;" class="text-success" data-bs-toggle="modal" 
+                                                                        [attr.data-target]="'#modalState-'+item._id" [attr.data-bs-target]="'#modalState-'+item._id" >
+                                                                        [Marcar como hecho]</a>
+                                                                    </a>
+
+                                                                    <!-- MODAL MARCAR TAREA -->
+                                                                    <div class="modal fade" id="modalState-{{item._id}}" tabindex="-1" 
+                                                                        role="dialog" aria-hidden="true" data-dismiss="modal" aria-modal="false">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Realizacion de tareas</h5>
+                                                                                </div>
+
+                                                                                <div class="modal-body">
+                                                                                    <div class="mb-15">
+                                                                                    <p>Al aceptar esta marcando la realicación de la tarea con su cuenta.</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
+                                                                                    <button *ngIf="" type="submit" class="btn btn-primary font-weight-bold" >Marcar</button>
+                                                                                    <button *ngIf="" class="btn btn-primary"  type="button" disabled>
+                                                                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                                                        Marcando...
+                                                                                    </button>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- MODAL AGREGA NUEVA TAREA -->
 
                                                                 </td>
                                                             </tr>
+                                                            </ng-container>
                                                         </tbody>
                                                     </table>
-                                                </div> </div>
-
+                                                </div>
                                             </div>
 
                                             <ngb-pagination [collectionSize]="taskList.length" [pageSize]="pageSize" [(page)]="page" 
@@ -236,33 +276,6 @@
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-
-<!-- CHANGE TO TEMPLATE MODAL | CHECK TASK-->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Realización de tarea</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Al aceptar esta marcando la realicación de la tarea con su cuenta.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning font-weight-bold" data-dismiss="modal">Cerrar</button>
-                <button  type="button" class="btn btn-success font-weight-bold">Marcar</button>
-
-                <!-- <button class="btn btn-success" type="button" disabled>
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    Marcando...
-                    </button> -->
-            </div>
-        </div>
-    </div>
-</div>
-<!-- CHANGE TO TEMPLATE MODAL -->
 
 <!-- MODAL AGREGA NUEVA TAREA -->
 <div class="modal fade" id="modalTask" tabindex="-1" role="dialog" aria-hidden="true" data-dismiss="modal" aria-modal="false">

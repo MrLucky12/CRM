@@ -20,6 +20,8 @@ export class TareasClienteComponent implements OnInit {
   public btn_enviar = false;
   public taskList: Array<any> = [];
   public asesores: Array<any> = [];
+  public type: Array<any> = ['Llamada', 'Correo', 'Venta', 'Otro'];
+  public priority: Array<any> = ['Baja', 'Media', 'Alta'];
 
   // PRE LOADER
   public load_data = true;
@@ -28,7 +30,7 @@ export class TareasClienteComponent implements OnInit {
 
   // PAGINATION
   public page = 1;
-  public pageSize = 5;
+  public pageSize = 4;
   // PAGINATION
 
   constructor(private _route:ActivatedRoute, private cliente:ClienteService, 
@@ -57,7 +59,7 @@ export class TareasClienteComponent implements OnInit {
 
   init_asesores() { this.colaborador.listar_asesores_admin(this.token).subscribe( response => { this.asesores = response.data; } ); }
 
-  init_data() {}
+  init_data() { this.cliente.listar_tareas_prospeccion_admin(this.id, this.token).subscribe( response => { this.taskList = response.data; } ); }
 
   registrar() {
     this.task.time = this.time.hour+':'+(this.time.minute>9? this.time.minute:'0'+this.time.minute);
@@ -72,11 +74,11 @@ export class TareasClienteComponent implements OnInit {
     else {
       this.btn_enviar = true;
       this.task.cliente = this.id;
-      this.task.asesor = localStorage.getItem('_id');
       this.cliente.crear_tarea_prospeccion_admin(this.task, this.token).subscribe(
         response => {
           $('#modalTask').modal('hide');
           this.btn_enviar = false;
+          // this.init_asesores();
           this.init_data();
           this.task = { asesor: '', type: '', priority: ''};
           this.showToastMessage('Tarea registrada correctamente', 'success', 'Registro Completo');

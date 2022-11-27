@@ -74,8 +74,10 @@ export class ClienteService {
     return this._http.post(this.url+'crear_tarea_prospeccion_admin', data, {headers:headers});
   }
 
-  
-
+  listar_tareas_prospeccion_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_tareas_prospeccion_admin/'+id, {headers:headers});
+  }
   // ------------------- TASK ------------------
   
 
