@@ -21,6 +21,11 @@ app.get('/listar_tareas_prospeccion_admin/:id', auth.auth, prospeccionController
 app.put('/marcar_tarea_prospeccion_admin/:id', auth.auth, prospeccionController.marcar_tarea_prospeccion_admin);
 //------------------- TAREAS ----------------------------
 
+//------------------- ACTIVIDADES ----------------------------
+app.get('/listar_actividades_prospeccion_admin/:id', auth.auth, prospeccionController.listar_actividades_prospeccion_admin);
+//------------------- ACTIVIDADES ----------------------------
+
+
 module.exports = app;
 
 

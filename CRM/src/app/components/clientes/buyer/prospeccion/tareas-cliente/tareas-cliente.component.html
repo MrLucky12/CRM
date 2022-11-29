@@ -37,7 +37,7 @@
                                     <div class="card-toolbar" role="toolbar" aria-label="Toolbar with button groups" align="center">
                                         <div class="btn-group" role="group" aria-label="First group" >
                                             
-                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/actividades']" class="btn btn-outline-warning">
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion']" class="btn btn-outline-warning">
                                                 <i class='bx bx-task' ></i>&nbsp;<span>Actividades</span>
                                             </a>
                                             <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/intereses']" class="btn btn-outline-primary">
@@ -185,7 +185,6 @@
                                                                 <td class="text-right px-0">
                                                                     <p class="badge bg-label-dark"><b>Hora:</b> {{item.time}}</p>
                                                                     <p class="badge bg-dark">{{item.date}}</p>
-                                                                    
                                                                 </td>
                                                             </tr>
 
@@ -196,7 +195,7 @@
 
                                                                     <!-- STATE -->
                                                                     <a class="text-primary" *ngIf="item.state">
-                                                                        <i class='bx bx-user-circle' ></i>  Marcado por {{item.marca_asesor}}
+                                                                        <i class='bx bx-user-circle' ></i>  Marcado por {{item.marca_asesor.fullname}}
                                                                     </a>
                                                                     <a class="text-success" *ngIf="!item.state">
                                                                         <a style="cursor: pointer;" class="text-success" data-bs-toggle="modal" 

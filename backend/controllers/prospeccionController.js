@@ -3,12 +3,14 @@ var Cliente_llamada = require('../models/Cliente_llamada');
 var Cliente_correo = require('../models/Cliente_correo');
 var Cliente_tarea = require('../models/Cliente_tarea');
 var Cliente = require('../models/Cliente');
+var Cliente_actividad = require('../models/Cliente_actividad');
 
 //------------------- LLAMADAS ----------------------------
 const crear_llamada_prospeccion_admin = async function(req, res) {
     if (req.user) {
         let data = req.body;
         let llamada = await Cliente_llamada.create(data);
+        crear_actividade_prospeccion_admin('Llamada', llamada.asesor, 'Se registro una llamada como '+llamada.result, llamada.cliente);
         res.status(200).send({data: llamada});
     }else{
         res.status(401).send({data: undefined, message: 'NoToken'});
@@ -42,6 +44,7 @@ const crear_correo_prospeccion_admin = async function(req, res) {
         let cliente = await Cliente.findById({_id: data.cliente});
         enviar_correo_prospeccion(cliente.fullname, data.subject, cliente.email, data.body);
         let correo = await Cliente_correo.create(data);
+        crear_actividade_prospeccion_admin('Correo', correo.asesor, 'Se registro un correo como '+correo.subject, correo.cliente);
         res.status(200).send({data: correo});
     }else{
         res.status(401).send({data: undefined, message: 'NoToken'});
@@ -64,6 +67,7 @@ const crear_tarea_prospeccion_admin = async function(req, res) {
     if (req.user) {
         let data = req.body;
         let tarea = await Cliente_tarea.create(data);
+        crear_actividade_prospeccion_admin('Tarea', tarea.asesor, 'Se registro una tarea como '+tarea.task, tarea.cliente);
         res.status(200).send({data: tarea});
     }else{ res.status(401).send({data: undefined, message: 'NoToken'}); }
 }
@@ -88,6 +92,24 @@ const marcar_tarea_prospeccion_admin = async function(req, res) {
     }
 }
 //------------------- TAREAS ----------------------------
+
+//------------------- ACTIVIDADES ----------------------------
+
+const crear_actividade_prospeccion_admin = async function(type, asesor, activity, cliente) {
+    let activitiy = {type: type, asesor: asesor, activity: activity, cliente: cliente};
+    await Cliente_actividad.create(activitiy);
+}
+
+const listar_actividades_prospeccion_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let lista = await Cliente_actividad.find({cliente:id}).populate('asesor').sort({createdAt:-1});
+        res.status(200).send({data: lista});
+    }else{
+        res.status(401).send({data: undefined, message: 'NoToken'});
+    }
+}
+//------------------- ACTIVIDADES ----------------------------
 
 
 // EXTRA
@@ -148,4 +170,5 @@ module.exports = {
     crear_tarea_prospeccion_admin,
     listar_tareas_prospeccion_admin,
     marcar_tarea_prospeccion_admin,
+    listar_actividades_prospeccion_admin,
 }

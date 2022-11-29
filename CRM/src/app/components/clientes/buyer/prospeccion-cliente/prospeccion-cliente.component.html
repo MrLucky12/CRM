@@ -37,7 +37,7 @@
                                     <div class="card-toolbar" role="toolbar" aria-label="Toolbar with button groups" align="center">
                                         <div class="btn-group" role="group" aria-label="First group" >
                                             
-                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion/actividades']" 
+                                            <a [routerLink]="['/cliente/buyer/'+id+'/prospeccion']" 
                                                 class="btn btn-outline-warning" routerLinkActive="btn btn-outline-warning active">
                                                 <i class='bx bx-task' ></i>&nbsp;<span>Actividades</span>
                                             </a>
@@ -60,11 +60,76 @@
 
                                 </div>
                                 <!--end::Header-->
+                                <hr class="mb-3">
                                 <!--begin::Form-->
                                 <div class="card-body">
-                                    <div class="display-4">
-                                        Prospeccion de cliente
+                                    
+                                    <!-- PRE CARGADOR -->
+                                    <div class="card mb-4" *ngIf="load_data">
+                                        <div class="col-md text-center">
+                                            <br>
+                                            <div class="text-light small fw-semibold">Cargando...</div>
+                                            
+                                            <div class="demo-inline-spacing">
+                                                
+                                                <div class="spinner-grow text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <div class="spinner-grow text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <div class="spinner-grow text-primary" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            <br>
+                                        </div>                                
                                     </div>
+                                    <!-- PRE CARGADOR -->
+
+                                    <ng-container *ngIf="!load_data">
+                                    
+                                        <!-- Horizontal -->
+                                            <div class="list-group-item list-group-item-action py-3 px-2 card" 
+                                            *ngFor="let item of activityList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
+                                                <div class="row g-0">
+
+                                                <div class="col-md-2" align="center" style="position: relative;">
+                                                    <img *ngIf="item.type == 'Tarea'" src="/assets/img/icons/activity/task.png"
+                                                    width="45%"  style="position: relative; top: 50%; transform: translateY(-50%);">
+                                                    <img *ngIf="item.type == 'Llamada'" src="/assets/img/icons/activity/call.png"
+                                                    width="45%"  style="position: relative; top: 50%; transform: translateY(-50%);">
+                                                    <img *ngIf="item.type == 'Correo'" src="/assets/img/icons/activity/email.png"
+                                                    width="45%"  style="position: relative; top: 50%; transform: translateY(-50%);">
+                                                </div>
+
+                                                <div class="col-md-10 d-flex">
+
+                                                    <!-- TYPE | ACTIVITY -->
+                                                    <div class="card-body py-0 px-1">
+                                                        <h5 class="card-title">{{item.type}}</h5>
+                                                        <p class="card-text">{{item.activity}}</p>
+                                                    </div>
+
+                                                    <!-- DATE | TIME -->
+                                                    <div class="flex pt-3">
+                                                        <p class="badge bg-label-dark"><b>Hora:</b> {{item.createdAt | date: "HH:mm"}}</p>
+                                                        <p class="badge bg-dark">{{item.createdAt | date: "dd-MM-yyyy"}}</p>
+                                                    </div>
+
+                                                </div>
+                                                
+                                                </div>
+                                            </div>
+                                        <!--/ Horizontal -->
+
+                                        <ngb-pagination [collectionSize]="activityList.length" [pageSize]="pageSize" [(page)]="page" 
+                                                [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination>
+
+                                    </ng-container>
+
                                 </div>
                                 <!--end::Form-->
                             </div>
