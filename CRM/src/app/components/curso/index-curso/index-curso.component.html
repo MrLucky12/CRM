@@ -1,0 +1,128 @@
+
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+
+        <!-- Menu -->
+        <app-sidebar></app-sidebar>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+
+            <!-- Navbar -->
+            <app-top> </app-top>
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+
+                <!-- Content -->
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="row">
+                        <div class="col-lg-12 mb-4 order-0">
+                            <div class="card">
+        
+                                <!--begin::Header-->
+                                <div class="card-header border-0 py-3 pb-0 d-flex">
+                                    <h3 class="card-title align-items-start flex-column my-0">
+                                        <h3 class="display-5 my-0">Cursos base</h3>
+                                        <p class="lead mt-2">More than 400+ new members</p>                                        
+                                    </h3>
+                                    <div class="card-toolbar px-3" align="center" style="position: relative;">
+                                        <a [routerLink]="['/curso/create']" class="btn btn-primary" 
+                                            style="position: relative; top: 50%; transform: translateY(-50%);">Nuevo curso</a>
+                                    </div>
+                                </div>
+                                <!--end::Header-->
+        
+                                <!--begin::Table-->
+                                <div class="table-responsive text-nowrap">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="text-uppercase" align="center">
+                                                <th style="width: 45%">Curso</th>
+                                                <th style="width: 10%">Vigentes</th>
+                                                <th style="width: 10%">Historial</th>
+                                                <th style="width: 10%">Creación</th>
+                                                <th style="width: 10%">Estado</th>
+                                                <th style="width: 5%">Opciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of courseList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
+
+                                                <td class="pl-0 py-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-50 flex-shrink-0 mr-4">
+                                                            <img [src]="url+item.banner" alt="card-img-6" style="max-width: 230px !important">
+                                                        </div>
+                                                        <div>
+                                                            <a class="" style="cursor: pointer;">{{item.title}}</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td align="center">
+                                                    <a href="" class="btn btn-info">Vigentes</a>
+                                                </td>
+
+                                                <td align="center">
+                                                    <a href="" class="btn btn-warning">Historial</a>
+                                                </td>
+
+                                                <!-- FECHA -->
+                                                <td align="center">
+                                                    <span class="badge bg-dark">{{item.createdAt|date:'dd-MM-yyyy'}}</span>
+                                                </td>
+
+                                                <!-- STATE -->
+                                                <td align="center">
+                                                    <span class="badge bg-label-success" *ngIf="item.state">Activo</span>
+                                                    <span class="badge bg-label-danger" *ngIf="!item.state">Desactivado</span>
+                                                </td>
+
+                                                <!-- OPTIONS -->
+                                                <td align="center">
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                          <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                          <a class="dropdown-item" href="javascript:void(0);">
+                                                            <i class='bx bx-edit'></i> Editar</a>
+                                                          <a class="dropdown-item" href="javascript:void(0);">
+                                                            <i class="bx bx-trash me-1"></i> Opcion 2</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--end::Table-->
+                                <ngb-pagination [collectionSize]="courseList.length" [pageSize]="pageSize" 
+                                    [(page)]="page" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination>
+                            </div>                   
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <app-footer></app-footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->

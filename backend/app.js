@@ -11,6 +11,7 @@ var test_routes = require('./routes/test');
 var colaborador_routes = require('./routes/colaborador');
 var cliente_routes = require('./routes/cliente');
 var prospeccion_routes = require('./routes/prospeccion');
+var curso_routes = require('./routes/curso');
 
 // DB CONNECTION
 mongoose.connect('mongodb://localhost:27017/IGP-CRM', {useUnifiedTopology: true, useNewUrlParser: true}, 
@@ -42,6 +43,7 @@ app.use('/api', test_routes);
 app.use('/api', colaborador_routes);
 app.use('/api', cliente_routes);
 app.use('/api', prospeccion_routes);
+app.use('/api', curso_routes);
 
 // EXPORT VARIABLE APP
 module.exports = app;

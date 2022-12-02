@@ -13,17 +13,17 @@ export class IndexColaboradorComponent implements OnInit {
   public colaboradores: Array<any> = [];
   public colaboradores_const: Array<any> = [];
 
+  // PAGINATION
   public filtro = '';
   public page = 1;
   public pageSize = 10;
+  // PAGINATION
 
   public load_state = false;
 
   constructor(private _colaboradorService: ColaboradorService) { }
 
-  ngOnInit(): void {
-    this.init_data();
-  }
+  ngOnInit(): void { this.init_data(); }
 
   init_data() { 
     this._colaboradorService.listar_colaboradores_admin(this.token).subscribe( 

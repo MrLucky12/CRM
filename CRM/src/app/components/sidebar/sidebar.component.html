@@ -62,7 +62,7 @@
       <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: uppercase;"> IGP PERU</span>
     </a>
 
-    <a href=" " class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+    <a class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>
     </a>
   </div>
@@ -79,7 +79,7 @@
       </a>
     </li>
 
-    <!-- Components -->
+    <!-- CLIENTE -->
     <li class="menu-header small text-uppercase"><span class="menu-header-text">CRM</span></li>
 
       <li class="menu-item" routerLinkActive="menu-item active">
@@ -89,14 +89,23 @@
         </a>
       </li>
 
-    <!-- Components -->
+    <!-- COLABORADORES -->
     <li class="menu-header small text-uppercase"><span class="menu-header-text">COMPONENTES</span></li>
 
-    <!-- Cards -->
     <li class="menu-item" routerLinkActive="menu-item active">
       <a class="menu-link" [routerLink]="['/colaborador']" >
         <i class="menu-icon tf-icons bx bx-cube-alt"></i>
         <div data-i18n="Basic">Colaboradores</div>
+      </a>
+    </li>
+
+    <!-- CURSOS -->
+    <li class="menu-header small text-uppercase"><span class="menu-header-text">CONTROL</span></li>
+
+    <li class="menu-item" routerLinkActive="menu-item active">
+      <a class="menu-link" [routerLink]="['/curso']" >
+        <i class="menu-icon tf-icons bx bx-collection"></i>
+        <div data-i18n="Basic">Cursos</div>
       </a>
     </li>
 

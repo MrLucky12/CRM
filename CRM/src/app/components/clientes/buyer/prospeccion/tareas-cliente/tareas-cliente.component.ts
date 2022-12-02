@@ -36,8 +36,7 @@ export class TareasClienteComponent implements OnInit {
 
   constructor(private _route:ActivatedRoute, private cliente:ClienteService, 
               private colaborador:ColaboradorService, private calendar: NgbCalendar,
-              private dateConfig: NgbDatepickerConfig) 
-  {  }
+              private dateConfig: NgbDatepickerConfig) {  }
 
   ngOnInit(): void {
     this._route.params.subscribe( params => {
@@ -106,9 +105,7 @@ export class TareasClienteComponent implements OnInit {
   // DATE PICKER
   public model: NgbDateStruct = {year: 0, month: 0, day: 0};
   // public maxDate = {year: 1, month: 1, day: 1};
-  selectToday() { 
-    this.model = this.calendar.getToday();
-  }
+  selectToday() { this.model = this.calendar.getToday(); }
   // DATE PICKER  
 
 
@@ -122,26 +119,26 @@ export class TareasClienteComponent implements OnInit {
   // TIME PICKER
 
   
-    // TOAST MESSAGE
-    private show: boolean = false;
-    private message: string = '';
-    private message2: string = '';
-    private typeToast: string = '';
-    // BOOLEAN GETTERS
-    get alertOn(): boolean { return this.show; }
-    get typeToastMessage(): string { return this.typeToast; }
-    // STRING GETTERS
-    toastMessage1(): string { return this.message; }
-    toastMessage2(): string { return this.message2; }
-    // SHOW TOAST
-    showToastMessage(message: string, type1: string, message2: string) {
-      this.typeToast = type1;
-      this.message2 = message2;
-      this.message = message;
-      this.show = true;
-      setTimeout( ()=> {this.show = false;}, 2000);
-    }
-    // TOAST MESSAGE
+  // TOAST MESSAGE
+  private show: boolean = false;
+  private message: string = '';
+  private message2: string = '';
+  private typeToast: string = '';
+  // BOOLEAN GETTERS
+  get alertOn(): boolean { return this.show; }
+  get typeToastMessage(): string { return this.typeToast; }
+  // STRING GETTERS
+  toastMessage1(): string { return this.message; }
+  toastMessage2(): string { return this.message2; }
+  // SHOW TOAST
+  showToastMessage(message: string, type1: string, message2: string) {
+    this.typeToast = type1;
+    this.message2 = message2;
+    this.message = message;
+    this.show = true;
+    setTimeout( ()=> {this.show = false;}, 2000);
+  }
+  // TOAST MESSAGE
   
 
 }
