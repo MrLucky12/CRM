@@ -31,6 +31,9 @@ import { CorreoClienteComponent } from "./components/clientes/buyer/prospeccion/
 import { IndexCursoComponent } from "./components/curso/index-curso/index-curso.component";
 import { CreateCursoComponent } from "./components/curso/create-curso/create-curso.component";
 import { EditCursoComponent } from "./components/curso/edit-curso/edit-curso.component";
+import { IndexCicloComponent } from "./components/ciclo/index-ciclo/index-ciclo.component";
+import { CreateCicloComponent } from "./components/ciclo/create-ciclo/create-ciclo.component";
+import { VencidasCicloComponent } from "./components/ciclo/vencidas-ciclo/vencidas-ciclo.component";
 
 
 // CONSTANTE QUE CONTIENE TODAS LAS RUTAS DEL APLICATIVO
@@ -64,6 +67,11 @@ const appRoutes : Routes = [
     { path: 'curso', component: IndexCursoComponent },
     { path: 'curso/create', component: CreateCursoComponent },
     { path: 'curso/:id', component: EditCursoComponent },
+
+    // RUTAS DE CURSOS
+    { path: 'curso/:id/ciclo', component: IndexCicloComponent },
+    { path: 'curso/:id/ciclo/create', component: CreateCicloComponent },
+    { path: 'curso/:id/ciclo/vencido', component: VencidasCicloComponent },
 
 ]
 

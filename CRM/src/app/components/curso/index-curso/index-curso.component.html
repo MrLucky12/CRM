@@ -59,11 +59,11 @@
                                     <div class="row" align="center">
                                         
                                         <div class="col-s-12 col-lg-3 m-1 p-0" >
-                                            <a href="javascript:void(0)" class="btn btn-primary" style="width: 100%;" style="align-items: center;" >Vigentes</a>
+                                            <a [routerLink]="['/curso/'+item._id+'/ciclo']" class="btn btn-primary" style="width: 100%;" style="align-items: center;" >Vigentes</a>
                                         </div>
 
                                         <div class="col-s-12 col-lg-3 m-1 p-0">
-                                            <a href="javascript:void(0)" class="btn btn-primary" style="width: 100%;">Historial</a>
+                                            <a [routerLink]="['/curso/'+item._id+'/ciclo/vencido']" class="btn btn-primary" style="width: 100%;">Historial</a>
                                         </div>
 
                                         <!-- OPTIONS -->
@@ -72,12 +72,13 @@
                                                 data-bs-toggle="dropdown" style="width: 100%;">Opciones</button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" [routerLink]="['/curso/'+item._id]"><i class='bx bx-edit'></i> Editar</a>
+
                                                 <a style="cursor: pointer;" class="dropdown-item" data-toggle="modal" 
                                                     *ngIf="item.state" [attr.data-target]="'#state-'+item._id">
                                                         <i class="bx bx-x-circle"></i> Desactivar</a>
                                                                 
                                                 <a style="cursor: pointer;" class="dropdown-item" *ngIf="!item.state" 
-                                                    data-toggle="modal" [attr.data-target]="'#delete-'+item._id">
+                                                    data-toggle="modal" [attr.data-target]="'#state-'+item._id">
                                                     <i class="bx bx-check-circle"></i> Activar</a>
                                             </div>
                                         </div>

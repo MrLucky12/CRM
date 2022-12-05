@@ -36,6 +36,9 @@ import { CorreoClienteComponent } from './components/clientes/buyer/prospeccion/
 import { IndexCursoComponent } from './components/curso/index-curso/index-curso.component';
 import { CreateCursoComponent } from './components/curso/create-curso/create-curso.component';
 import { EditCursoComponent } from './components/curso/edit-curso/edit-curso.component';
+import { IndexCicloComponent } from './components/ciclo/index-ciclo/index-ciclo.component';
+import { CreateCicloComponent } from './components/ciclo/create-ciclo/create-ciclo.component';
+import { VencidasCicloComponent } from './components/ciclo/vencidas-ciclo/vencidas-ciclo.component';
 
 
 @NgModule({
@@ -66,7 +69,10 @@ import { EditCursoComponent } from './components/curso/edit-curso/edit-curso.com
     CorreoClienteComponent,
     IndexCursoComponent,
     CreateCursoComponent,
-    EditCursoComponent
+    EditCursoComponent,
+    IndexCicloComponent,
+    CreateCicloComponent,
+    VencidasCicloComponent
   ],
   imports: [
     BrowserModule,
