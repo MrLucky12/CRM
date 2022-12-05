@@ -39,7 +39,7 @@ export class EditCursoComponent implements OnInit {
       this.curso.editar_curso_base_admin(this.id, this.Course, this.token).subscribe(
         response => {
           this.btn_load = false;
-          this.showToastMessage('Registro exitoso !', 'success', 'El curso se ha actualizado exitosamente'); 
+          this.showToastMessage('Actualizacion exitoso !', 'success', 'El curso se ha actualizado exitosamente'); 
           this.router.navigate(['/curso']);
         }
       );

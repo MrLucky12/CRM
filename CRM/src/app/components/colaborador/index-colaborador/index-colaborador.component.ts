@@ -19,8 +19,6 @@ export class IndexColaboradorComponent implements OnInit {
   public pageSize = 10;
   // PAGINATION
 
-  public load_state = false;
-
   constructor(private _colaboradorService: ColaboradorService) { }
 
   ngOnInit(): void { this.init_data(); }
@@ -46,6 +44,10 @@ export class IndexColaboradorComponent implements OnInit {
 
   // AGREGAR BOTON PARA RESTABLECER LA TABLA ORIGINAL (CLICK)="ELIMINAR BUSQUEDA | REESTABLECER"
 
+  
+  // ACTIVATE | DESACTIVATE METHOD
+  public load_state = false;
+
   set_state(id: any, state: any) {
     // console.log(id);
     // console.log(state);
@@ -60,6 +62,7 @@ export class IndexColaboradorComponent implements OnInit {
     );
 
   }
+  // ACTIVATE | DESACTIVATE METHOD
 
 
   }

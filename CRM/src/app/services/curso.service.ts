@@ -42,9 +42,14 @@ export class CursoService {
     } 
     else {
       let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
-      return this._http.put(this.url+'editar_curso_base_admin'+id, data, {headers:headers});
+      return this._http.put(this.url+'editar_curso_base_admin/'+id, data, {headers:headers});
     }
     
+  }
+
+  cambiar_estado_curso_admin(id: any, data :any, token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.put(this.url+'cambiar_estado_curso_admin/'+id, data, {headers:headers});
   }
 
 }

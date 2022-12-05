@@ -140,11 +140,31 @@ const editar_curso_base_admin = async function(req, res) {
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
 
+const cambiar_estado_curso_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let data = req.body;
+
+        let nuevo_estado;
+
+        if (data.state) { nuevo_estado = false; }
+        else if(!data.state) { nuevo_estado = true; }
+
+        let curso = await Curso.findByIdAndUpdate({_id: id}, {state: nuevo_estado});
+
+        res.status(200).send({data: curso});
+
+    } else {
+        res.status(403).send({data: undefined, message: 'NoToken'});
+    }
+}
+
 module.exports = {
     registro_curso_base_admin,
     listar_cursos_admin,
     get_imagen_curso,
     obtener_datos_curso_admin,
     editar_curso_base_admin,
+    cambiar_estado_curso_admin,
     
 }
