@@ -35,78 +35,53 @@
                                     </div>
                                 </div>
                                 <!--end::Header-->
-        
-                                <!--begin::Table-->
-                                <div class="table-responsive text-nowrap">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr class="text-uppercase" align="center">
-                                                <th style="width: 45%">Curso</th>
-                                                <th style="width: 10%">Vigentes</th>
-                                                <th style="width: 10%">Historial</th>
-                                                <th style="width: 10%">Creación</th>
-                                                <th style="width: 10%">Estado</th>
-                                                <th style="width: 5%">Opciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let item of courseList | slice: (page-1) * pageSize: (page-1) * pageSize + pageSize">
-
-                                                <td class="pl-0 py-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="symbol symbol-50 flex-shrink-0 mr-4">
-                                                            <img [src]="url+item.banner" alt="card-img-6" style="max-width: 230px !important">
-                                                        </div>
-                                                        <div>
-                                                            <a class="" style="cursor: pointer;">{{item.title}}</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                                <td align="center">
-                                                    <a href="" class="btn btn-info">Vigentes</a>
-                                                </td>
-
-                                                <td align="center">
-                                                    <a href="" class="btn btn-warning">Historial</a>
-                                                </td>
-
-                                                <!-- FECHA -->
-                                                <td align="center">
-                                                    <span class="badge bg-dark">{{item.createdAt|date:'dd-MM-yyyy'}}</span>
-                                                </td>
-
-                                                <!-- STATE -->
-                                                <td align="center">
-                                                    <span class="badge bg-label-success" *ngIf="item.state">Activo</span>
-                                                    <span class="badge bg-label-danger" *ngIf="!item.state">Desactivado</span>
-                                                </td>
-
-                                                <!-- OPTIONS -->
-                                                <td align="center">
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                          <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                          <a class="dropdown-item" href="javascript:void(0);">
-                                                            <i class='bx bx-edit'></i> Editar</a>
-                                                          <a class="dropdown-item" href="javascript:void(0);">
-                                                            <i class="bx bx-trash me-1"></i> Opcion 2</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!--end::Table-->
-                                <ngb-pagination [collectionSize]="courseList.length" [pageSize]="pageSize" 
-                                    [(page)]="page" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination>
-                            </div>                   
+                                       
+                            </div>
                         </div>
+
+                        <!-- COURSE CARD -->
+                        <div class="col-md-6 col-lg-4 mb-3" *ngFor="let item of courseList">
+                            <div class="card h-100">
+                                <img class="card-img-top" [src]="url+item.banner" />
+                                <div class="card-body" style="height: 50%;">
+
+                                    <h5 class="card-title" style="cursor: pointer;">{{item.title}} 
+                                        <span class="badge bg-label-success mx-2" *ngIf="item.state">Activo</span>
+                                        <span class="badge bg-label-danger" *ngIf="!item.state">Desactivado</span>
+                                    </h5>
+
+                                    <p class="card-text" style="height: 30%;" >{{item.description}}
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis dolorum recusandae esse totam, aut laudantium!</p>
+                                    <h5 class="card-title">
+                                        <span class="badge bg-label-dark my-2">{{item.createdAt|date:'dd-MM-yyyy'}}</span>
+                                    </h5>
+
+                                    <div class="row" align="center">
+                                        
+                                        <div class="col-s-12 col-lg-3 m-1 p-0" >
+                                            <a href="javascript:void(0)" class="btn btn-primary" style="width: 100%;" style="align-items: center;" >Vigentes</a>
+                                        </div>
+
+                                        <div class="col-s-12 col-lg-3 m-1 p-0">
+                                            <a href="javascript:void(0)" class="btn btn-primary" style="width: 100%;">Historial</a>
+                                        </div>
+
+                                        <!-- OPTIONS -->
+                                        <div class="dropdown col-s-12 col-lg-3 m-1 p-0" >
+                                            <button type="button" class="btn btn-primary dropdown-toggle hide-arrow" 
+                                                data-bs-toggle="dropdown" style="width: 100%;">Opciones</button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" [routerLink]="['/curso/'+item._id]"><i class='bx bx-edit'></i> Editar</a>
+                                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Opcion 2</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <!-- / Content -->

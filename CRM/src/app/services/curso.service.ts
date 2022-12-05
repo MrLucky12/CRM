@@ -26,4 +26,25 @@ export class CursoService {
     return this._http.get(this.url+'listar_cursos_admin', {headers:headers});
   }
   
+  obtener_datos_curso_admin(id: any, token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'obtener_datos_curso_admin/'+id, {headers:headers});
+  }
+
+  editar_curso_base_admin(id: any, data: any, token: any): Observable<any> {
+    if (data.banner != undefined) {
+      let headers = new HttpHeaders({'Authorization': token});
+      let  fd = new FormData();
+      fd.append('title', data.title);
+      fd.append('description', data.description);
+      fd.append('banner', data.banner);
+      return this._http.put(this.url+'editar_curso_base_admin/'+id, fd, {headers: headers});  
+    } 
+    else {
+      let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+      return this._http.put(this.url+'editar_curso_base_admin'+id, data, {headers:headers});
+    }
+    
+  }
+
 }
