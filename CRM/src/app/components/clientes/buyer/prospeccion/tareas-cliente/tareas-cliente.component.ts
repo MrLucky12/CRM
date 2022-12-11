@@ -106,7 +106,7 @@ export class TareasClienteComponent implements OnInit {
   public model: NgbDateStruct = {year: 0, month: 0, day: 0};
   // public maxDate = {year: 1, month: 1, day: 1};
   selectToday() { this.model = this.calendar.getToday(); }
-  // DATE PICKER  
+  // DATE PICKER
 
 
   // TIME PICKER

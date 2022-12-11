@@ -7,7 +7,7 @@ var CursoSchema = Schema({
     slug: {type: String, required: true},
     banner: {type: String, required: true},
     state: {type: Boolean, default: true, required: false},
-    
+
     createdAt: {type: Date, default: Date.now, required: true}
 
 });

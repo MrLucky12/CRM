@@ -27,8 +27,7 @@
                               <!-- Basic Layout -->
                               <div class="row justify-content-center">
   
-                                
-                                  <div class="card col-lg-8 mb-4">
+                                  <div class="card col-5" align="center">
   
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                       <h5 class="mb-0">Datos generales</h5>
@@ -39,7 +38,7 @@
                                         <form class="form" id="kt_form" #registroForm="ngForm">
   
                                         <!-- TITLE (*)-->
-                                        <div class="col-6 mb-3">
+                                        <div class="col-8 mb-3">
                                           <label class="form-label" for="basic-icon-default-fullname">Titulo (*)</label>
                                           <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-fullname2" class="input-group-text"></span>
@@ -48,13 +47,13 @@
                                         </div>
                                         
                                         <!-- BANNER (*)-->
-                                        <div class="col-6 mb-3">
+                                        <div class="col-8 mb-3">
                                             <label for="formFile" class="form-label">Portada (*)</label>
                                             <input class="form-control" type="file" id="formFile" (change)="fileEventChange($event)" />
                                         </div>
 
                                         <!-- DESCRIPTION (*)-->
-                                        <div class="">
+                                        <div class="col-8">
                                           <label class="form-label" for="basic-icon-default-fullname">Descripcion (*)</label>
                                           <div class="input-group input-group-merge">
                                             <span id="basic-icon-default-fullname" class="input-group-text"></span>
@@ -65,7 +64,7 @@
                                         </form>
 
                                         <div class="card-footer py-4">
-                                          <button *ngIf="!btn_load" type="button" class="btn btn-primary" (click)="actualizar()">Registrar</button>
+                                          <button *ngIf="!btn_load" type="button" class="btn btn-primary" (click)="actualizar()">Actualizar</button>
                                           <button *ngIf="btn_load" class="btn btn-primary"  type="button" disabled>
                                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                             Actualizando...
@@ -75,7 +74,38 @@
                                     </div>
 
                                   </div>
-  
+                                  &nbsp;&nbsp;&nbsp;
+                                  <div class="card col-3">
+                                    
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                      <h5 class="mb-0">Niveles del Curso</h5>
+                                    </div>
+
+                                    <div class="card-body py-0">
+                                      <div class="demo-inline-spacing mt-3">
+
+                                        <div class="row">
+                                          <input type="text" class="form-control" placeholder="Ingresar nivel del curso" name="level" [(ngModel)]="Level.level">
+                                          <button class="btn btn-primary col-12 mt-3" (click)="newLevel()">Agregar Nivel</button>
+                                        </div>
+
+                                        <div class="list-group col-12" >
+
+                                          <label class="list-group-item" *ngFor="let item of levelList">
+                                            <input class="form-check-input me-1" type="checkbox" checked/>{{item.level}}</label>
+
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="card-footer py-4">
+                                      <a [routerLink]="['/curso']" class="btn btn-primary">Niveles completados</a>
+                                    </div>
+
+                                  </div>
+
+
                               </div> 
                           </div>
                 

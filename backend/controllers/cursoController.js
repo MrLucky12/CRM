@@ -1,10 +1,11 @@
 
 var Curso = require('../models/Curso');
+var Nivel = require('../models/Curso_nivel');
 var fs = require('fs');
 var path = require('path');
 const { title } = require('process');
 
-
+// COURSE
 const registro_curso_base_admin = async function(req, res) {
     if (req.user) {
         let data = req.body;
@@ -158,6 +159,37 @@ const cambiar_estado_curso_admin = async function(req, res) {
         res.status(403).send({data: undefined, message: 'NoToken'});
     }
 }
+// COURSE
+
+// LEVEL COURSE
+const registro_nivel_curso_admin = async function(req, res) {
+    if (req.user) {
+        let data = req.body;
+        try {
+            let lv = await Nivel.find({level: data.level});
+            if (lv.length >= 1) {
+                res.status(200).send({data: undefined, message: 'Ya existe un nivel con este nombre'}); 
+            }else {
+                let newLevel = await Nivel.create(data);
+
+                res.status(200).send({data: newLevel});
+            }
+        } 
+        catch (error) { res.status(200).send({data: undefined, message: 'Ocurrio un problema al registrar el nivel'}); }
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+
+const listar_nivel_curso_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let lista = await Nivel.find({curso: id}).sort({level: -1});
+        res.status(200).send({data: lista});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+// LEVEL COURSE
+
 
 module.exports = {
     registro_curso_base_admin,
@@ -166,5 +198,6 @@ module.exports = {
     obtener_datos_curso_admin,
     editar_curso_base_admin,
     cambiar_estado_curso_admin,
-    
+    registro_nivel_curso_admin,
+    listar_nivel_curso_admin,
 }

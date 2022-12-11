@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CursoService } from 'src/app/services/curso.service';
 declare var $:any;
 
@@ -10,13 +10,14 @@ declare var $:any;
 })
 export class CreateCursoComponent implements OnInit {
 
+  public id = '';
   public newCourse:any = {};
   public banner:File | any = undefined;
 
   public btn_load = false;
   public token = localStorage.getItem('token');
 
-  constructor(private curso:CursoService, private _router:Router) { }
+  constructor(private curso:CursoService, private _router:Router, private _route:ActivatedRoute) { }
 
   ngOnInit(): void {
   }

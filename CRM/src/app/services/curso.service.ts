@@ -12,6 +12,7 @@ export class CursoService {
 
   constructor(private _http:HttpClient) { }
 
+  // COURSE
   registro_curso_base_admin(data: any, token: any): Observable<any> {
     let headers = new HttpHeaders({'Authorization': token});
     let  fd = new FormData();
@@ -51,5 +52,20 @@ export class CursoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.put(this.url+'cambiar_estado_curso_admin/'+id, data, {headers:headers});
   }
+  // COURSE
+
+  // COURSE LEVEL
+  registro_nivel_curso_admin(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.post(this.url+'registro_nivel_curso_admin', data, {headers:headers});
+  }
+
+  listar_nivel_curso_admin(id: any, token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_nivel_curso_admin/'+id, {headers:headers});
+  }
+
+  // COURSE LEVEL
+
 
 }

@@ -15,6 +15,8 @@ export class EditCursoComponent implements OnInit {
   
   public banner:File | any = undefined;
   public Course:any = {};
+  public Level:any = {};
+  public levelList: Array<any> = [];
 
   constructor(private curso:CursoService, private _route:ActivatedRoute, private router:Router) { }
 
@@ -29,6 +31,7 @@ export class EditCursoComponent implements OnInit {
         this.Course = response.data;
         this.Course.banner = undefined;
       }); 
+    this.curso.listar_nivel_curso_admin(this.id, this.token).subscribe( response => { this.levelList = response.data; } ); 
   }
 
   actualizar() {
@@ -44,6 +47,16 @@ export class EditCursoComponent implements OnInit {
         }
       );
     }
+  }
+
+  newLevel() {
+    this.Level.curso = this.id;
+    this.curso.registro_nivel_curso_admin(this.Level, this.token).subscribe(
+      response => {
+        this.showToastMessage('Nivel agregado !', 'success', 'El nivel ha sido actualizado correctamente'); 
+        window.location.reload();
+      }
+    );    
   }
 
   fileEventChange(event:any):void{
