@@ -1,5 +1,8 @@
 
 var Curso = require('../models/Curso');
+var Ciclo_curso = require('../models/Ciclo_curso');
+var Ciclo_salon = require('../models/Ciclo_salon');
+var Ciclo_docente = require('../models/Ciclo_docente');
 var Nivel = require('../models/Curso_nivel');
 var fs = require('fs');
 var path = require('path');
@@ -57,7 +60,7 @@ const obtener_datos_curso_admin = async function(req, res) {
         let id = req.params['id'];
 
         try {
-            let curso = await Curso.findById({_id: id});        
+            let curso = await Curso.findById({_id: id}).populate('level'); 
             res.status(200).send({data: curso});   
         } 
         catch (error) { res.status(200).send({data: undefined});  } }
@@ -190,6 +193,11 @@ const listar_nivel_curso_admin = async function(req, res) {
 }
 // LEVEL COURSE
 
+// CICLE COURSE
+
+
+
+// CICLE COURSE
 
 module.exports = {
     registro_curso_base_admin,
@@ -200,4 +208,5 @@ module.exports = {
     cambiar_estado_curso_admin,
     registro_nivel_curso_admin,
     listar_nivel_curso_admin,
+
 }

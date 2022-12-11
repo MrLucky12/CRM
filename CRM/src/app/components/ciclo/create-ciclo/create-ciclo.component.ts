@@ -41,6 +41,11 @@ export class CreateCicloComponent implements OnInit {
 
   public btn_load = false;
 
+  // PRE LOADER
+  public load_data = true;
+  public data = false;
+  // PRE LOADER
+
   public levelList: Array<any> = [];
   public cicle:any = {
     level : '',
@@ -54,6 +59,16 @@ export class CreateCicloComponent implements OnInit {
   ngOnInit(): void {
     this._route.params.subscribe( params => { this.id = params['id']; });
     this.curso.listar_nivel_curso_admin(this.id, this.token).subscribe( response => { this.levelList = response.data; } ); 
+    this.curso.obtener_datos_curso_admin(this.id, this.token).subscribe(
+      response => { 
+        if (response.data != undefined) {
+          this.data = true;
+          this.load_data = false;
+        } else {
+          this.data = false;
+          this.load_data = false;
+        }
+      } );
   }
 
   registrar() {

@@ -8,6 +8,8 @@ var CursoSchema = Schema({
     banner: {type: String, required: true},
     state: {type: Boolean, default: true, required: false},
 
+    level: {type: Schema.ObjectId, ref: 'curso_nivel', required: false},
+
     createdAt: {type: Date, default: Date.now, required: true}
 
 });
