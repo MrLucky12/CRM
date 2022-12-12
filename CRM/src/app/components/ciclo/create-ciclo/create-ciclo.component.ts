@@ -48,13 +48,23 @@ export class CreateCicloComponent implements OnInit {
 
   public levelList: Array<any> = [];
   public cicle:any = {
-    level : '',
+    level: '',
     location: '',
   };
+  public room:any = {
+    room: '',
+  };
+  public days:Array<any> = [];
+  public rooms:Array<any> = [];
 
   public today = GLOBAL.TODAY;
 
-  constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute) { this.dateConfig.minDate = GLOBAL.TODAY; }
+  constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute) 
+  { 
+    this.dateConfig.minDate = GLOBAL.TODAY;
+    this.currentTime();
+    this.cicleTest();
+  }
 
   ngOnInit(): void {
     this._route.params.subscribe( params => { this.id = params['id']; });
@@ -72,9 +82,11 @@ export class CreateCicloComponent implements OnInit {
   }
 
   registrar() {
+    // CURSO DATA
     this.cicle.course = this.id;
     this.cicle.start_course = this.fromDate?.day+'-'+this.fromDate?.month+'-'+this.fromDate?.year;
     this.cicle.end_course = this.toDate?.day+'-'+this.toDate?.month+'-'+this.toDate?.year;
+    // CURSO DATA
 
     if(!this.cicle.level) { this.showToastMessage('Ingresar el nivel del curso', 'warning', 'Campo vacio !'); }
     else if(!this.cicle.location) { this.showToastMessage('Ingresar la sede del curso', 'warning', 'Campo vacio !'); }
@@ -87,6 +99,53 @@ export class CreateCicloComponent implements OnInit {
     }
     
   }
+
+  newCicle() {
+    this.room.days = this.days;
+    if (!this.room.room) { this.showToastMessage('Ingresar el salon', 'warning', 'Campo vacio !'); }
+    else if (!this.room.total_capacity) { this.showToastMessage('Ingresar el aforo total', 'warning', 'Campo vacio !'); }
+    else if (this.time1 == undefined || this.time1 == null || this.time2 == undefined || this.time2 == null) 
+    { this.showToastMessage('Ingresar las horas de inicio y final', 'warning', 'Campo vacio !'); }
+    else if (this.time1.hour > this.time2.hour) { this.showToastMessage('La hora de inicio no puede ser mayor que la hora de termino', 'warning', 'Fechas incorrectas !'); }
+    else if (this.room.days.length <= 0) { this.showToastMessage('Ingresar los dias', 'warning', 'Campo vacio !'); }
+    else {
+      // CICLO DATA
+      this.room.start_time = this.time1.hour+':'+(this.time1.minute>9? this.time1.minute:'0'+this.time1.minute);
+      this.room.end_time = this.time2.hour+':'+(this.time2.minute>9? this.time2.minute:'0'+this.time2.minute);
+      // CICLO DATA
+      this.rooms.push(this.room);
+      console.log(this.rooms);
+    }
+    
+  }
+  cicleTest() {
+    this.room.room = 'Salon 1';
+    this.room.total_capacity = 35;;
+    this.room.start_time = '13:00';
+    this.room.end_time = '15:00';
+    this.room.days = ['Lunes', 'Miercoles'];
+    this.rooms.push(this.room);
+  }
+
+  select_day(event:any) {
+    let status = event.currentTarget.checked;
+    let value = event.target.value;
+    if (status) { this.days.push(value); } 
+    else {
+      let indice = 0;
+      this.days.forEach((element, index) => { if (element == value) { this.days.splice(index, 1); } });
+    }
+  }
+
+  // TIME PICKER
+  public spinners = true;
+  public time1 = { hour: 0, minute: 0 };
+  public time2 = { hour: 0, minute: 0 };
+  currentTime() {
+    this.time1 = {hour: 13, minute: 0};
+    this.time2 = this.time1;
+  }
+  // TIME PICKER
 
   // DATE PICKER
   public hoveredDate: NgbDate | null = null;

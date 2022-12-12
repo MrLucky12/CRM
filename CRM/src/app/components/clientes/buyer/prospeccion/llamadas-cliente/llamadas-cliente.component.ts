@@ -82,6 +82,7 @@ export class LlamadasClienteComponent implements OnInit {
   // CREATE NEW CALL
 
   // TIME PICKER
+  public spinners = false;
   public time = { hour: 0, minute: 0 };
   currentTime() {
     let current = new Date();
