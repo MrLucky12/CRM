@@ -266,7 +266,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody align="center">
-                                                        <tr *ngFor="let item of rooms">
+                                                        <tr *ngFor="let item of rooms; let idx = index">
                                                             <th scope="row">{{item.room}}</th>
                                                             <th>{{item.total_capacity}}</th>
                                                             <th>
@@ -279,7 +279,7 @@
                                                                 </ng-container>
                                                             </th>
                                                             <th scope="row">
-                                                                <a style="cursor: pointer;" class="text-danger">[Quitar]</a> <br>
+                                                                <a style="cursor: pointer;" class="text-danger" (click)="deleteCicle(idx)">[Quitar]</a> <br>
                                                             </th>
                                                         </tr>
                                                         

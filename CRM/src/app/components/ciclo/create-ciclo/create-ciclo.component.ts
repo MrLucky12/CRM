@@ -3,6 +3,7 @@ import { NgbDate, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { GLOBAL } from 'src/app/services/GLOBAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CursoService } from 'src/app/services/curso.service';
+declare var $:any;
 
 @Component({
   selector: 'app-create-ciclo',
@@ -51,9 +52,7 @@ export class CreateCicloComponent implements OnInit {
     level: '',
     location: '',
   };
-  public room:any = {
-    room: '',
-  };
+  public room:any = { room: '', };
   public days:Array<any> = [];
   public rooms:Array<any> = [];
 
@@ -114,10 +113,16 @@ export class CreateCicloComponent implements OnInit {
       this.room.end_time = this.time2.hour+':'+(this.time2.minute>9? this.time2.minute:'0'+this.time2.minute);
       // CICLO DATA
       this.rooms.push(this.room);
+      this.room = { room: '', };
+      this.days = [];
+      $('.form-check-input').prop('checked', false);
       console.log(this.rooms);
     }
     
   }
+
+  deleteCicle(idx:any) { this.rooms.splice(idx,1); }
+
   cicleTest() {
     this.room.room = 'Salon 1';
     this.room.total_capacity = 35;;
