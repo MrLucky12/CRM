@@ -18,7 +18,6 @@ app.put('/editar_curso_base_admin/:id', [auth.auth, path], cursoController.edita
 app.put('/cambiar_estado_curso_admin/:id', auth.auth, cursoController.cambiar_estado_curso_admin);
 // COURSE
 
-
 // COURSE LEVEL
 app.post('/registro_nivel_curso_admin', auth.auth, cursoController.registro_nivel_curso_admin);
 
@@ -26,9 +25,8 @@ app.get('/listar_nivel_curso_admin/:id', auth.auth, cursoController.listar_nivel
 
 // COURSE LEVEL
 
-
 // COURSE CICLE
-
+app.post('/crear_ciclo_admin', auth.auth, cursoController.crear_ciclo_admin);
 
 
 // COURSE CICLE

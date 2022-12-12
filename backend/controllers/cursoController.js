@@ -194,7 +194,47 @@ const listar_nivel_curso_admin = async function(req, res) {
 // LEVEL COURSE
 
 // CICLE COURSE
+const crear_ciclo_admin = async function(req, res) {
+    if (req.user) {
+        let data = req.body;
+        let months = [];
+        data.colaborador = req.user.sub;
 
+        let start_format = new Date(data.start_course+'T00:00:00');
+        let end_format = new Date(data.en_format+'T23:59:59');
+
+        let start_month = start_format.getMonth()+1;
+        let end_month = end_format.getMonth()+1;
+
+        // for (let i = start_month; i <= end_month; i++) { months.push(i); }
+
+        // SALES STARTS THE SAME DAY OF CREATION LOG
+        let start_sold = new Date().toISOString().slice(0, 10);
+        // SALES STARTS 14D BEFORE START COURSE
+        // start_sold = start_format;
+        // start_sold.setDate(start_sold.getDate()+14);
+        console.log(start_sold);
+
+        // OBTENER RANGO DE FECHAS DEL INICIO DEL CURSO
+        if (start_month != end_month) {
+            if (start_month >= end_month) {
+                for (let i = start_month; i <= 12; i++) { months.push(i); }
+                for (let i = 1; i <= end_month; i++) { months.push(i); }
+            }
+            else { for (let i = start_month; i <= end_month; i++) { months.push(i); } }
+        } 
+        else { months.push(start_month); }
+
+        data.months = months;
+        data.year = start_format.getFullYear();
+
+        console.log(start_month+' - '+end_month+ '|' +months);
+        console.log(data);
+
+    }else {
+        res.status(403).send({data: undefined, message: 'NoToken'});
+    }
+}
 
 
 // CICLE COURSE
@@ -208,5 +248,5 @@ module.exports = {
     cambiar_estado_curso_admin,
     registro_nivel_curso_admin,
     listar_nivel_curso_admin,
-
+    crear_ciclo_admin,
 }
