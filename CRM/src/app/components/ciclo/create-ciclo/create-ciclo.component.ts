@@ -58,11 +58,11 @@ export class CreateCicloComponent implements OnInit {
 
   public today = GLOBAL.TODAY;
 
-  constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute) 
+  constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute, private routerTo:Router) 
   { 
     this.dateConfig.minDate = GLOBAL.TODAY;
     this.currentTime();
-    this.cicleTest();
+    // this.cicleTest();
   }
 
   ngOnInit(): void {
@@ -83,8 +83,13 @@ export class CreateCicloComponent implements OnInit {
   registrar() {
     // CURSO DATA
     this.cicle.course = this.id;
-    this.cicle.start_course = this.fromDate?.day+'-'+this.fromDate?.month+'-'+this.fromDate?.year;
-    this.cicle.end_course = this.toDate?.day+'-'+this.toDate?.month+'-'+this.toDate?.year;
+    this.cicle.rooms = this.rooms
+    // DATE FORMAT
+    // let day1 = (this.fromDate?.day == undefined ? 1:this.fromDate?.day)< 10? '0'+this.fromDate?.day:2;
+    this.cicle.start_course = this.fromDate?.year+'-'+this.fromDate?.month+'-'+this.fromDate?.day;
+    this.cicle.end_course = this.toDate?.year+'-'+this.toDate?.month+'-'+this.toDate?.day;
+    // DATE FORMAT
+
     // CURSO DATA
 
     if(!this.cicle.level) { this.showToastMessage('Ingresar el nivel del curso', 'warning', 'Campo vacio !'); }
@@ -94,7 +99,18 @@ export class CreateCicloComponent implements OnInit {
     else if(!this.cicle.start_course || this.fromDate == undefined) { this.showToastMessage('Ingresar la fecha de inicio', 'warning', 'Campo vacio !'); }
     else if(!this.cicle.end_course || this.toDate == undefined) { this.showToastMessage('Ingresar la fecha de finalizacion', 'warning', 'Campo vacio !'); }
     else{
-      console.log(this.cicle);
+      this.cicle.start_course = (this.fromDate?.year)
+                                +'-'+(this.fromDate?.month<10?'0'+this.fromDate?.month:this.fromDate?.month)
+                                +'-'+(this.fromDate?.day<10?'0'+this.fromDate?.day:this.fromDate?.day);
+
+      this.cicle.end_course = (this.toDate?.year)
+                                +'-'+(this.toDate?.month<10?'0'+this.toDate?.month:this.toDate?.month)
+                                +'-'+(this.toDate?.day<10?'0'+this.toDate?.day:this.toDate?.day);
+
+      this.curso.crear_ciclo_admin(this.cicle, this.token).subscribe( response => { 
+        this.showToastMessage('Los ciclos se han registrado correctamente', 'success', 'Regsitrado !'); 
+        this.routerTo.navigate(['/curso/'+this.id+'/ciclo']);
+      } );
     }
     
   }
@@ -111,8 +127,10 @@ export class CreateCicloComponent implements OnInit {
       // CICLO DATA
       this.room.start_time = this.time1.hour+':'+(this.time1.minute>9? this.time1.minute:'0'+this.time1.minute);
       this.room.end_time = this.time2.hour+':'+(this.time2.minute>9? this.time2.minute:'0'+this.time2.minute);
-      // CICLO DATA
+      this.cicle.days = this.days;
       this.rooms.push(this.room);
+      this.cicle.room =  this.rooms;
+      // CICLO DATA
       this.room = { room: '', };
       this.days = [];
       $('.form-check-input').prop('checked', false);

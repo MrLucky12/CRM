@@ -7,6 +7,7 @@ var Nivel = require('../models/Curso_nivel');
 var fs = require('fs');
 var path = require('path');
 const { title } = require('process');
+const { start } = require('repl');
 
 // COURSE
 const registro_curso_base_admin = async function(req, res) {
@@ -201,19 +202,18 @@ const crear_ciclo_admin = async function(req, res) {
         data.colaborador = req.user.sub;
 
         let start_format = new Date(data.start_course+'T00:00:00');
-        let end_format = new Date(data.en_format+'T23:59:59');
+        let end_format = new Date(data.end_course+'T23:59:59');
 
         let start_month = start_format.getMonth()+1;
         let end_month = end_format.getMonth()+1;
 
-        // for (let i = start_month; i <= end_month; i++) { months.push(i); }
-
         // SALES STARTS THE SAME DAY OF CREATION LOG
         let start_sold = new Date().toISOString().slice(0, 10);
+        data.start_sold = start_sold;
         // SALES STARTS 14D BEFORE START COURSE
         // start_sold = start_format;
         // start_sold.setDate(start_sold.getDate()+14);
-        console.log(start_sold);
+        // console.log(start_sold);
 
         // OBTENER RANGO DE FECHAS DEL INICIO DEL CURSO
         if (start_month != end_month) {
@@ -227,13 +227,26 @@ const crear_ciclo_admin = async function(req, res) {
 
         data.months = months;
         data.year = start_format.getFullYear();
+        let cicle = await Ciclo_curso.create(data);
 
-        console.log(start_month+' - '+end_month+ '|' +months);
-        console.log(data);
+        // ROOM OR ROOMS?
+        let rooms = data.rooms;
+        for (var item of rooms) {
+            await Ciclo_salon.create({
+                days: item.days,
+                course: data.course,
+                ciclo_curso: cicle._id,
+                room: item.room,
+                total_capacity: item.total_capacity,
+                start_time: item.start_time,
+                end_time: item.end_time,
+                colaborador: data.colaborador
+            });
+        }
 
-    }else {
-        res.status(403).send({data: undefined, message: 'NoToken'});
+        res.status(200).send({data: cicle});
     }
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
 
 

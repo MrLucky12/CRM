@@ -11,7 +11,7 @@ var Ciclo_salonSchema = Schema({
     current_capacity: {type: Number, default: 0, required: true},
     start_time: {type: String, required: true}, //FORM
     end_time: {type: String, required: true}, //FORM
-    state: {type: Boolean, required: true},
+    // state: {type: Boolean, defaul: true, required: true},
 
     colaborado: {type: Schema.ObjectId, ref: 'colaborador', required: false}, //STATIC
     

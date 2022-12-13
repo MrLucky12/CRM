@@ -67,10 +67,13 @@ export class CursoService {
 
   // COURSE LEVEL
 
-  // COURSE CICLE
+  // CICLE CICLE
+  crear_ciclo_admin(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.post(this.url+'crear_ciclo_admin/', data, {headers: headers}); 
+  }
 
-
-  // COURSE CICLE
+  // cicle CICLE
 
 
 }
