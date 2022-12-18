@@ -18,195 +18,235 @@
 
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
+
+                    <!-- PRE CARGADOR -->
+                    <div class="card mb-4" *ngIf="load_data">
+                        <div class="col-md text-center">
+                            <br>
+                            <div class="text-light small fw-semibold">Cargando...</div>
+                            
+                            <div class="demo-inline-spacing">
+                                
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                
+                            </div>
+                            
+                            <br>
+                        </div>                                
+                    </div>
+                    <!-- PRE CARGADOR -->
+
                     <div class="row">
 
                         <div class="col-lg-12 py-0 my-2 order-0">
                             <div class="card">
 
-                                <div class="card card-custom card-stretch gutter-b">
+                                <!-- <ng-container *ngIf=""></ng-container> -->-
 
-                                    <!-- TITLE & BUTTON -->
-                                    <div class="card-header border-0 py-0 my-4 mb-0">
+                                <ng-container *ngIf="!load_data">
+
+                                    <ng-container *ngIf="data">
+                                        <div class="card card-custom card-stretch gutter-b">
+        
+                                            <!-- TITLE & BUTTON -->
+                                            <div class="card-header border-0 py-0 my-4 mb-0">
+                                                
+                                                <!-- TITLE'S -->
+                                                <h1 class="display-5 mb-0">{{course.title}}</h1>
+                                                <p class="mb-0">Solo se muestran cursos con clases vigentes</p>
+                                                <!-- TITLE'S -->
+        
+                                                <div class="card-toolbar my-2">
+        
+                                                    <a type="button" class="btn btn-info">Ir a vencidos</a>
                                         
-                                        <!-- TITLE'S -->
-                                        <h1 class="display-5 mb-0">Ciclos vigentes</h1>
-                                        <p class="mb-0">Solo se muestran cursos con clases vigentes</p>
-                                        <!-- TITLE'S -->
-
-                                        <div class="card-toolbar my-2">
-
-                                            <a type="button" class="btn btn-info">Ir a vencidos</a>
-                                
-                                            <a type="button" class="btn btn-primary" [routerLink]="['/']">Nuevo ciclo</a>
-
-                                        </div>
-                                    </div>
-
-                                    <br>
-                                    <!--begin::Body-->
-                                    <div class="card-body py-0">
-                                        
-                                        <!-- SEARCHER -->
-                                        <div class="row align-items-center mb-4">
-                                            <div class="col-lg-9 col-xl-8">
-                                                <div class="row align-items-center">
-                                                    
-                                                    <div class="col-md-5 my-2 my-md-0">
-                                                        <div class="d-flex align-items-center">
-                                                            <label class="mr-3 mb-0 d-none d-md-block">Nivel:&nbsp;</label>
-                                                            <select class="form-control">
-                                                                <option value="Todos">Todos</option>
-                                                                <option value="Basico 1">Basico 1</option>
-                                                                <option value="Basico 2">Basico 2</option>
-                                                                <option value="Basico 3">Basico 3</option>
-                                                                <option value="Intermedio 1">Intermedio 1</option>
-                                                                <option value="Intermedio 2">Intermedio 2</option>
-                                                                <option value="Intermedio 2">Intermedio 3</option>
-                                                                <option value="Avanzado 1">Avanzado 1</option>
-                                                                <option value="Avanzado 2">Avanzado 2</option>
-                                                                <option value="Avanzado 3">Avanzado 3</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col">
-                                                        <a style="cursor: pointer;" class="btn btn-light-primary px-6 font-weight-bold">Buscar</a>
-                                                    </div>
-
+                                                    <a [routerLink]="['/curso/'+id+'/ciclo/create']" class="btn btn-primary" >Nuevo ciclo</a>
+        
                                                 </div>
                                             </div>
-                                            
-                                        </div>
-                                
-                                        <table class="table table-borderless table-vertical-center">
-                                            <thead>
-                                                <tr>
-                                                    <th class="p-0" style="width: 50px"></th>
-                                                    <th class="p-0" style="min-width: 120px"></th>
-                                                    <th class="p-0" style="min-width: 100px"></th>
-                                                    <th class="p-0" style="min-width: 50px"></th>
-                                                    <th class="p-0" style="min-width: 70px"></th>
-                                                    <th class="p-0" style="min-width: 70px"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr style="background: #f6f4ff;">
-                                                    <td colspan="6">
-                                                        <div>
-                                                            <p style="margin-bottom: 0px;"><b class="badge bg-label-dark">Código</b>
-                                                            <b class="badge bg-dark">#61f3597b1334ee5e705c7055</b> </p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr style="background: #f6f4ff;">
-                                                    <td class="pl-4">
-                                                        <div class="symbol symbol-50 symbol-fixed mr-2 mt-2">
-                                                            <div class="symbol-label" style="background-image: url('assets/media/stock-600x400/img-26.jpg')"></div>
-                                                        </div>
-                                                    </td>
-                                                    
-                                                    <!-- FROM DATE-1 TO DATE-2 -->
-                                                    <td class="pl-0" align="center">
-                                                        <span class="badge bg-dark">Avanzado 1</span><br>
-                                                        <span class="badge bg-label-dark">01/01/2022 - 01/03/2022</span>
-                                                    </td>
-                                                    <!-- FROM DATE-1 TO DATE-2 -->
-
-                                                    <!-- CICLOS -->
-                                                    <td align="center">
-                                                        <span class="badge bg-dark">Ene,Feb,Mar</span><br>
-                                                        <span class="badge bg-label-dark"> Ciclos </span>
-                                                    </td>
-                                                    <!-- CICLOS -->
-                                                    
-                                                    <!-- STATE -->
-                                                    <td align="center">
-                                                        <ng-container>
-                                                            <span class="badge bg-warning">Publicado</span>
-                                                        </ng-container>
-                                                        <!-- <ng-container>
-                                                            <span class="badge badge-success">Borrador</span>
-                                                        </ng-container> -->
-                                                    </td>
-                                                    <!-- STATE -->
-                                                    
-                                                    <!-- CREATION -->
-                                                    <td class="text-right">
-                                                        <span class="badge bg-dark">12 Dic, 2021</span><br>
-                                                        <span class="badge bg-label-dark">Creación</span>
-                                                    </td>
-                                                    <!-- CREATION -->
-
-                                                    <td class="text-right pr-4" >
-                                                        <div class="dropdown dropdown-inline dropleft">
-                                                            <button type="button" class="btn btn-light-primary btn-icon btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i class="ki ki-bold-more-ver"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item" >
-                                                                    <i class="icon-1x text-dark-50 flaticon-edit"></i> &nbsp; Editar curso
-                                                                </a>
-                                
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="6">
-                                                        <table class="table table-bordered table-sm table-striped" style="margin-bottom: 0px;">
-                                                            <ng-container>
-                                                                <thead>
-                                                                    <th class="text-primary">Salón</th>
-                                                                    <th class="text-primary">Horario</th>
-                                                                    <th class="text-primary">Días</th>
-                                                                    <th class="text-primary">Aforo</th>
-                                                                </thead>
-                                                                <tr>
-                                                                    <td>
-                                                                        Salon 1
-                                                                    </td>
-                                                                    <td>
-                                                                        <span>15:00</span> - <span>16:30</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                                                            Lun,Mie,Vie
-                                                                        </span>
-                                                                        <span class="text-muted font-weight-bold">Días</span>
-                                                                    </td>
-                                                                    <td>
-                                                                        <strong>40</strong>
-                                                                        <span>(10)</span>
-                                                                    </td>
-                                                                </tr>
-                                                            </ng-container>
+        
+                                            <br>
+                                            <!--begin::Body-->
+                                            <div class="card-body py-0">
+                                                
+                                                <!-- SEARCHER -->
+                                                <div class="row align-items-center mb-4">
+                                                    <div class="col-lg-9 col-xl-8">
+                                                        <div class="row align-items-center">
                                                             
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                            <!-- <tbody>
-                                                <tr>
-                                                    <td colspan="6" class="text-center">
-                                                        <span class="text-muted">No se encontraron resultados.</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>   -->
+                                                            <div class="col-md-3 my-2 my-md-0">
+                                                                <div class="d-flex align-items-center">
+                                                                    <label class="mr-3 mb-0 d-none d-md-block">Nivel:&nbsp;</label>
+                                                                    <select class="form-select" name="filter" [(ngModel)]="filter">
+                                                                        <option value="Todos">Todos</option>
+                                                                        <option [value]="item.level" *ngFor="let item of levelList">{{item.level}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+        
+                                                            <div class="col">
+                                                                <a style="cursor: pointer;" class="button" (click)="filtrar()">Buscar</a>
+                                                            </div>
+        
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                        
+                                                <table class="table table-borderless table-vertical-center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="p-0" style="width: 10%"></th>
+                                                            <th class="p-0" style="min-width: 120px"></th>
+                                                            <th class="p-0" style="min-width: 100px"></th>
+                                                            <th class="p-0" style="min-width: 50px"></th>
+                                                            <th class="p-0" style="min-width: 70px"></th>
+                                                            <th class="p-0" style="min-width: 10%"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    <ng-container *ngFor="let item of cicles">
+                                                         
+                                                        <!-- ID CICLE -->
+                                                        <tr style="background: #f6f4ff;">
+                                                            <td colspan="6">
+                                                                <div>
+                                                                    <p style="margin-bottom: 0px;"><b class="badge bg-label-dark">Código</b>
+                                                                    <b class="badge bg-dark">{{item.cicle._id}}</b> </p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <!-- CICLE DATA | ERROR -->
+                                                        <tr style="background: #f6f4ff;">
+                                                            <td class="">
+                                                                <img class="card-img-top" [src]="url+item.cicle.course.banner" width="100%"/>
+                                                            </td>
+                                                            
+                                                            <!-- FROM DATE-1 TO DATE-2 -->
+                                                            <td class="pl-0" align="center">
+                                                                <span class="badge bg-dark">{{item.cicle.level}}</span><br>
+                                                                <span class="badge bg-label-dark">{{item.cicle.start_course|date}} - {{item.cicle.end_course|date}}</span>
+                                                            </td>
+                                                            <!-- FROM DATE-1 TO DATE-2 -->
+        
+                                                            <!-- CICLOS -->
+                                                            <td align="center">
+                                                                <ng-container *ngFor="let subitem of item.cicle.months; let last = last">
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 1">Ene<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 2">Feb<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 3">Mar<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 4">Abri<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 5">May<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 6">Jun<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 7">Jul<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 8">Ago<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 9">Sep<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 10">Oct<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 11">Nov<ng-container *ngIf="!last">, </ng-container></span>
+                                                                    <span class="badge bg-dark" *ngIf="subitem == 12">Dic<ng-container *ngIf="!last">, </ng-container></span>
+                                                                </ng-container>
+                                                                <br>
+                                                                <span class="badge bg-label-dark"> Ciclos </span>
+                                                            </td>
+                                                            <!-- CICLOS -->
+                                                            
+                                                            <!-- STATE -->
+                                                            <td align="center">
+                                                                <ng-container *ngIf="item.cicle.state">
+                                                                    <span class="badge bg-sucess">Publicado</span>
+                                                                </ng-container>
+                                                                <ng-container *ngIf="!item.cicle.state">
+                                                                    <span class="badge bg-warning">Borrador</span>
+                                                                </ng-container>
+                                                            </td>
+                                                            <!-- STATE -->
+                                                            
+                                                            <!-- CREATION -->
+                                                            <td class="text-right">
+                                                                <span class="badge bg-dark">{{item.cicle.createdAt|date:'dd-MM-YYYY'}}</span><br>
+                                                                <span class="badge bg-label-dark">Creación</span>
+                                                            </td>
+                                                            <!-- CREATION -->
+        
+                                                            <td class="text-right pr-4" >
+                                                                <div class="dropdown col-s-12 col-lg-3 m-1 p-0" >
+                                                                    <button type="button" class="btn btn-primary dropdown-toggle hide-arrow" 
+                                                                        data-bs-toggle="dropdown" style="width: 100%;">O</button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"><i class='bx bx-edit'></i> Editar</a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            
+                                                        </tr>
+        
+                                                        <tr align="center">
+                                                            <td colspan="6">
+                                                                <table class="table table-bordered table-sm table-striped " >
+                                                                    <ng-container>
+                                                                        <thead align="center">
+                                                                            <th class="text-primary">Salón</th>
+                                                                            <th class="text-primary">Horario</th>
+                                                                            <th class="text-primary">Días</th>
+                                                                            <th class="text-primary">Aforo</th>
+                                                                        </thead>
+                                                                        <tr *ngFor="let subitem of item.room" align="center">
+                                                                            <td> {{subitem.room}} </td>
+                                                                            <td><span>{{subitem.start_time}}</span> - <span>{{subitem.end_time}}</span> </td>
+                                                                            <td>
+                                                                                <ng-container *ngFor="let day of subitem.days; let last = last">
+                                                                                    <span *ngIf="!last">{{day.substr(0,2)}},</span>
+                                                                                    <span *ngIf="last">{{day.substr(0,2)}}</span>
+                                                                                </ng-container>
+                                                                            </td>
+                                                                            <td>
+                                                                                <strong>{{subitem.total_capacity}}</strong>
+                                                                                <span>({{subitem.current_capacity}})</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </ng-container>
+                                                                    
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+
+                                                    </ng-container>
+        
+                                                        
+                                                    </tbody>
+                                                    <!-- <tbody>
+                                                        <tr>
+                                                            <td colspan="6" class="text-center">
+                                                                <span class="text-muted">No se encontraron resultados.</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>   -->
+                                                    
+                                                    
+                                                </table>
+                                        
+                                                        
+                                                <!--end::Table-->
+                                            </div>
                                             
-                                            
-                                        </table>
-                                
-                                                
-                                        <!--end::Table-->
-                                    </div>
-                                    
-                                    <!--end::Body-->
-                                </div>
+                                            <!--end::Body-->
+                                        </div>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="!data"><app-notfound></app-notfound></ng-container>
+
+                                </ng-container>
+
 
                             </div>
                         </div>

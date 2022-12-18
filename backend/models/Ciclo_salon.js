@@ -13,7 +13,7 @@ var Ciclo_salonSchema = Schema({
     end_time: {type: String, required: true}, //FORM
     // state: {type: Boolean, defaul: true, required: true},
 
-    colaborado: {type: Schema.ObjectId, ref: 'colaborador', required: false}, //STATIC
+    colaborador: {type: Schema.ObjectId, ref: 'colaborador', required: false}, //STATIC
     
     createdAt: {type: Date, default: Date.now, required: true}
 

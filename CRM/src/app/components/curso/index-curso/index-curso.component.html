@@ -50,9 +50,21 @@
                                         <span class="badge bg-label-danger" *ngIf="!item.state">Desactivado</span>
                                     </h5>
 
-                                    <p class="card-text" style="height: 30%;">
-                                        {{item.description}}
-                                    </p>
+                                    <div class="card accordion-item">
+                                        <h2 class="accordion-header" [id]="item._id">
+                                          <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                          [attr.data-bs-target]="'#accordionExample'+item._id" aria-expanded="false" aria-controls="accordionTwo">
+                                            Descripcion
+                                          </button>
+                                        </h2>
+                                        <div class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" 
+                                        [attr.id]="'accordionExample'+item._id">
+                                          <div class="accordion-body">
+                                            <p class="card-text" > {{item.description}} </p>
+                                          </div>
+                                        </div>
+                                      </div>
+
 
                                     <h5 class="card-title">
                                         <span class="badge bg-label-dark my-2">{{item.createdAt|date:'dd-MM-yyyy'}}</span>

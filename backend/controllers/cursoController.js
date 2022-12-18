@@ -230,7 +230,7 @@ const crear_ciclo_admin = async function(req, res) {
         let cicle = await Ciclo_curso.create(data);
 
         // ROOM OR ROOMS?
-        let rooms = data.rooms;
+        let rooms = data.room;
         for (var item of rooms) {
             await Ciclo_salon.create({
                 days: item.days,
@@ -249,6 +249,33 @@ const crear_ciclo_admin = async function(req, res) {
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
 
+const listar_ciclos_admin = async function(req, res) {
+    if (req.user) {
+    
+        // let id = req.params['id'];
+        let date = new Date();
+        let year = date.getFullYear();
+        let today_format = Date.parse(new Date())/1000;
+
+        var cicles = await Ciclo_curso.find({year: year}).populate('course');
+        var v = [];
+    
+        for(var item of cicles) 
+        {
+            // let start_format = Date.parse(new Date(item.start_course+'T00:00:00'))/1000;
+            let end_format = Date.parse(new Date(item.end_course+'T00:00:00'))/1000;
+
+            if (today_format <= end_format) 
+            {
+                let rooms = await Ciclo_salon.find({ciclo_curso:item._id});
+                v.push({cicle:item, room: rooms}); 
+            }
+        }
+
+        res.status(200).send({data: v});
+    }
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
 
 // CICLE COURSE
 
@@ -262,4 +289,5 @@ module.exports = {
     registro_nivel_curso_admin,
     listar_nivel_curso_admin,
     crear_ciclo_admin,
+    listar_ciclos_admin,
 }

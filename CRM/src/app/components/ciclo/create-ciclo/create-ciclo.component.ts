@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDate, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { GLOBAL } from 'src/app/services/GLOBAL';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CursoService } from 'src/app/services/curso.service';
+import { GLOBAL } from 'src/app/services/GLOBAL';
 declare var $:any;
 
 @Component({
@@ -52,6 +52,7 @@ export class CreateCicloComponent implements OnInit {
     level: '',
     location: '',
   };
+
   public room:any = { room: '', };
   public days:Array<any> = [];
   public rooms:Array<any> = [];
@@ -66,24 +67,28 @@ export class CreateCicloComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._route.params.subscribe( params => { this.id = params['id']; });
-    this.curso.listar_nivel_curso_admin(this.id, this.token).subscribe( response => { this.levelList = response.data; } ); 
-    this.curso.obtener_datos_curso_admin(this.id, this.token).subscribe(
-      response => { 
-        if (response.data != undefined) {
-          this.data = true;
-          this.load_data = false;
-        } else {
-          this.data = false;
-          this.load_data = false;
-        }
-      } );
+    this._route.params.subscribe( 
+      params => { 
+        this.id = params['id']; 
+        this.curso.listar_nivel_curso_admin(this.id, this.token).subscribe( response => { this.levelList = response.data; } ); 
+        this.curso.obtener_datos_curso_admin(this.id, this.token).subscribe(
+          response => { 
+            if (response.data != undefined) {
+              this.data = true;
+              this.load_data = false;
+            } else {
+              this.data = false;
+              this.load_data = false;
+            }
+          } );
+      });
+      console.log(this.id);
   }
 
   registrar() {
     // CURSO DATA
     this.cicle.course = this.id;
-    this.cicle.rooms = this.rooms
+    this.cicle.room = this.rooms
     // DATE FORMAT
     // let day1 = (this.fromDate?.day == undefined ? 1:this.fromDate?.day)< 10? '0'+this.fromDate?.day:2;
     this.cicle.start_course = this.fromDate?.year+'-'+this.fromDate?.month+'-'+this.fromDate?.day;
@@ -120,7 +125,7 @@ export class CreateCicloComponent implements OnInit {
     if (!this.room.room) { this.showToastMessage('Ingresar el salon', 'warning', 'Campo vacio !'); }
     else if (!this.room.total_capacity) { this.showToastMessage('Ingresar el aforo total', 'warning', 'Campo vacio !'); }
     else if (this.time1 == undefined || this.time1 == null || this.time2 == undefined || this.time2 == null) 
-    { this.showToastMessage('Ingresar las horas de inicio y final', 'warning', 'Campo vacio !'); }
+      { this.showToastMessage('Ingresar las horas de inicio y final', 'warning', 'Campo vacio !'); }
     else if (this.time1.hour > this.time2.hour) { this.showToastMessage('La hora de inicio no puede ser mayor que la hora de termino', 'warning', 'Fechas incorrectas !'); }
     else if (this.room.days.length <= 0) { this.showToastMessage('Ingresar los dias', 'warning', 'Campo vacio !'); }
     else {

@@ -27,7 +27,7 @@ app.get('/listar_nivel_curso_admin/:id', auth.auth, cursoController.listar_nivel
 
 // COURSE CICLE
 app.post('/crear_ciclo_admin', auth.auth, cursoController.crear_ciclo_admin);
-
+app.get('/listar_ciclos_admin', auth.auth, cursoController.listar_ciclos_admin);
 
 // COURSE CICLE
 

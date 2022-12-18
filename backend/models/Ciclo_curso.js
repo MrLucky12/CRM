@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var Ciclo_cursoSchema = Schema({
 
     months: [{type: Object, required: true}],
-    course: {type: String, required: false}, //STATIC
+    course: {type: Schema.ObjectId, ref: 'curso', required: false}, //STATIC
     level: {type: String, required: true}, //FORM
     location: {type: String, required: true}, //FORM
     description: {type: String, required: false}, //FORM
