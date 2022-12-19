@@ -78,6 +78,11 @@ export class CursoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.get(this.url+'listar_ciclos_admin', {headers:headers});
   }
+
+  listar_ciclos_vencidos_admin(token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_ciclos_vencidos_admin', {headers:headers});
+  }
   // cicle CICLE
 
 

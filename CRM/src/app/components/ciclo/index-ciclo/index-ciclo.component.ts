@@ -52,16 +52,16 @@ export class IndexCicloComponent implements OnInit {
     this.curso.listar_ciclos_admin(this.token).subscribe( 
       response => { 
         this.cicles = response.data; 
+        // REVISAR CREAR CURSO POR SI HAY ERROR AL GUARDAR EL ID CURSO
+        this.cicles = this.cicles.filter(item => item.cicle.course._id == this.id);
         this.ciclesFilter = this.cicles;
       }); 
     }
 
 
   filtrar() {
-    if (this.filter == 'Todos') { this.cicles = this.ciclesFilter }
-    else {
-      this.cicles = this.ciclesFilter.filter(item => item.cicle.level == this.filter);
-    }
+    if (this.filter == 'Todos') {  this.cicles = this.ciclesFilter; }
+    else { this.cicles = this.ciclesFilter.filter(item => item.cicle.level == this.filter); }
   }
 
 

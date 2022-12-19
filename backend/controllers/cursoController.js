@@ -262,10 +262,36 @@ const listar_ciclos_admin = async function(req, res) {
     
         for(var item of cicles) 
         {
-            // let start_format = Date.parse(new Date(item.start_course+'T00:00:00'))/1000;
+            let start_format = Date.parse(new Date(item.start_sold+'T00:00:00'))/1000;
             let end_format = Date.parse(new Date(item.end_course+'T00:00:00'))/1000;
 
-            if (today_format <= end_format) 
+            if (today_format >= start_format && today_format <= end_format) 
+            {
+                let rooms = await Ciclo_salon.find({ciclo_curso:item._id});
+                v.push({cicle:item, room: rooms}); 
+            }
+        }
+
+        res.status(200).send({data: v});
+    }
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+
+const listar_ciclos_vencidos_admin = async function(req, res) {
+    if (req.user) {
+    
+        let date = new Date();
+        let year = date.getFullYear();
+        let today_format = Date.parse(new Date())/1000;
+
+        var cicles = await Ciclo_curso.find({year: year}).populate('course');
+        var v = [];
+    
+        for(var item of cicles) 
+        {
+            let end_format = Date.parse(new Date(item.end_course+'T00:00:00'))/1000;
+
+            if (today_format >= end_format) 
             {
                 let rooms = await Ciclo_salon.find({ciclo_curso:item._id});
                 v.push({cicle:item, room: rooms}); 
@@ -290,4 +316,6 @@ module.exports = {
     listar_nivel_curso_admin,
     crear_ciclo_admin,
     listar_ciclos_admin,
+    listar_ciclos_vencidos_admin,
+
 }
