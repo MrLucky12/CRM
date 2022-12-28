@@ -303,6 +303,23 @@ const listar_ciclos_vencidos_admin = async function(req, res) {
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
 
+const obtener_datos_curso_ciclo_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let idcicle = req.params['idciclo'];
+
+        try {
+            let course = await Curso.findById({_id: id}).populate('level'); 
+            try {
+                let cicle = await Ciclo_curso.findById({_id: idcicle});
+                let rooms = await Ciclo_salon.find({ciclo_curso: idcicle});
+                res.status(200).send({data: course, cicle: cicle, rooms: rooms}); 
+            }
+            catch (error) { res.status(200).send({data: undefined}); }
+        } 
+        catch (error) { res.status(200).send({data: undefined});  } }
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
 // CICLE COURSE
 
 module.exports = {
@@ -317,5 +334,5 @@ module.exports = {
     crear_ciclo_admin,
     listar_ciclos_admin,
     listar_ciclos_vencidos_admin,
-
+    obtener_datos_curso_ciclo_admin,
 }

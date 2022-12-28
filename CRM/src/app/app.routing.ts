@@ -34,6 +34,7 @@ import { EditCursoComponent } from "./components/curso/edit-curso/edit-curso.com
 import { IndexCicloComponent } from "./components/ciclo/index-ciclo/index-ciclo.component";
 import { CreateCicloComponent } from "./components/ciclo/create-ciclo/create-ciclo.component";
 import { VencidasCicloComponent } from "./components/ciclo/vencidas-ciclo/vencidas-ciclo.component";
+import { EditCicloComponent } from "./components/ciclo/edit-ciclo/edit-ciclo.component";
 
 
 // CONSTANTE QUE CONTIENE TODAS LAS RUTAS DEL APLICATIVO
@@ -68,10 +69,12 @@ const appRoutes : Routes = [
     { path: 'curso/create', component: CreateCursoComponent },
     { path: 'curso/:id', component: EditCursoComponent },
 
-    // RUTAS DE CURSOS
+    // RUTAS DE CICLOS
     { path: 'curso/:id/ciclo', component: IndexCicloComponent },
     { path: 'curso/:id/ciclo/create', component: CreateCicloComponent },
     { path: 'curso/:id/ciclo/vencido', component: VencidasCicloComponent },
+    { path: 'curso/:id/ciclo/edit/:idciclo', component: EditCicloComponent },
+
 
 ]
 

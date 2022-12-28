@@ -39,6 +39,7 @@ import { EditCursoComponent } from './components/curso/edit-curso/edit-curso.com
 import { IndexCicloComponent } from './components/ciclo/index-ciclo/index-ciclo.component';
 import { CreateCicloComponent } from './components/ciclo/create-ciclo/create-ciclo.component';
 import { VencidasCicloComponent } from './components/ciclo/vencidas-ciclo/vencidas-ciclo.component';
+import { EditCicloComponent } from './components/ciclo/edit-ciclo/edit-ciclo.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { VencidasCicloComponent } from './components/ciclo/vencidas-ciclo/vencid
     EditCursoComponent,
     IndexCicloComponent,
     CreateCicloComponent,
-    VencidasCicloComponent
+    VencidasCicloComponent,
+    EditCicloComponent
   ],
   imports: [
     BrowserModule,

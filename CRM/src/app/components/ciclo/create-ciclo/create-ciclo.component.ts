@@ -37,12 +37,13 @@ declare var $:any;
 })
 export class CreateCicloComponent implements OnInit {
 
+  // DEFAULT DATA
   public id = '';
   public token = localStorage.getItem('token');
-
-  public btn_load = false;
-
+  // DEFAULT DATA
+  
   // PRE LOADER
+  public btn_load = false;
   public load_data = true;
   public data = false;
   // PRE LOADER
