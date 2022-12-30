@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbDate, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CursoService } from 'src/app/services/curso.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
@@ -57,9 +57,11 @@ export class EditCicloComponent implements OnInit {
 
   public today = GLOBAL.TODAY;
 
-  constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute, private routerTo:Router)
+  constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute, private routerTo:Router,
+    calendar: NgbCalendar)
   { 
-    this.dateConfig.minDate = GLOBAL.TODAY;
+    // LA EDICION DE UN CURSO PUEDE REALIZAR EN FECHA POSTERIOR A LA ACTUAL
+    // this.dateConfig.minDate = GLOBAL.TODAY;
   }
 
   ngOnInit(): void {
@@ -75,17 +77,49 @@ export class EditCicloComponent implements OnInit {
               this.data = true;
               this.cicle = response.cicle;
               this.rooms = response.rooms;
+              let s = new Date(response.cicle.start_course);
+              this.fromDate = new NgbDate(s.getFullYear(),s.getMonth()+1,s.getDate()+1);
+              console.log(s+' | '+this.fromDate.day);
+              let e = new Date(response.cicle.end_course);
+              this.toDate = new NgbDate(e.getFullYear(),e.getMonth()+1,e.getDate()+1);
+              console.log(e+' | '+this.toDate.day);
               this.load_data = false;
             } else {
               this.data = false;
               this.load_data = false;
             }
           } );
-      });
+    });
   }
 
   actualizar() {
 
+    // DATE FORMAT
+    this.cicle.start_course = this.fromDate?.year+'-'+this.fromDate?.month+'-'+this.fromDate?.day;
+    this.cicle.end_course = this.toDate?.year+'-'+this.toDate?.month+'-'+this.toDate?.day;
+    // DATE FORMAT
+
+    if(!this.cicle.level) { this.showToastMessage('Ingresar el nivel del curso', 'warning', 'Campo vacio !'); }
+    else if(!this.cicle.location) { this.showToastMessage('Ingresar la sede del curso', 'warning', 'Campo vacio !'); }
+    else if(!this.cicle.price) { this.showToastMessage('Ingresar el precio del curso', 'warning', 'Campo vacio !'); }
+    else if(this.cicle.price <= 0) { this.showToastMessage('Ingresar un precio valido', 'warning', 'Campo vacio !'); }
+    else if(!this.cicle.start_course || this.fromDate == undefined) { this.showToastMessage('Ingresar la fecha de inicio', 'warning', 'Campo vacio !'); }
+    else if(!this.cicle.end_course || this.toDate == undefined) { this.showToastMessage('Ingresar la fecha de finalizacion', 'warning', 'Campo vacio !'); }
+    else{
+      this.cicle.start_course = (this.fromDate?.year)
+                                +'-'+(this.fromDate?.month<10?'0'+this.fromDate?.month:this.fromDate?.month)
+                                +'-'+(this.fromDate?.day<10?'0'+this.fromDate?.day:this.fromDate?.day);
+
+      this.cicle.end_course = (this.toDate?.year)
+                                +'-'+(this.toDate?.month<10?'0'+this.toDate?.month:this.toDate?.month)
+                                +'-'+(this.toDate?.day<10?'0'+this.toDate?.day:this.toDate?.day);
+
+      this.curso.editar_ciclo_admin(this.idciclo, this.cicle, this.token).subscribe( 
+        response => { 
+          this.showToastMessage('Los ciclos se han actualizado correctamente', 'success', 'Actualizado !'); 
+          this.routerTo.navigate(['/curso/'+this.id+'/ciclo']);
+      } );
+    }
   }
 
   newCicle() {
@@ -124,35 +158,36 @@ export class EditCicloComponent implements OnInit {
     }
   }
 
-    // TIME PICKER
-    public spinners = true;
-    public time1 = { hour: 0, minute: 0 };
-    public time2 = { hour: 0, minute: 0 };
-    currentTime() {
-      this.time1 = {hour: 13, minute: 0};
-      this.time2 = this.time1;
+  // TIME PICKER
+  public spinners = true;
+  public time1 = { hour: 0, minute: 0 };
+  public time2 = { hour: 0, minute: 0 };
+  currentTime() {
+    this.time1 = {hour: 13, minute: 0};
+    this.time2 = this.time1;
+  }
+  // TIME PICKER
+
+  // DATE PICKER
+  public hoveredDate: NgbDate | null = null;
+  public fromDate: NgbDate | null = null;
+  public toDate: NgbDate | null = null;
+
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) { this.fromDate = date; }
+    else if (this.fromDate && !this.toDate && date.after(this.fromDate)) { this.toDate = date; }
+    else {
+      this.toDate = null;
+      this.fromDate = date;
     }
-    // TIME PICKER
+  }
   
-    // DATE PICKER
-    public hoveredDate: NgbDate | null = null;
-    public fromDate: NgbDate | null = null;
-    public toDate: NgbDate | null = null;
-    onDateSelection(date: NgbDate) {
-      if (!this.fromDate && !this.toDate) { this.fromDate = date; }
-      else if (this.fromDate && !this.toDate && date.after(this.fromDate)) { this.toDate = date; }
-      else {
-        this.toDate = null;
-        this.fromDate = date;
-      }
-    }
-  
-    isHovered(date: NgbDate) { return ( this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate) ); }
-  
-    isInside(date: NgbDate) { return this.toDate && date.after(this.fromDate) && date.before(this.toDate); }
-  
-    isRange(date: NgbDate) { return ( date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date) ); }
-    // DATE PICKER
+  isHovered(date: NgbDate) { return ( this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate) ); }
+
+  isInside(date: NgbDate) { return this.toDate && date.after(this.fromDate) && date.before(this.toDate); }
+
+  isRange(date: NgbDate) { return ( date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date) ); }
+  // DATE PICKER
 
   // TOAST MESSAGE
   private show: boolean = false;

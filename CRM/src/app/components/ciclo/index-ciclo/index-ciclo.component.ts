@@ -56,7 +56,7 @@ export class IndexCicloComponent implements OnInit {
         this.cicles = this.cicles.filter(item => item.cicle.course._id == this.id);
         this.ciclesFilter = this.cicles;
       }); 
-    }
+  }
 
 
   filtrar() {
