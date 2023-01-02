@@ -341,6 +341,24 @@ const editar_ciclo_admin = async function(req, res) {
     else{ res.status(403).send({data: undefined, message: 'No Token'}); }
 
 }
+
+const agregar_salon_ciclo_admin = async function(req, res) {
+    if (req.user) {
+        let data = req.body;
+        let room = await Ciclo_salon.create(data);
+        res.status(200).send({data: room});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+
+const obtener_salones_ciclo_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        let rooms = await Ciclo_salon.find({ciclo_curso: id});
+        res.status(200).send({data: rooms});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
 // CICLE COURSE
 
 module.exports = {
@@ -357,4 +375,6 @@ module.exports = {
     listar_ciclos_vencidos_admin,
     obtener_datos_curso_ciclo_admin,
     editar_ciclo_admin,
+    agregar_salon_ciclo_admin,
+    obtener_salones_ciclo_admin,
 }

@@ -123,7 +123,10 @@ export class EditCicloComponent implements OnInit {
   }
 
   newCicle() {
+    this.room.ciclo_curso = this.idciclo;
     this.room.days = this.days;
+    this.cicle.days = this.days;
+    this.cicle.room =  this.rooms;
     if (!this.room.room) { this.showToastMessage('Ingresar el salon', 'warning', 'Campo vacio !'); }
     else if (!this.room.total_capacity) { this.showToastMessage('Ingresar el aforo total', 'warning', 'Campo vacio !'); }
     else if (this.time1 == undefined || this.time1 == null || this.time2 == undefined || this.time2 == null) 
@@ -134,19 +137,20 @@ export class EditCicloComponent implements OnInit {
       // CICLO DATA
       this.room.start_time = this.time1.hour+':'+(this.time1.minute>9? this.time1.minute:'0'+this.time1.minute);
       this.room.end_time = this.time2.hour+':'+(this.time2.minute>9? this.time2.minute:'0'+this.time2.minute);
-      this.cicle.days = this.days;
-      this.rooms.push(this.room);
-      this.cicle.room =  this.rooms;
+      this.curso.agregar_salon_ciclo_admin(this.room, this.token).subscribe( response => { console.log(response); } );
       // CICLO DATA
       this.room = { room: '', };
       this.days = [];
       $('.form-check-input').prop('checked', false);
+      this.init_rooms();
       console.log(this.rooms);
     }
     
   }
 
   deleteCicle(idx:any) { this.rooms.splice(idx,1); }
+
+  init_rooms() { this.curso.obtener_salones_ciclo_admin(this.idciclo, this.token).subscribe( response => { this.rooms = response.data; }); }
 
   select_day(event:any) {
     let status = event.currentTarget.checked;
