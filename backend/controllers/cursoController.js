@@ -389,6 +389,27 @@ const cambiar_estado_ciclo_admin = async function(req, res) {
         res.status(403).send({data: undefined, message: 'NoToken'});
     }
 }
+
+const listar_docente_salon_admin = async function(req, res) {
+    if (req.user) 
+    {
+        let id = req.params['id'];
+        let list = await Ciclo_docente.find({ciclo_curso: id});
+        res.status(200).send({data: list});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+
+const agregar_docente_salon_admin = async function(req, res)
+{
+    if (req.user) 
+    {
+        let data = req.body;
+        let teacher = await Ciclo_docente.create(data);
+        res.status(200).send({data: teacher});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
 // CICLE COURSE
 
 module.exports = {
@@ -409,4 +430,6 @@ module.exports = {
     obtener_salones_ciclo_admin,
     eliminar_salon_ciclo_admin,
     cambiar_estado_ciclo_admin,
+    listar_docente_salon_admin,
+    agregar_docente_salon_admin,
 }

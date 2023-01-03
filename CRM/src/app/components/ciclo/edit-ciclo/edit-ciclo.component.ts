@@ -3,6 +3,7 @@ import { NgbCalendar, NgbDate, NgbDatepickerConfig } from '@ng-bootstrap/ng-boot
 import { ActivatedRoute, Router } from '@angular/router';
 import { CursoService } from 'src/app/services/curso.service';
 import { GLOBAL } from 'src/app/services/GLOBAL';
+import { ColaboradorService } from 'src/app/services/colaborador.service';
 declare var $:any;
 
 @Component({
@@ -49,7 +50,12 @@ export class EditCicloComponent implements OnInit {
   // PRE LOADER
 
   public levelList: Array<any> = [];
+  public teacherList: Array<any> = [];
   public cicle:any = { level: '', location: '' };
+  // SEARCHER
+  public teacherFilter = '';
+  public teacherListCosnt: Array<any> = [];
+  // SEARCHER
 
   public room:any = { room: '' };
   public days:Array<any> = [];
@@ -59,7 +65,7 @@ export class EditCicloComponent implements OnInit {
   public load_delete = false;
 
   constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute, private routerTo:Router,
-    calendar: NgbCalendar)
+    calendar: NgbCalendar, private colaborador:ColaboradorService)
   { 
     // LA EDICION DE UN CURSO PUEDE REALIZAR EN FECHA POSTERIOR A LA ACTUAL
     // this.dateConfig.minDate = GLOBAL.TODAY;
@@ -79,12 +85,15 @@ export class EditCicloComponent implements OnInit {
               this.data = true;
               this.cicle = response.cicle;
               this.rooms = response.rooms;
+              this.init_teachers();
+              // GET FROM & TO DATE
               let s = new Date(response.cicle.start_course);
               this.fromDate = new NgbDate(s.getFullYear(),s.getMonth()+1,s.getDate()+1);
               console.log(s+' | '+this.fromDate.day);
               let e = new Date(response.cicle.end_course);
               this.toDate = new NgbDate(e.getFullYear(),e.getMonth()+1,e.getDate()+1);
               console.log(e+' | '+this.toDate.day);
+              // GET FROM & TO DATE
               this.load_data = false;
             } else {
               this.data = false;
@@ -167,7 +176,29 @@ export class EditCicloComponent implements OnInit {
       ); 
   }
 
+  teacherSearch() 
+  {
+    if (this.teacherFilter) 
+    {
+      var term = new RegExp(this.teacherFilter, 'i');
+      this.teacherList = this.teacherListCosnt
+      .filter(item => term.test(item.name) || term.test(item.lastName) || term.test(item.email) || term.test(item.n_doc));
+    } 
+    else { this.teacherList = this.teacherListCosnt; }
+  }
+
   init_rooms() { this.curso.obtener_salones_ciclo_admin(this.idciclo, this.token).subscribe( response => { this.rooms = response.data; }); }
+
+  init_teachers() 
+  { 
+    this.colaborador.listar_docentes_admin(this.token)
+    .subscribe( response => 
+      { 
+        this.teacherList = response.data;
+        this.teacherListCosnt = this.teacherList;
+      } 
+    ); 
+  }
 
   select_day(event:any) 
   {

@@ -113,6 +113,16 @@ export class CursoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.put(this.url+'cambiar_estado_ciclo_admin/'+id, data, {headers:headers});
   }
+
+  listar_docente_salon_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_docente_salon_admin/'+id, {headers: headers}); 
+  }
+
+  agregar_docente_salon_admin(data: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.post(this.url+'agregar_docente_salon_admin', data, {headers: headers}); 
+  }
   // cicle CICLE
 
 

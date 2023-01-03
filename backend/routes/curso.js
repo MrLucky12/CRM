@@ -28,16 +28,18 @@ app.get('/listar_nivel_curso_admin/:id', auth.auth, cursoController.listar_nivel
 // COURSE CICLE
 app.post('/crear_ciclo_admin', auth.auth, cursoController.crear_ciclo_admin);
 app.post('/agregar_salon_ciclo_admin', auth.auth, cursoController.agregar_salon_ciclo_admin);
+app.post('/agregar_docente_salon_admin', auth.auth, cursoController.agregar_docente_salon_admin);
 
 app.get('/listar_ciclos_admin', auth.auth, cursoController.listar_ciclos_admin);
 app.get('/listar_ciclos_vencidos_admin', auth.auth, cursoController.listar_ciclos_vencidos_admin);
 app.get('/obtener_datos_curso_ciclo_admin/:id/:idciclo', auth.auth, cursoController.obtener_datos_curso_ciclo_admin);
 app.get('/obtener_salones_ciclo_admin/:id', auth.auth, cursoController.obtener_salones_ciclo_admin);
+app.get('/listar_docente_salon_admin/:id', auth.auth, cursoController.listar_docente_salon_admin);
+
 app.delete('/eliminar_salon_ciclo_admin/:id', auth.auth, cursoController.eliminar_salon_ciclo_admin);
 
 app.put('/editar_ciclo_admin/:id', auth.auth, cursoController.editar_ciclo_admin);
 app.put('/cambiar_estado_ciclo_admin/:id', auth.auth, cursoController.cambiar_estado_ciclo_admin);
-
 // COURSE CICLE
 
 

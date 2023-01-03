@@ -3,22 +3,19 @@ var Colaborador = require('../models/Colaborador');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../helpers/jwt')
 
-const registro_colaborador_admin = async function(req, res) {
-    // console.log(req.user);
-
-    if ( req.user ) {
-        
+const registro_colaborador_admin = async function(req, res) 
+{
+    if ( req.user ) 
+    {
         let data = req.body;
-        // console.log(data);
-        try {
-
+        try 
+        {
             var colaboradores = await Colaborador.find({email: data.email});
-
             bcrypt.hash('123456789', null, null, async function(err, hash)
             {
-                if (err) {
-                    res.status(200).send({data: undefined, message: 'No se pudo generar la password'});        
-                }else{
+                if (err) { res.status(200).send({data: undefined, message: 'No se pudo generar la password'}); }
+                else
+                {
                     if (colaboradores.length >= 1) { res.status(200).send({data: undefined, message: 'El correo ya existe'}); } 
                     else 
                     {
@@ -35,26 +32,26 @@ const registro_colaborador_admin = async function(req, res) {
     } else{ res.status(403).send({data: undefined, message: 'No Token'}); }
 }
 
-const login_admin = async function(req, res) {
+const login_admin = async function(req, res) 
+{
     let data = req.body; 
     // console.log(data);
     var colaboradores = await Colaborador.find({email: data.email});
 
-    if (colaboradores.length >= 1) {
+    if (colaboradores.length >= 1) 
+    {
         // SI HAY CUENTA
-        if (colaboradores[0].state) {
+        if (colaboradores[0].state) 
+        {
             bcrypt.compare(data.password, colaboradores[0].password, async function(err, check){
             
-            if (check) { res.status(200).send({ data: colaboradores[0], token: jwt.createToken(colaboradores[0]) })
-
-            }else{ res.status(200).send({data: undefined, message: 'La clave es incorrecta'}); } });
+            if (check) { res.status(200).send({ data: colaboradores[0], token: jwt.createToken(colaboradores[0]) }) }
+            else{ res.status(200).send({data: undefined, message: 'La clave es incorrecta'}); } });
         }
         else{ res.status(200).send({data: undefined, message: 'Contactate con tu supervisor '}); }
 
-
-    }else{
-        res.status(200).send({data: undefined, message: 'El correo electronico no existe'});
     }
+    else{ res.status(200).send({data: undefined, message: 'El correo electronico no existe'}); }
 }
 
 const listar_colaboradores_admin = async function(req, res) {
@@ -101,9 +98,8 @@ const obtener_datos_colaborador_admin = async function(req, res) {
 }
 
 const editar_colaborador_admin = async function(req, res) {
-    // console.log(req.user);
-
-    if ( req.user ) {
+    if ( req.user ) 
+    {
         let id = req.params['id'];
         let data = req.body;
         // console.log(data);
@@ -126,15 +122,25 @@ const editar_colaborador_admin = async function(req, res) {
 
 }
 
-const listar_asesores_admin = async function(req, res) {
-    if (req.user) {
+const listar_asesores_admin = async function(req, res)
+{
+    if (req.user) 
+    {
         let asesores = await Colaborador.find({role: 'Asesor', state: true}).select('_id fullname name lastName');
         res.status(200).send({data: asesores});
-    } else {
-        res.status(403).send({data: undefined, message: 'NoToken'});
-    }
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
 
+const listar_docentes_admin = async function(req, res)
+{
+    if (req.user) 
+    {
+        let asesores = await Colaborador.find({role: 'Docente', state: true}).select('_id fullname name lastName email');
+        res.status(200).send({data: asesores});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
 module.exports = {
     registro_colaborador_admin,
     login_admin,
@@ -143,5 +149,5 @@ module.exports = {
     obtener_datos_colaborador_admin,
     editar_colaborador_admin,
     listar_asesores_admin,
-
+    listar_docentes_admin,
 }

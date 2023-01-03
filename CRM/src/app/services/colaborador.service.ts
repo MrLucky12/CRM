@@ -10,9 +10,7 @@ export class ColaboradorService {
 
   public url = GLOBAL.url;
 
-  constructor(private _http:HttpClient) { 
-    console.log(this.url);
-  }
+  constructor(private _http:HttpClient) {  console.log(this.url); }
 
   // METODO PARA COMUNICAR EL LOGIN | FRONT <--> END
   login_admin(data: any):Observable<any>{
@@ -49,6 +47,11 @@ export class ColaboradorService {
   listar_asesores_admin(token: any):Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.get(this.url+'listar_asesores_admin', {headers:headers});
+  }
+
+  listar_docentes_admin(token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_docentes_admin', {headers:headers});
   }
 
 }
