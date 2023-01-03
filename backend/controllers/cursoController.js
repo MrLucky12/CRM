@@ -359,6 +359,36 @@ const obtener_salones_ciclo_admin = async function(req, res) {
     } 
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
+
+const eliminar_salon_ciclo_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        await Ciclo_salon.findByIdAndRemove({_id: id});
+        res.status(200).send({data: true});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+
+const cambiar_estado_ciclo_admin = async function(req, res) {
+    if (req.user) 
+    {
+        let id = req.params['id'];
+        let data = req.body;
+        let nuevo_estado;
+
+        if (data.state) { nuevo_estado = false; }
+        else if(!data.state) { nuevo_estado = true; }
+
+        let cicle = await Ciclo_curso.findByIdAndUpdate({_id: id}, {state: nuevo_estado});
+
+        res.status(200).send({data: cicle});
+
+    } 
+    else 
+    {
+        res.status(403).send({data: undefined, message: 'NoToken'});
+    }
+}
 // CICLE COURSE
 
 module.exports = {
@@ -377,4 +407,6 @@ module.exports = {
     editar_ciclo_admin,
     agregar_salon_ciclo_admin,
     obtener_salones_ciclo_admin,
+    eliminar_salon_ciclo_admin,
+    cambiar_estado_ciclo_admin,
 }

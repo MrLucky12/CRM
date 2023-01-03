@@ -56,6 +56,7 @@ export class EditCicloComponent implements OnInit {
   public rooms:Array<any> = [];
 
   public today = GLOBAL.TODAY;
+  public load_delete = false;
 
   constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute, private routerTo:Router,
     calendar: NgbCalendar)
@@ -64,7 +65,8 @@ export class EditCicloComponent implements OnInit {
     // this.dateConfig.minDate = GLOBAL.TODAY;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this._route.params.subscribe( 
       params => { 
         this.id = params['id']; 
@@ -92,7 +94,8 @@ export class EditCicloComponent implements OnInit {
     });
   }
 
-  actualizar() {
+  actualizar() 
+  {
 
     // DATE FORMAT
     this.cicle.start_course = this.fromDate?.year+'-'+this.fromDate?.month+'-'+this.fromDate?.day;
@@ -122,7 +125,8 @@ export class EditCicloComponent implements OnInit {
     }
   }
 
-  newCicle() {
+  newCicle() 
+  {
     this.room.ciclo_curso = this.idciclo;
     this.room.days = this.days;
     this.cicle.days = this.days;
@@ -148,11 +152,25 @@ export class EditCicloComponent implements OnInit {
     
   }
 
-  deleteCicle(idx:any) { this.rooms.splice(idx,1); }
+  deleteCicle(idx:any) 
+  { 
+    this.load_delete = true;
+    this.curso.eliminar_salon_ciclo_admin(idx, this.token).subscribe( 
+      response => 
+      {
+        this.showToastMessage('Dato eliminado...', 'success', 'Confirmar accion !');
+        console.log(response.data);
+        $('.modal-backdrop').remove();
+        this.load_delete = false;
+        this.init_rooms();
+      } 
+      ); 
+  }
 
   init_rooms() { this.curso.obtener_salones_ciclo_admin(this.idciclo, this.token).subscribe( response => { this.rooms = response.data; }); }
 
-  select_day(event:any) {
+  select_day(event:any) 
+  {
     let status = event.currentTarget.checked;
     let value = event.target.value;
     if (status) { this.days.push(value); } 

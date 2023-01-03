@@ -23,17 +23,21 @@ export class IndexColaboradorComponent implements OnInit {
 
   ngOnInit(): void { this.init_data(); }
 
-  init_data() { 
+  init_data() 
+  { 
     this._colaboradorService.listar_colaboradores_admin(this.token).subscribe( 
-      response => {
+      response => 
+      {
           this.colaboradores = response.data;
           this.colaboradores_const = this.colaboradores;
           console.log(this.colaboradores);
       } ); 
   }
   
-  filtrar() {
-    if (this.filtro) {
+  filtrar() 
+  {
+    if (this.filtro) 
+    {
       var term = new RegExp(this.filtro, 'i');
       this.colaboradores = this.colaboradores_const
       .filter(item => term.test(item.name) || term.test(item.lastName) || term.test(item.email) || term.test(item.n_doc));
@@ -48,12 +52,14 @@ export class IndexColaboradorComponent implements OnInit {
   // ACTIVATE | DESACTIVATE METHOD
   public load_state = false;
 
-  set_state(id: any, state: any) {
+  set_state(id: any, state: any) 
+  {
     // console.log(id);
     // console.log(state);
     this.load_state = true;
     this._colaboradorService.cambiar_estado_colaborador_admin(id, {state: state}, this.token).subscribe(
-      response => {
+      response => 
+      {
         this.load_state = false;
         $('#delete-'+id).modal('hide');
         $('.modal-backdrop').remove();

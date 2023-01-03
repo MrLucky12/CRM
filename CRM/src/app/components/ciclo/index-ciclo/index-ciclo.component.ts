@@ -58,11 +58,29 @@ export class IndexCicloComponent implements OnInit {
       }); 
   }
 
-
-  filtrar() {
+  filtrar() 
+  {
     if (this.filter == 'Todos') {  this.cicles = this.ciclesFilter; }
     else { this.cicles = this.ciclesFilter.filter(item => item.cicle.level == this.filter); }
   }
 
+  // ACTIVATE | DESACTIVATE METHOD
+  public load_state = false;
+
+  set_state(id: any, state: any) 
+  {
+    this.load_state = true;
+    this.curso.cambiar_estado_ciclo_admin(id, {state: state}, this.token)
+    .subscribe(
+      response => 
+      {
+        this.load_state = false;
+        // $('#state-'+id).modal('hide');
+        $('.modal-backdrop').remove();
+        this.init_data(); 
+      }
+    );
+  }
+  // ACTIVATE | DESACTIVATE METHOD
 
 }

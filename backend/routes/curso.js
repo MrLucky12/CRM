@@ -33,8 +33,11 @@ app.get('/listar_ciclos_admin', auth.auth, cursoController.listar_ciclos_admin);
 app.get('/listar_ciclos_vencidos_admin', auth.auth, cursoController.listar_ciclos_vencidos_admin);
 app.get('/obtener_datos_curso_ciclo_admin/:id/:idciclo', auth.auth, cursoController.obtener_datos_curso_ciclo_admin);
 app.get('/obtener_salones_ciclo_admin/:id', auth.auth, cursoController.obtener_salones_ciclo_admin);
+app.delete('/eliminar_salon_ciclo_admin/:id', auth.auth, cursoController.eliminar_salon_ciclo_admin);
 
 app.put('/editar_ciclo_admin/:id', auth.auth, cursoController.editar_ciclo_admin);
+app.put('/cambiar_estado_ciclo_admin/:id', auth.auth, cursoController.cambiar_estado_ciclo_admin);
+
 // COURSE CICLE
 
 

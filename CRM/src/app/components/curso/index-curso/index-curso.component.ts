@@ -21,16 +21,15 @@ export class IndexCursoComponent implements OnInit {
 
   constructor(private curso:CursoService) { }
 
-  ngOnInit(): void {
-    this.init_data();
-  }
+  ngOnInit(): void { this.init_data(); }
 
   init_data() { this.curso.listar_cursos_admin(this.token).subscribe( response => { this.courseList = response.data; } ); }
 
   // ACTIVATE | DESACTIVATE METHOD
   public load_state = false;
 
-  set_state(id: any, state: any) {
+  set_state(id: any, state: any) 
+  {
     // console.log(id);
     // console.log(state);
     this.load_state = true;
@@ -42,7 +41,6 @@ export class IndexCursoComponent implements OnInit {
         this.init_data(); 
       }
     );
-
   }
   // ACTIVATE | DESACTIVATE METHOD
 

@@ -162,12 +162,8 @@
                                                             
                                                             <!-- STATE -->
                                                             <td align="center">
-                                                                <ng-container *ngIf="item.cicle.state">
-                                                                    <span class="badge bg-sucess">Publicado</span>
-                                                                </ng-container>
-                                                                <ng-container *ngIf="!item.cicle.state">
-                                                                    <span class="badge bg-warning">Borrador</span>
-                                                                </ng-container>
+                                                                <ng-container *ngIf="item.cicle.state"><span class="badge bg-success">Publicado</span></ng-container>
+                                                                <ng-container *ngIf="!item.cicle.state"><span class="badge bg-warning">Borrador</span></ng-container>
                                                             </td>
                                                             <!-- STATE -->
                                                             
@@ -185,8 +181,41 @@
                                                                     </button>
                                                                     <div class="dropdown-menu">
                                                                         <a class="dropdown-item" [routerLink]="['/curso/'+id+'/ciclo/edit/'+item.cicle._id]"><i class='bx bx-edit'></i> Editar</a>
+                                                                        
+                                                                        <a style="cursor: pointer;" class="dropdown-item" *ngIf="item.cicle.state" data-toggle="modal" [attr.data-target]="'#state-'+item.cicle._id">
+                                                                            <i class="bx bx-x-circle"></i> Ocultar</a>
+                                                                        <a style="cursor: pointer;" class="dropdown-item" *ngIf="!item.cicle.state" data-toggle="modal" [attr.data-target]="'#state-'+item.cicle._id">
+                                                                            <i class="bx bx-check-circle"></i> Publicar</a>
                                                                     </div>
                                                                 </div>
+                                                                <!-- STATE MODAL -->
+                                                                <div class="col-lg-4 col-md-6">
+                                                                    <div class="mt-3">
+                                                                        <div class="modal fade" id="state-{{item.cicle._id}}" tabindex="-1" role="dialog" aria-hidden="true" >
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                                                                                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="row">Cambiar el estado del ciclo ?</div>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"> Close </button>
+                                                                                        <button *ngIf="!load_state" type="button" class="btn btn-primary" 
+                                                                                        (click)="set_state(item.cicle._id, item.cicle.state)">Confirmar</button>
+                                                                                        <button *ngIf="load_state" class="btn btn-danger" type="button" disabled>
+                                                                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                                                            Enviando
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- STATE MODAL -->
                                                             </td>
                                                             
                                                         </tr>

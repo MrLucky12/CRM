@@ -103,6 +103,16 @@ export class CursoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.get(this.url+'obtener_salones_ciclo_admin/'+id, {headers: headers}); 
   }
+
+  eliminar_salon_ciclo_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.delete(this.url+'eliminar_salon_ciclo_admin/'+id, {headers: headers}); 
+  }
+
+  cambiar_estado_ciclo_admin(id: any, data :any, token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.put(this.url+'cambiar_estado_ciclo_admin/'+id, data, {headers:headers});
+  }
   // cicle CICLE
 
 

@@ -29,27 +29,35 @@ export class CorreoClienteComponent implements OnInit {
 
 constructor(private _route:ActivatedRoute, private _clienteService:ClienteService) { }
 
-  ngOnInit(): void {
-    this._route.params.subscribe( params => {
+  ngOnInit(): void 
+  {
+    this._route.params.subscribe( params => 
+    {
       this.id = params['id'];
       this._clienteService.obtener_datos_cliente_admin(this.id, this.token).subscribe(
-        response => { 
-          if (response.data != undefined) {
+        response => 
+        { 
+          if (response.data != undefined) 
+          {
             this.data = true;
             this.load_data = false;
             this.init_data();
-          } else {
+          } 
+          else 
+          {
             this.data = false;
             this.load_data = false;
           }
-        } );
+        }
+        );
     }
     );
   }
 
   init_data() {  this._clienteService.listar_correos_prospeccion_admin(this.id, this.token).subscribe( response => { this.emailList = response.data; } ); }
 
-  enviarCorreo() {
+  enviarCorreo() 
+  {
     console.log(this.email);
     if(!this.email.subject){ this.showToastMessage('Ingresar el asunto', 'warning', 'Campo vacio !'); }
     else if(!this.email.body){ this.showToastMessage('Ingresar contenido', 'warning', 'Campo vacio !'); }
