@@ -30,7 +30,6 @@ export class IndexColaboradorComponent implements OnInit {
       {
           this.colaboradores = response.data;
           this.colaboradores_const = this.colaboradores;
-          console.log(this.colaboradores);
       } ); 
   }
   

@@ -33,11 +33,14 @@ export class EditColaboradorComponent implements OnInit {
         this.load_data = true;
         this._colaboradorService.obtener_datos_colaborador_admin(this.id, this.token).subscribe(
           response => { 
-            if (response.data != undefined) {
+            if (response.data != undefined) 
+            {
               this.colaborador = response.data;
               this.data = true;
               this.load_data = false;
-            } else {
+            } 
+            else 
+            {
               this.data = false;
               this.load_data = false;
             }

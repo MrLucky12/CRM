@@ -24,8 +24,8 @@ export class CreateClienteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  registrar(registroForm: any) {
-    console.log(registroForm);
+  registrar(registroForm: any) 
+  {
     // VALIDACION DE FORMULARI | CORREO EXISTENTE | ETC?
     if (!registroForm.value.name) {
       $.notify('El campo nombre esta incompleto', { 
@@ -77,7 +77,8 @@ export class CreateClienteComponent implements OnInit {
       this.cliente.asesor = localStorage.getItem('_id');
       this._clienteService.registro_cliente_admin(this.cliente, this.token).subscribe(
           response=>{ 
-            if (response.data == undefined) {
+            if (response.data == undefined) 
+            {
               $.notify(response.message, { 
                 type: 'danger',
                 spacing: 10,                    
@@ -87,7 +88,9 @@ export class CreateClienteComponent implements OnInit {
                 animate: { enter: 'animated ' + 'bounce', exit: 'animated ' + 'bounce' }
                 });
                 this.btn_registrar = false;
-            } else {  
+            } 
+            else 
+            {  
               this.btn_registrar = false;
               $.notify('Cliente agregado exitosamente !', { 
                 type: 'success',

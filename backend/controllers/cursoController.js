@@ -394,7 +394,7 @@ const listar_docente_salon_admin = async function(req, res) {
     if (req.user) 
     {
         let id = req.params['id'];
-        let list = await Ciclo_docente.find({ciclo_curso: id});
+        let list = await Ciclo_docente.find({ciclo_curso: id}).populate('colaborador').populate('ciclo_salon');
         res.status(200).send({data: list});
     } 
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }

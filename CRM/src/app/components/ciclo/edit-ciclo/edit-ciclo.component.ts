@@ -52,6 +52,7 @@ export class EditCicloComponent implements OnInit {
   public levelList: Array<any> = [];
   public teacherList: Array<any> = [];
   public cicle:any = { level: '', location: '' };
+
   // SEARCHER
   public teacherFilter = '';
   public teacherListCosnt: Array<any> = [];
@@ -60,6 +61,8 @@ export class EditCicloComponent implements OnInit {
   public room:any = { room: '' };
   public days:Array<any> = [];
   public rooms:Array<any> = [];
+  public teacherRoom:any = { ciclo_salon: '' };
+  public teachersRooms:Array<any> = [];
 
   public today = GLOBAL.TODAY;
   public load_delete = false;
@@ -86,6 +89,7 @@ export class EditCicloComponent implements OnInit {
               this.cicle = response.cicle;
               this.rooms = response.rooms;
               this.init_teachers();
+              this.init_teacherRoom();
               // GET FROM & TO DATE
               let s = new Date(response.cicle.start_course);
               this.fromDate = new NgbDate(s.getFullYear(),s.getMonth()+1,s.getDate()+1);
@@ -186,6 +190,30 @@ export class EditCicloComponent implements OnInit {
     } 
     else { this.teacherList = this.teacherListCosnt; }
   }
+
+  teacherSelect(item:any) 
+  {
+    this.teacherRoom.colaborador = item._id;
+    $('#inputTeacher').val(item.fullname);
+  }
+
+  asignTeacherRoom() 
+  {
+    this.teacherRoom.ciclo_curso = this.idciclo;
+    if (!this.teacherRoom.colaborador) { this.showToastMessage('Ingresar el Docente', 'warning', 'Campo vacio !'); }
+    else if (!this.teacherRoom.ciclo_salon) { this.showToastMessage('Ingresar el salon', 'warning', 'Campo vacio !'); }
+    else
+    {
+      this.curso.agregar_docente_salon_admin(this.teacherRoom, this.token)
+      .subscribe( response => { this.showToastMessage('Se asigno el docente correctamente', 'success', 'Asignacion completa !'); } ); 
+      this.teacherRoom.colaborador = '';
+      this.teacherRoom.ciclo_salon = '';
+      $('#inputTeacher').val(''); 
+      this.init_teacherRoom();
+    }
+  }
+
+  init_teacherRoom() { this.curso.listar_docente_salon_admin(this.idciclo, this.token).subscribe(response => { this.teachersRooms = response.data; } ); }
 
   init_rooms() { this.curso.obtener_salones_ciclo_admin(this.idciclo, this.token).subscribe( response => { this.rooms = response.data; }); }
 
