@@ -37,6 +37,7 @@ app.get('/obtener_salones_ciclo_admin/:id', auth.auth, cursoController.obtener_s
 app.get('/listar_docente_salon_admin/:id', auth.auth, cursoController.listar_docente_salon_admin);
 
 app.delete('/eliminar_salon_ciclo_admin/:id', auth.auth, cursoController.eliminar_salon_ciclo_admin);
+app.delete('/eliminar_docente_salon_admin/:id', auth.auth, cursoController.eliminar_docente_salon_admin);
 
 app.put('/editar_ciclo_admin/:id', auth.auth, cursoController.editar_ciclo_admin);
 app.put('/cambiar_estado_ciclo_admin/:id', auth.auth, cursoController.cambiar_estado_ciclo_admin);

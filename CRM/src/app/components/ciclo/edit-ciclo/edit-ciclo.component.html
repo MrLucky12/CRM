@@ -456,26 +456,27 @@
                                                             <th>{{item.ciclo_salon.room}}</th>
                                                             <th scope="row">
                                                                 <a style="cursor: pointer;" class="text-danger" data-toggle="modal" 
-                                                                [attr.data-target]="'#modal-'+item._id">[Quitar]</a> <br>
+                                                                [attr.data-target]="'#deleteTeacher-'+item._id">[Quitar]</a> <br>
                                                                 
                                                                 <!-- STATE MODAL -->
                                                                 <div class="col-lg-4 col-md-6">
                                                                     <div class="mt-3">
-                                                                        <div class="modal fade" id="modal-{{item._id}}" tabindex="-1" role="dialog" aria-hidden="true" >
+                                                                        <div class="modal fade" id="deleteTeacher-{{item._id}}" tabindex="-1" role="dialog" aria-hidden="true" >
                                                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                                                 <div class="modal-content">
                                                                                     <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+                                                                                        <h5 class="modal-title" id="modalCenterTitle">Eliminar docente</h5>
                                                                                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                                                                     </div>
                                                                                     <div class="modal-body">
-                                                                                        <div class="row">Eliminar este salon?</div>
+                                                                                        <div class="row">Quitar a este docente del salon?</div>
                                                                                     </div>
                                                                                     <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"> Close </button>
-                                                                                        <button *ngIf="!load_delete" type="button" class="btn btn-primary" (click)="deleteCicle(item._id)">
+                                                                                        
+                                                                                        <button *ngIf="!load_delete2" type="btn btn-primary" class="btn btn-primary"
+                                                                                         (click)="deleteTeacher(item._id)" data-dismiss="modal">
                                                                                             Eliminar</button>
-                                                                                        <button *ngIf="load_delete" class="btn btn-danger" type="button" disabled>
+                                                                                        <button *ngIf="load_delete2" class="btn btn-danger" type="button" disabled>
                                                                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                                                                             Eliminando....
                                                                                         </button>

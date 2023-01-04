@@ -66,6 +66,7 @@ export class EditCicloComponent implements OnInit {
 
   public today = GLOBAL.TODAY;
   public load_delete = false;
+  public load_delete2 = false;
 
   constructor(private dateConfig :NgbDatepickerConfig, private curso:CursoService, private _route:ActivatedRoute, private routerTo:Router,
     calendar: NgbCalendar, private colaborador:ColaboradorService)
@@ -172,7 +173,6 @@ export class EditCicloComponent implements OnInit {
       response => 
       {
         this.showToastMessage('Dato eliminado...', 'success', 'Confirmar accion !');
-        console.log(response.data);
         $('.modal-backdrop').remove();
         this.load_delete = false;
         this.init_rooms();
@@ -211,6 +211,20 @@ export class EditCicloComponent implements OnInit {
       $('#inputTeacher').val(''); 
       this.init_teacherRoom();
     }
+  }
+
+  deleteTeacher(idx:any)
+  {
+    this.load_delete2 = true;
+    this.curso.eliminar_docente_salon_admin(idx, this.token).subscribe(
+      response => 
+      {
+        this.showToastMessage('docente Eliminado', 'success', 'Eliminacion completa');
+        $('.modal-backdrop').remove();
+        this.load_delete2 = false;
+        this.init_teacherRoom();
+      }
+    );
   }
 
   init_teacherRoom() { this.curso.listar_docente_salon_admin(this.idciclo, this.token).subscribe(response => { this.teachersRooms = response.data; } ); }

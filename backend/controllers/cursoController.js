@@ -410,6 +410,15 @@ const agregar_docente_salon_admin = async function(req, res)
     } 
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
+
+const eliminar_docente_salon_admin = async function(req, res) {
+    if (req.user) {
+        let id = req.params['id'];
+        await Ciclo_docente.findByIdAndRemove({_id: id});
+        res.status(200).send({data: true});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
 // CICLE COURSE
 
 module.exports = {
@@ -432,4 +441,5 @@ module.exports = {
     cambiar_estado_ciclo_admin,
     listar_docente_salon_admin,
     agregar_docente_salon_admin,
+    eliminar_docente_salon_admin,
 }

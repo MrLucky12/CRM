@@ -123,6 +123,11 @@ export class CursoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.post(this.url+'agregar_docente_salon_admin', data, {headers: headers}); 
   }
+
+  eliminar_docente_salon_admin(id: any, token: any): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.delete(this.url+'eliminar_docente_salon_admin/'+id, {headers: headers}); 
+  }
   // cicle CICLE
 
 
