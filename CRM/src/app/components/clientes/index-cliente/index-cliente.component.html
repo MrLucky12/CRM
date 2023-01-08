@@ -109,13 +109,13 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a style="cursor: pointer;" class="dropdown-item" *ngIf="item.state" 
+                                                                <a style="cursor: pointer;" class="dropdown-item" *ngIf="item.type == 'Socio'" 
                                                                     data-toggle="modal" [attr.data-target]="'#delete-'+item._id">
-                                                                    <i class="bx bx-x-circle"></i> Desactivar
+                                                                    <i class="bx bx-x-circle"></i> Prospecto
                                                                 </a>
-                                                                <a style="cursor: pointer;" class="dropdown-item" *ngIf="!item.state" 
+                                                                <a style="cursor: pointer;" class="dropdown-item" *ngIf="item.type == 'Prospecto'" 
                                                                     data-toggle="modal" [attr.data-target]="'#delete-'+item._id">
-                                                                    <i class="bx bx-check-circle"></i> Activar</a>
+                                                                    <i class="bx bx-check-circle"></i> Socio</a>
                                                                     
                                                                 <a class="dropdown-item" [routerLink]="['/cliente', item._id]">
                                                                     <i class='bx bx-edit'></i> Editar</a>
@@ -140,8 +140,8 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"> Close </button>
-                                                                        <button *ngIf="!load_state" type="button" class="btn btn-primary" (click)="set_state(item._id, item.state)">
-                                                                            Confirmar</button>
+                                                                        <button *ngIf="!load_state" type="button" class="btn btn-primary" 
+                                                                        (click)="set_state(item._id, item.type)" data-dismiss="modal">Confirmar</button>
                                                                         <button *ngIf="load_state" class="btn btn-danger" type="button" disabled>
                                                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                                                             Enviando

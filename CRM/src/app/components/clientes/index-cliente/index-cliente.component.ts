@@ -55,9 +55,10 @@ export class IndexClienteComponent implements OnInit {
     else { this.clientes = []; }
   }
 
-  set_state(id: any, state: any) {
+  set_state(id: any, type: any) {
     // SOCIO => COMPRO AL MENOS UN CURSO ?
     // PROSPECTO => SE ENCUENTRA EN ESTADO DE NEGOCIANCION
+    this._clienteService.cambiar_tipo_cliente_admin({id: id, type: type}, this.token).subscribe( response => { this.filtrar(); } );
   }
 
 }

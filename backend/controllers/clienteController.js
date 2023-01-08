@@ -173,6 +173,27 @@ const editar_cliente_admin = async function(req, res) {
 
 }
 
+const listar_clientes_modal_admin = async function(req, res)
+{
+    if (req.user) 
+    {
+        let leads = await Cliente.find({state: true}).sort({verify:-1}).select('_id fullname name lastName email type verify');
+        res.status(200).send({data: leads});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
+}
+
+const cambiar_tipo_cliente_admin = async function(req, res) {
+    if (req.user) 
+    {
+        let data = req.body;
+        if (data.type == 'Prospecto') { data.type = 'Socio'; }
+        else if (data.type == 'Socio') { data.type = 'Prospecto'; }
+        let check = await Cliente.findByIdAndUpdate({_id: data.id}, {type: data.type});
+        res.status(200).send({data: check});
+    }
+    else{ res.status(401).send({data: undefined, message: 'NoToken'}); }
+}
 
 module.exports = {
     registro_cliente_admin,
@@ -180,4 +201,6 @@ module.exports = {
     listar_clientes_admin,
     obtener_datos_cliente_admin,
     editar_cliente_admin,
+    listar_clientes_modal_admin,
+    cambiar_tipo_cliente_admin,
 }

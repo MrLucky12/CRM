@@ -77,7 +77,8 @@ export class EditCicloComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this._route.params.subscribe( 
+    this._route.params
+    .subscribe( 
       params => { 
         this.id = params['id']; 
         this.idciclo = params['idciclo']; 

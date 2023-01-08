@@ -141,6 +141,7 @@ const listar_docentes_admin = async function(req, res)
     } 
     else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
+
 module.exports = {
     registro_colaborador_admin,
     login_admin,

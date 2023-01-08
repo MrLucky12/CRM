@@ -25,26 +25,26 @@
 
                                     <!-- MATRICULA | RESUMEN | PRICES -->
                                     <div class="col-12 col-md-6">
-                                        <div class="card pb-4" style="">
+                                        <div class="card pb-4">
 
                                             <!-- NEW SCHOLARSHIP -->
                                             <div class="card-header pt-4"><h3 class="card-title my-0"><span class="">Nueva matricula</span></h3></div>
-
                                             <div class="card-body py-0">
 
-                                                <!-- CUSTOMER -->
+                                                <!-- LEAD -->
                                                 <div class="row form-group">
                                                     <label class="col-lg-3 col-form-label text-lg-end"><b>Cliente:</b></label>
                                                     <div class="col-lg-9 col-xl-9">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control form-control-solid" placeholder="Seleccionar cliente">
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-primary" type="button"><i class='bx bx-search-alt-2'></i></button>
+                                                        <div class="demo-vertical-spacing demo-only-element px-0 pt-0">
+                                                            <div class="input-group input-group-merge">
+                                                                <input type="text" class="form-control" placeholder="Seleccionar Cliente"  id="inputLead"/>
+                                                                <button class="btn btn-primary" type="button" data-toggle="modal" 
+                                                                [attr.data-target]="'#modalLead'"><i class='bx bx-list-ul'></i></button>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>                                                    
                                                 </div>
-                                                <!-- CUSTOMER -->
+                                                <!-- LEAD -->
                                                 <br>
                                                 <!-- COMMUNICATION -->
                                                 <div class="row form-group">
@@ -291,3 +291,112 @@
 </div>
 <!-- / Layout wrapper -->
 
+<!-- LEAD MODAL -->
+<div class="col-lg-4 col-md-6">
+    <div class="mt-3">
+        <div class="modal fade" id="modalLead" tabindex="-1" role="dialog" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">Lista de Clientes</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-header">
+                        <!-- TEACHER SEARCHER -->
+                        <div class="col-12 col-md-6">
+                            <div class="card-body demo-vertical-spacing demo-only-element px-0 pt-0">
+                                <div class="input-group input-group-merge">
+                                    <input type="text" class="form-control" placeholder="Buscar" name="leadFilter" 
+                                    [(ngModel)]="leadFilter" (keyup)="leadSearch()"/>
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" (click)="leadSearch()">
+                                        <i class='bx bx-search'></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TEACHER SEARCHER -->
+                    </div>
+
+                    <div class="modal-body p-0" style="max-height: 500px; overflow: auto;">
+
+                        <ng-container *ngIf="!loadLead">
+                            <div class="col-md text-center">
+                                <br>
+                                <div class="text-light small fw-semibold">Cargando...</div>
+                                <div class="demo-inline-spacing">
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>  
+                        </ng-container>
+
+                        <ng-container *ngIf="loadLead">
+                            <ng-container *ngIf="leadList.length >= 1">
+                                <div class="col-12 order-2" *ngFor="let item of leadList">
+                                    <div class="card h-100">
+                                        <div class="card-body py-0">
+                                        <ul class="p-0 m-0">
+                                            <li class="d-flex mb-4 pb-1">
+                                            <div class="avatar flex-shrink-0 me-3">
+                                                <div class="card align-items-center" style="padding: 5px 10px 5px 10px; color: whitesmoke" 
+                                                    [ngClass]="{
+                                                        'bg-primary': item.name.charAt(0) >= 'A' && item.name.charAt(0) <= 'D',
+                                                        'bg-danger': item.name.charAt(0) >= 'E' && item.name.charAt(0) <= 'I',
+                                                        'bg-secondary': item.name.charAt(0) >= 'J' && item.name.charAt(0) <= 'N',
+                                                        'bg-warning': item.name.charAt(0) >= 'O' && item.name.charAt(0) <= 'R',
+                                                        'bg-success': item.name.charAt(0) >= 'S' && item.name.charAt(0) <= 'V',
+                                                        'bg-info': item.name.charAt(0) >= 'W' && item.name.charAt(0) <= 'Z'
+                                                    }" >{{item.name.charAt(0)}}
+                                                </div>
+                                            </div>
+                                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                                <div class="me-2">
+                                                    <h6 class="mb-0">{{item.fullname}}&nbsp;
+                                                        <span class="badge bg-warning me-1" *ngIf="item.type == 'Socio'">S</span>
+                                                        <span class="badge bg-secondary me-1" *ngIf="item.type == 'Prospecto'">P</span>
+                                                    </h6>
+                                                    <small class="text-muted d-block mb-1">{{item.email}}</small>
+                                                </div>
+                                                <button *ngIf="item.verify" class="btn btn-success btn-sm" (click)="leadSelect(item)" data-dismiss="modal">Seleccionar</button>
+                                                <button *ngIf="!item.verify" disabled class="btn btn-danger btn-sm">No verificado</button>
+                                            </div>
+                                            </li>
+                                        </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="leadList.length == 0">
+                                <div class="container">
+                                    <h4>No se encontraron datos con el parametro de busqueda....</h4>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- LEAD MODAL -->
+
+<!-- TOAST | NOTIFICACION -->
+<div class="bs-toast toast fade show bg-{{typeToastMessage}} " role="alert" aria-live="assertive" aria-atomic="true"
+    style="position: absolute; top: 3%; right: 3%;" *ngIf="alertOn">
+    <div class="toast-header">
+        <i class="bx bx-bell me-2"></i>
+        <div class="me-auto fw-semibold">{{toastMessage2()}}</div>
+        <!-- <small>11 mins ago</small> -->
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body"> {{toastMessage1()}} </div>
+</div>
+<!-- TOAST | NOTIFICACION -->
