@@ -1,7 +1,7 @@
 
 <!-- Menu -->
 
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" >
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" style="overflow-y: auto;">
   <div class="app-brand demo">
     <a href="index.html" class="app-brand-link">
       <span class="app-brand-logo demo">
@@ -106,6 +106,16 @@
       <a class="menu-link" [routerLink]="['/curso']" >
         <i class="menu-icon tf-icons bx bx-collection"></i>
         <div data-i18n="Basic">Cursos</div>
+      </a>
+    </li>
+
+    <!-- SERVICIOS -->
+    <li class="menu-header small text-uppercase"><span class="menu-header-text">SERVICIOS</span></li>
+
+    <li class="menu-item" routerLinkActive="menu-item active">
+      <a class="menu-link" [routerLink]="['/matricula']" >
+        <i class="menu-icon tf-icons bx bx-collection"></i>
+        <div data-i18n="Basic">Matriculas</div>
       </a>
     </li>
 

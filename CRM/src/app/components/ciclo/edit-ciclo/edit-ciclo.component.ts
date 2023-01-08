@@ -257,7 +257,8 @@ export class EditCicloComponent implements OnInit {
   public spinners = true;
   public time1 = { hour: 0, minute: 0 };
   public time2 = { hour: 0, minute: 0 };
-  currentTime() {
+  currentTime() 
+  {
     this.time1 = {hour: 13, minute: 0};
     this.time2 = this.time1;
   }
@@ -296,7 +297,8 @@ export class EditCicloComponent implements OnInit {
   toastMessage1(): string { return this.message; }
   toastMessage2(): string { return this.message2; }
   // SHOW TOAST
-  showToastMessage(message: string, type1: string, message2: string) {
+  showToastMessage(message: string, type1: string, message2: string) 
+  {
     this.typeToast = type1;
     this.message2 = message2;
     this.message = message;

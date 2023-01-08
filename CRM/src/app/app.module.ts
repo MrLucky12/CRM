@@ -40,6 +40,8 @@ import { IndexCicloComponent } from './components/ciclo/index-ciclo/index-ciclo.
 import { CreateCicloComponent } from './components/ciclo/create-ciclo/create-ciclo.component';
 import { VencidasCicloComponent } from './components/ciclo/vencidas-ciclo/vencidas-ciclo.component';
 import { EditCicloComponent } from './components/ciclo/edit-ciclo/edit-ciclo.component';
+import { IndexMatriculaComponent } from './components/matricula/index-matricula/index-matricula.component';
+import { CreateMatriculaComponent } from './components/matricula/create-matricula/create-matricula.component';
 
 
 @NgModule({
@@ -74,7 +76,9 @@ import { EditCicloComponent } from './components/ciclo/edit-ciclo/edit-ciclo.com
     IndexCicloComponent,
     CreateCicloComponent,
     VencidasCicloComponent,
-    EditCicloComponent
+    EditCicloComponent,
+    IndexMatriculaComponent,
+    CreateMatriculaComponent
   ],
   imports: [
     BrowserModule,

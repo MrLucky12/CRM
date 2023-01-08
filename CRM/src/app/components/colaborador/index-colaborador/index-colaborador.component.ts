@@ -28,9 +28,10 @@ export class IndexColaboradorComponent implements OnInit {
     this._colaboradorService.listar_colaboradores_admin(this.token).subscribe( 
       response => 
       {
-          this.colaboradores = response.data;
-          this.colaboradores_const = this.colaboradores;
-      } ); 
+        this.colaboradores = response.data;
+        this.colaboradores_const = this.colaboradores;
+      } 
+    ); 
   }
   
   filtrar() 
@@ -52,11 +53,10 @@ export class IndexColaboradorComponent implements OnInit {
   public load_state = false;
 
   set_state(id: any, state: any) 
-  {
-    // console.log(id);
-    // console.log(state);
+  {    
     this.load_state = true;
-    this._colaboradorService.cambiar_estado_colaborador_admin(id, {state: state}, this.token).subscribe(
+    this._colaboradorService.cambiar_estado_colaborador_admin(id, {state: state}, this.token)
+    .subscribe(
       response => 
       {
         this.load_state = false;
@@ -65,7 +65,6 @@ export class IndexColaboradorComponent implements OnInit {
         this.init_data(); 
       }
     );
-
   }
   // ACTIVATE | DESACTIVATE METHOD
 

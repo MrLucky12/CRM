@@ -22,32 +22,42 @@ export class IndexClienteComponent implements OnInit {
 
   constructor(private _clienteService: ClienteService, private _router: Router, private _route: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this._route.queryParams.subscribe(
       (params: Params) => {
         this.filtro = params['filter'];
         if (this.filtro) { this.filtrar(); }
         else { this.clientes = []; }
-      } );
+      } 
+    );
   }
 
-  init_data() {
+  init_data() 
+  {
     if (this.filtro) { this._router.navigate(['/cliente'], {queryParams: {filter: this.filtro}}); } 
     else { this._router.navigate(['/cliente']); }
   }
 
-  filtrar() {
-    if (this.filtro) {
+  filtrar() 
+  {
+    if (this.filtro) 
+    {
       this.load_data = true;
       this._clienteService.listar_clientes_admin(this.filtro, this.token).subscribe(
-        response => { 
+        response => 
+        { 
           this.clientes = response.data; 
           this.load_data = false;
         }
-      );} 
+      );
+    } 
     else { this.clientes = []; }
   }
 
-  set_state(id: any, state: any) {}
+  set_state(id: any, state: any) {
+    // SOCIO => COMPRO AL MENOS UN CURSO ?
+    // PROSPECTO => SE ENCUENTRA EN ESTADO DE NEGOCIANCION
+  }
 
 }

@@ -412,7 +412,8 @@ const agregar_docente_salon_admin = async function(req, res)
 }
 
 const eliminar_docente_salon_admin = async function(req, res) {
-    if (req.user) {
+    if (req.user) 
+    {
         let id = req.params['id'];
         await Ciclo_docente.findByIdAndRemove({_id: id});
         res.status(200).send({data: true});
