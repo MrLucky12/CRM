@@ -21,6 +21,13 @@ export class CreateMatriculaComponent implements OnInit {
   // SEARCHER
 
   public leadList: Array<any> = [];
+  public matricula:any = {
+    source: 'Interno',
+    scholarship: 0,
+    channel: '',
+  };
+  public price = 0;
+  public discount = 0;
 
   // PRE LOADER
   public loadLead = true;
@@ -59,7 +66,7 @@ export class CreateMatriculaComponent implements OnInit {
 
   leadSelect(item:any) 
   {
-    // this.teacherRoom.colaborador = item._id;
+    this.matricula.cliente = item._id;
     $('#inputLead').val(item.fullname);
   }
 

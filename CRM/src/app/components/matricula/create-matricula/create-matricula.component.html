@@ -37,7 +37,7 @@
                                                     <div class="col-lg-9 col-xl-9">
                                                         <div class="demo-vertical-spacing demo-only-element px-0 pt-0">
                                                             <div class="input-group input-group-merge">
-                                                                <input type="text" class="form-control" placeholder="Seleccionar Cliente"  id="inputLead"/>
+                                                                <input type="text" class="form-control" placeholder="Seleccionar Cliente" id="inputLead" readonly/>
                                                                 <button class="btn btn-primary" type="button" data-toggle="modal" 
                                                                 [attr.data-target]="'#modalLead'"><i class='bx bx-list-ul'></i></button>
                                                             </div>
@@ -50,8 +50,13 @@
                                                 <div class="row form-group">
                                                     <label class="col-lg-3 col-form-label text-lg-end"><b>Canal:</b></label>
                                                     <div class="col-lg-9 col-xl-9">
-                                                        <select class="custom-select form-control form-control-solid" id="">
+                                                        <select class="form-select" name="channel" [(ngModel)]="matricula.channel">
                                                             <option value="" selected disabled>Seleccionar</option>
+                                                            <option value="WhatsApp">WhatsApp</option>
+                                                            <option value="Facebook">Facebook</option>
+                                                            <option value="Instagram">Instagram</option>
+                                                            <option value="Correo">Email</option>
+                                                            <option value="Web">Web</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -59,9 +64,9 @@
                                                 <br>
                                                 <!-- MATRICULA -->
                                                 <div class="row form-group">
-                                                    <label class="col-lg-3 col-form-label text-lg-end"><b>Matricula:</b></label>
+                                                    <label class="col-lg-3 col-form-label text-lg-end"><b>Matricula / Precio:</b></label>
                                                     <div class="col-lg-9 col-xl-9">
-                                                        <input type="text" class="form-control form-control-solid" placeholder="0">
+                                                        <input type="number" class="form-control" placeholder="99.99" name="price" [(ngModel)]="matricula.price">
                                                     </div>
                                                 </div>
                                                 <!-- MATRICULA -->
