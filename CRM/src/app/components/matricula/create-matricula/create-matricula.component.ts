@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { CursoService } from 'src/app/services/curso.service';
 declare var $:any;
 
 @Component({
@@ -28,29 +29,21 @@ export class CreateMatriculaComponent implements OnInit {
   };
   public price = 0;
   public discount = 0;
+  public courseList: Array<any> = [];
 
   // PRE LOADER
   public loadLead = true;
   public data = false;
   // PRE LOADER
 
-  constructor(private _route:ActivatedRoute, private cliente:ClienteService) { }
+  constructor(private _route:ActivatedRoute, private cliente:ClienteService, private curso:CursoService) {}
 
   ngOnInit(): void 
   {
-    this._route.params.subscribe( 
-      params => 
-      { 
-        this.id = params['id']; 
-        this.cliente.listar_clientes_modal_admin(this.token)
-        .subscribe(response => 
-          { 
-            this.leadList = response.data; 
-            this.leadListCosnt = this.leadList;
-          }
-        );
-      }
-    );
+    this._route.params.subscribe( params => { this.id = params['id']; });
+    this.init_customer();
+    this.init_course();
+    setTimeout(() => { $('.selectpicker').selectpicker(); }, 150);
   }
 
   leadSearch() 
@@ -70,8 +63,31 @@ export class CreateMatriculaComponent implements OnInit {
     $('#inputLead').val(item.fullname);
   }
 
+  init_customer() 
+  {
+    this.cliente.listar_clientes_modal_admin(this.token)
+    .subscribe(response => 
+      { 
+        this.leadList = response.data; 
+        this.leadListCosnt = this.leadList;
+      }
+      );
+  }
 
+  init_course() 
+  { 
+    this.curso.listar_cursos_modal_admin(this.token)
+    .subscribe( response => 
+      { 
+        this.courseList = response.data; 
+        setTimeout(() => { $('.selectpicker').selectpicker('refresh'); }, 150);
+      } 
+    ); 
+  }
 
+  // SELECTPICKER
+
+  // SELECTPICKER
 
   // TOAST MESSAGE
   private show: boolean = false;

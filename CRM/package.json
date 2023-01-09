@@ -21,6 +21,7 @@
     "@angular/router": "^14.2.0",
     "@ng-bootstrap/ng-bootstrap": "^13.1.0",
     "@popperjs/core": "^2.11.6",
+    "bootstrap-select": "^1.13.18",
     "ngx-tinymce": "^14.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

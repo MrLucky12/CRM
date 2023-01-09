@@ -52,6 +52,11 @@ export class CursoService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.put(this.url+'cambiar_estado_curso_admin/'+id, data, {headers:headers});
   }
+
+  listar_cursos_modal_admin(token: any):Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'listar_cursos_modal_admin', {headers:headers});
+  }
   // COURSE
 
 

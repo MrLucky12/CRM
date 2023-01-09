@@ -73,20 +73,26 @@ export class CreateCicloComponent implements OnInit {
         this.id = params['id']; 
         this.curso.listar_nivel_curso_admin(this.id, this.token).subscribe( response => { this.levelList = response.data; } ); 
         this.curso.obtener_datos_curso_admin(this.id, this.token).subscribe(
-          response => { 
-            if (response.data != undefined) {
+          response => 
+          { 
+            if (response.data != undefined) 
+            {
               this.data = true;
               this.load_data = false;
-            } else {
+            }
+            else 
+            {
               this.data = false;
               this.load_data = false;
             }
-          } );
-      });
-      console.log(this.id);
+          }
+        );
+      }
+    );
   }
 
-  registrar() {
+  registrar()
+  {
     // CURSO DATA
     this.cicle.course = this.id;
     this.cicle.room = this.rooms
@@ -170,7 +176,8 @@ export class CreateCicloComponent implements OnInit {
   public spinners = true;
   public time1 = { hour: 0, minute: 0 };
   public time2 = { hour: 0, minute: 0 };
-  currentTime() {
+  currentTime()
+  {
     this.time1 = {hour: 13, minute: 0};
     this.time2 = this.time1;
   }

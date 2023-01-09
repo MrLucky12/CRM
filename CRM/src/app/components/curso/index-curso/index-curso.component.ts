@@ -33,7 +33,8 @@ export class IndexCursoComponent implements OnInit {
     // console.log(id);
     // console.log(state);
     this.load_state = true;
-    this.curso.cambiar_estado_curso_admin(id, {state: state}, this.token).subscribe(
+    this.curso.cambiar_estado_curso_admin(id, {state: state}, this.token)
+    .subscribe(
       response => {
         this.load_state = false;
         $('#state-'+id).modal('hide');

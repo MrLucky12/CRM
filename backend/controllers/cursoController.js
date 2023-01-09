@@ -35,7 +35,8 @@ const registro_curso_base_admin = async function(req, res) {
 }
 
 const listar_cursos_admin = async function(req, res) {
-    if (req.user) {
+    if (req.user) 
+    {
         let lista = await Curso.find().sort({title: -1});
         res.status(200).send({data: lista});
     } 
@@ -162,6 +163,15 @@ const cambiar_estado_curso_admin = async function(req, res) {
     } else {
         res.status(403).send({data: undefined, message: 'NoToken'});
     }
+}
+
+const listar_cursos_modal_admin = async function(req, res) {
+    if (req.user) 
+    {
+        let lista = await Curso.find({state: true}).sort({title: -1}).select('_id title');
+        res.status(200).send({data: lista});
+    } 
+    else { res.status(403).send({data: undefined, message: 'NoToken'}); }
 }
 // COURSE
 
@@ -443,4 +453,5 @@ module.exports = {
     listar_docente_salon_admin,
     agregar_docente_salon_admin,
     eliminar_docente_salon_admin,
+    listar_cursos_modal_admin,
 }

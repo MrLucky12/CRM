@@ -13,6 +13,7 @@ app.post('/registro_curso_base_admin', [auth.auth, path], cursoController.regist
 app.get('/listar_cursos_admin', auth.auth, cursoController.listar_cursos_admin);
 app.get('/get_imagen_curso/:img', cursoController.get_imagen_curso);
 app.get('/obtener_datos_curso_admin/:id', auth.auth, cursoController.obtener_datos_curso_admin);
+app.get('/listar_cursos_modal_admin', auth.auth, cursoController.listar_cursos_modal_admin);
 
 app.put('/editar_curso_base_admin/:id', [auth.auth, path], cursoController.editar_curso_base_admin);
 app.put('/cambiar_estado_curso_admin/:id', auth.auth, cursoController.cambiar_estado_curso_admin);
