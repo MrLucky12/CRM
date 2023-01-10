@@ -37,6 +37,7 @@ export class CreateMatriculaComponent implements OnInit {
   public pageCicle = 1;
   public pageCicleSize = 5;
   public levelList: Array<any> = [];
+  public rooms: Array<any> = [];
   // CICLE PAGINATOR
 
   // MATRICULA
@@ -123,8 +124,8 @@ export class CreateMatriculaComponent implements OnInit {
 
   cicleSelect(item:any)
   {
-    // this.matricula.cicle = item._id;
-    $('#inputCicle').val(item.level);
+    $('#inputCicle').val(item.cicle.level);
+    this.rooms = item.room;
   }
 
   // TOAST MESSAGE
