@@ -26,7 +26,7 @@ export class CreateMatriculaComponent implements OnInit {
   
   // CICLE
   public loadCicle = false;
-  public cicleFilter = '';
+  public cicleFilter = 'Todos';
   public cicleList: Array<any> = [];
   public cicleListConst: Array<any> = [];
   public url = GLOBAL.url+'get_imagen_curso/';
@@ -106,7 +106,8 @@ export class CreateMatriculaComponent implements OnInit {
     .subscribe(
       response => 
       {
-        this.cicleList = response.data;
+        this.cicleList = [];
+        response.data.forEach((element:any) => { if (element.cicle.state) {this.cicleList.push(element); } } );
         this.cicleListConst = this.cicleList;
         this.loadCicle = false;
       }

@@ -408,8 +408,8 @@
                         <!-- CICLE SEARCHER -->
                         <div class="col-12 col-md-6">
                             <div class="card-body demo-vertical-spacing demo-only-element px-0 pt-0 ">
-                                <div class="container d-flex">
-                                    <select class="form-select" name="filter" [(ngModel)]="cicleFilter">
+                                <div class="d-flex">
+                                    <select class="form-select" name="cicleFilter" [(ngModel)]="cicleFilter">
                                         <option value="Todos" selected>Todos</option>
                                         <option [value]="item.level" *ngFor="let item of levelList">{{item.level}}</option>
                                     </select>
@@ -456,9 +456,14 @@
                                      
                                     <!-- ID CICLE -->
                                     <tr style="background: #f6f4ff;">
-                                        <td colspan="6">
+                                        <td colspan="5" style="padding-right: 0px;">
                                             <div>
                                             <p style="margin-bottom: 0px;"><b class="badge bg-label-dark">Código</b><b class="badge bg-dark">{{item.cicle._id}}</b></p>
+                                            </div>
+                                        </td>
+                                        <td colsapn="1" style="padding-right: 16px; padding-left: 0px;">
+                                            <div>
+                                                <h5 class="bold" style="font-size: 1.5rem;">{{item.cicle.price | currency:'USD'}}</h5>
                                             </div>
                                         </td>
                                     </tr>

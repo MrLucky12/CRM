@@ -31,7 +31,6 @@ export class IndexCicloComponent implements OnInit {
     this._route.params.subscribe( 
       params => { 
         this.id = params['id'];
-        console.log(this.id);        
         this.curso.listar_nivel_curso_admin(this.id, this.token).subscribe( response => { this.levelList = response.data; } ); 
         this.curso.obtener_datos_curso_admin(this.id, this.token)
         .subscribe(
