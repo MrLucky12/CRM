@@ -13,9 +13,11 @@ export class IndexClienteComponent implements OnInit {
   public clientes: Array<any> = [];
   public clientes_const: Array<any> = [];
 
+  // PAGINATOR
   public filtro = '';
   public page = 1;
   public pageSize = 10;
+  // PAGINATOR
 
   public load_state = false;
   public load_data = false;
@@ -25,7 +27,8 @@ export class IndexClienteComponent implements OnInit {
   ngOnInit(): void 
   {
     this._route.queryParams.subscribe(
-      (params: Params) => {
+      (params: Params) => 
+      {
         this.filtro = params['filter'];
         if (this.filtro) { this.filtrar(); }
         else { this.clientes = []; }

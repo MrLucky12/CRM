@@ -147,7 +147,8 @@
                                                 <div class="row form-group">
                                                     <label class="col-lg-3 col-form-label text-lg-end"><b>Curso base:</b></label>
                                                     <div class="col-lg-9 col-xl-9">
-                                                        <select class="selectpicker form-control" data-live-search="true" style="width: 100%;">
+                                                        <select class="selectpicker form-control" data-live-search="true" style="width: 100%;" 
+                                                            (change)="selectCourse($event)">
                                                               <option selected disabled>Seleccionar un Curso</option>
                                                               <option *ngFor="let item of courseList" value="{{item._id}}">{{item.title}}</option>
                                                         </select>
@@ -159,10 +160,11 @@
                                                 <div class="row form-group">
                                                     <label class="col-lg-3 col-form-label text-lg-end"><b>Ciclo:</b></label>
                                                     <div class="col-lg-9 col-xl-9">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control form-control-solid" placeholder="Seleccionar curso">
-                                                            <div class="input-group-append">
-                                                                <button class="btn btn-primary" type="button">Go!</button>
+                                                        <div class="demo-vertical-spacing demo-only-element px-0 pt-0">
+                                                            <div class="input-group input-group-merge">
+                                                                <input type="text" class="form-control" placeholder="Seleccionar Ciclo" id="inputCicle" readonly/>
+                                                                <button class="btn btn-primary" type="button" data-toggle="modal" 
+                                                                [attr.data-target]="'#modalCicle'"><i class='bx bx-list-ul'></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -391,6 +393,184 @@
     </div>
 </div>
 <!-- LEAD MODAL -->
+
+<!-- CICLE MODAL -->
+<div class="col-10">
+    <div class="mt-3">
+        <div class="modal fade" id="modalCicle" tabindex="-1" role="dialog" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="width: 150%">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">Ciclos Disponibles</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-header">
+                        <!-- CICLE SEARCHER -->
+                        <div class="col-12 col-md-6">
+                            <div class="card-body demo-vertical-spacing demo-only-element px-0 pt-0 ">
+                                <div class="container d-flex">
+                                    <select class="form-select" name="filter" [(ngModel)]="cicleFilter">
+                                        <option value="Todos" selected>Todos</option>
+                                        <option [value]="item.level" *ngFor="let item of levelList">{{item.level}}</option>
+                                    </select>
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" (click)="cicleSearch()"><i class='bx bx-search'></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CICLE SEARCHER -->
+                    </div>
+
+                    <div class="modal-body p-0" style="max-height: 500px; overflow: auto;">
+
+                        <ng-container *ngIf="loadCicle">
+                            <div class="col-md text-center">
+                                <br>
+                                <div class="text-light small fw-semibold">Cargando...</div>
+                                <div class="demo-inline-spacing">
+                                    <div class="spinner-grow text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>  
+                        </ng-container>
+
+                        <ng-container *ngIf="!loadCicle">
+                            <table class="table table-borderless table-vertical-center">
+                            
+                                <!-- TABLE HEADER -->
+                                <thead>
+                                    <tr>
+                                        <th class="p-0" style="width: 10%"></th>
+                                        <th class="p-0" style="min-width: 120px"></th>
+                                        <th class="p-0" style="min-width: 100px"></th>
+                                        <th class="p-0" style="min-width: 50px"></th>
+                                        <th class="p-0" style="min-width: 70px"></th>
+                                        <th class="p-0" style="min-width: 10%"></th>
+                                    </tr>
+                                </thead>
+                                <!-- TABLE HEADER -->
+
+                                <tbody>
+                                <ng-container *ngFor="let item of cicleList | slice: (pageCicle-1) * pageCicleSize: (pageCicle-1) * pageCicleSize + pageCicleSize">
+                                     
+                                    <!-- ID CICLE -->
+                                    <tr style="background: #f6f4ff;">
+                                        <td colspan="6">
+                                            <div>
+                                            <p style="margin-bottom: 0px;"><b class="badge bg-label-dark">Código</b><b class="badge bg-dark">{{item.cicle._id}}</b></p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- ID CICLE -->
+
+                                    <!-- CICLE DATA | ERROR -->
+                                    <tr style="background: #f6f4ff;">
+                                        <td class="">
+                                            <img class="card-img-top" [src]="url+item.cicle.course.banner" width="100%"/>
+                                        </td>
+                                        
+                                        <!-- FROM DATE-1 TO DATE-2 -->
+                                        <td class="pl-0" align="center">
+                                            <span class="badge bg-dark">{{item.cicle.level}}</span><br>
+                                            <span class="badge bg-label-dark">{{item.cicle.start_course|date}} - {{item.cicle.end_course|date}}</span>
+                                        </td>
+                                        <!-- FROM DATE-1 TO DATE-2 -->
+
+                                        <!-- MONTHS -->
+                                        <td align="center">
+                                            <ng-container *ngFor="let subitem of item.cicle.months; let last = last">
+                                                <span class="badge bg-dark" *ngIf="subitem == 1">Ene<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 2">Feb<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 3">Mar<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 4">Abri<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 5">May<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 6">Jun<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 7">Jul<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 8">Ago<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 9">Sep<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 10">Oct<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 11">Nov<ng-container *ngIf="!last">, </ng-container></span>
+                                                <span class="badge bg-dark" *ngIf="subitem == 12">Dic<ng-container *ngIf="!last">, </ng-container></span>
+                                            </ng-container>
+                                            <br>
+                                            <span class="badge bg-label-dark"> Ciclos </span>
+                                        </td>
+                                        <!-- MONTHS -->
+                                        
+                                        <!-- STATE -->
+                                        <td align="center">
+                                            <ng-container *ngIf="item.cicle.state"><span class="badge bg-success">Publicado</span></ng-container>
+                                            <ng-container *ngIf="!item.cicle.state"><span class="badge bg-warning">Borrador</span></ng-container>
+                                        </td>
+                                        <!-- STATE -->
+                                        
+                                        <!-- CREATION -->
+                                        <td class="text-right">
+                                            <span class="badge bg-dark">{{item.cicle.createdAt|date:'dd-MM-YYYY'}}</span><br>
+                                            <span class="badge bg-label-dark">Creación</span>
+                                        </td>
+                                        <!-- CREATION -->
+
+                                        <td class="text-right pr-4" >
+                                            <button class="btn btn-success btn-sm" (click)="cicleSelect(item)" data-dismiss="modal"><i class='bx bx-check'></i></button>
+                                        </td>
+                                        
+                                    </tr>
+                                    <!-- CICLE DATA | ERROR -->
+
+                                    <tr align="center">
+                                        <td colspan="6">
+                                            <table class="table table-bordered table-sm table-striped " >
+                                                <ng-container>
+                                                    <thead align="center">
+                                                        <th class="text-primary">Salón</th>
+                                                        <th class="text-primary">Horario</th>
+                                                        <th class="text-primary">Días</th>
+                                                        <th class="text-primary">Aforo</th>
+                                                    </thead>
+                                                    <tr *ngFor="let subitem of item.room" align="center">
+                                                        <td> {{subitem.room}} </td>
+                                                        <td><span>{{subitem.start_time}}</span> - <span>{{subitem.end_time}}</span> </td>
+                                                        <td>
+                                                            <ng-container *ngFor="let day of subitem.days; let last = last">
+                                                                <span *ngIf="!last">{{day.substr(0,2)}},</span>
+                                                                <span *ngIf="last">{{day.substr(0,2)}}</span>
+                                                            </ng-container>
+                                                        </td>
+                                                        <td>
+                                                            <strong>{{subitem.total_capacity}}</strong>
+                                                            <span>({{subitem.current_capacity}})</span>
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                                
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                </ng-container>
+                                </tbody>
+                                <!-- <tbody>
+                                    <tr>
+                                        <td colspan="6" class="text-center">
+                                            <span class="text-muted">No se encontraron resultados.</span>
+                                        </td>
+                                    </tr>
+                                </tbody>   -->
+                            </table>
+                        </ng-container>                        
+                    </div>
+
+                    <div class="modal-footer">
+                        <ngb-pagination [collectionSize]="cicleList.length" [pageSize]="pageCicleSize" [(page)]="pageCicle" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" ></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CICLE MODAL -->
 
 <!-- TOAST | NOTIFICACION -->
 <div class="bs-toast toast fade show bg-{{typeToastMessage}} " role="alert" aria-live="assertive" aria-atomic="true"

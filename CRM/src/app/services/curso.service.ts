@@ -79,9 +79,9 @@ export class CursoService {
     return this._http.post(this.url+'crear_ciclo_admin', data, {headers: headers}); 
   }
 
-  listar_ciclos_admin(token: any):Observable<any> {
+  listar_ciclos_admin(id: any, token: any):Observable<any> {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
-    return this._http.get(this.url+'listar_ciclos_admin', {headers:headers});
+    return this._http.get(this.url+'listar_ciclos_admin/'+id, {headers:headers});
   }
 
   listar_ciclos_vencidos_admin(token: any):Observable<any> {

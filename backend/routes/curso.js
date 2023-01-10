@@ -31,7 +31,7 @@ app.post('/crear_ciclo_admin', auth.auth, cursoController.crear_ciclo_admin);
 app.post('/agregar_salon_ciclo_admin', auth.auth, cursoController.agregar_salon_ciclo_admin);
 app.post('/agregar_docente_salon_admin', auth.auth, cursoController.agregar_docente_salon_admin);
 
-app.get('/listar_ciclos_admin', auth.auth, cursoController.listar_ciclos_admin);
+app.get('/listar_ciclos_admin/:id', auth.auth, cursoController.listar_ciclos_admin);
 app.get('/listar_ciclos_vencidos_admin', auth.auth, cursoController.listar_ciclos_vencidos_admin);
 app.get('/obtener_datos_curso_ciclo_admin/:id/:idciclo', auth.auth, cursoController.obtener_datos_curso_ciclo_admin);
 app.get('/obtener_salones_ciclo_admin/:id', auth.auth, cursoController.obtener_salones_ciclo_admin);

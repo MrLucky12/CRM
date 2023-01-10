@@ -30,16 +30,22 @@ export class IndexCicloComponent implements OnInit {
   ngOnInit(): void {
     this._route.params.subscribe( 
       params => { 
-        this.id = params['id']; 
+        this.id = params['id'];
+        console.log(this.id);        
         this.curso.listar_nivel_curso_admin(this.id, this.token).subscribe( response => { this.levelList = response.data; } ); 
-        this.curso.obtener_datos_curso_admin(this.id, this.token).subscribe(
-          response => { 
-            if (response.data != undefined) {
+        this.curso.obtener_datos_curso_admin(this.id, this.token)
+        .subscribe(
+          response => 
+          { 
+            if (response.data != undefined) 
+            {
               this.data = true;
               this.load_data = false;
               this.init_data();
               this.course = response.data;
-            } else {
+            }
+            else 
+            {
               this.data = false;
               this.load_data = false;
             }
@@ -48,14 +54,18 @@ export class IndexCicloComponent implements OnInit {
     });
   }
 
-  init_data() { 
-    this.curso.listar_ciclos_admin(this.token).subscribe( 
-      response => { 
+  init_data() 
+  {
+    this.curso.listar_ciclos_admin(this.id, this.token)
+    .subscribe( 
+      response => 
+      { 
         this.cicles = response.data; 
         // REVISAR CREAR CURSO POR SI HAY ERROR AL GUARDAR EL ID CURSO
-        this.cicles = this.cicles.filter(item => item.cicle.course._id == this.id);
+        // this.cicles = this.cicles.filter(item => item.cicle.course._id == this.id);
         this.ciclesFilter = this.cicles;
-      }); 
+      }
+    );
   }
 
   filtrar() 

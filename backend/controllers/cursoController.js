@@ -262,12 +262,12 @@ const crear_ciclo_admin = async function(req, res) {
 const listar_ciclos_admin = async function(req, res) {
     if (req.user) {
     
-        // let id = req.params['id'];
+        let id = req.params['id'];
         let date = new Date();
         let year = date.getFullYear();
         let today_format = Date.parse(new Date())/1000;
 
-        var cicles = await Ciclo_curso.find({year: year}).populate('course');
+        var cicles = await Ciclo_curso.find({course: id, year: year}).populate('course');
         var v = [];
     
         for(var item of cicles) 
