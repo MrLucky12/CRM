@@ -46,6 +46,13 @@ export class CreateMatriculaComponent implements OnInit {
   public price = 0;
   public discount = 0;
   public courseList: Array<any> = [];
+  public detailSubtotal = 0;
+  public detailDiscount = 0;
+  public detailTotal = 0;
+  public discountType = '';
+  public discountValue = 0;
+  public showDiscount = false;
+  public auxDiscountValue = 0;
   // MATRICULA
 
   constructor(private _route:ActivatedRoute, private cliente:ClienteService, private curso:CursoService) {}
@@ -126,6 +133,38 @@ export class CreateMatriculaComponent implements OnInit {
   {
     $('#inputCicle').val(item.cicle.level);
     this.rooms = item.room;
+    this.detailSubtotal = item.cicle.price;
+    this.detailTotal = this.detailSubtotal;
+  }
+
+  applyDiscount()
+  {
+    if (this.discountType == 'Precio Fijo')
+    {
+      this.showDiscount = false;
+      if (this.discountValue < this.detailSubtotal)
+      {
+        this.detailDiscount = this.discountValue;
+        this.detailTotal = this.detailSubtotal - this.detailDiscount;
+      }
+      else{ this.showToastMessage('El descuento debe ser menor al subtotal', 'warning', 'Cuidado !'); }
+    }
+    else
+    {
+      if (this.discountType == 'Porcentaje')
+      {
+        this.showDiscount = true;
+        if (this.discountValue < 100) { this.discountCalculus(); }
+        else { this.showToastMessage('El porcentaje debe ser menor a 100', 'warning', 'Cuidado !'); }
+      }
+    }
+  }
+
+  discountCalculus()
+  {
+    this.detailDiscount = (this.detailSubtotal*this.discountValue)/100;
+    this.detailTotal = this.detailSubtotal-this.auxDiscountValue;
+    this.auxDiscountValue = this.discountValue;
   }
 
   // TOAST MESSAGE
@@ -149,4 +188,7 @@ export class CreateMatriculaComponent implements OnInit {
     setTimeout( ()=> {this.show = false;}, 2000);
   }
   // TOAST MESSAGE
+
+
+
 }
